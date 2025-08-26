@@ -69,7 +69,7 @@
           {{ include('other_mfas.twig') }}
 
           <span flex></span>
-          
+
           <button name="submitMfa" class="mdl-button mdl-button--raised mdl-button--primary">
             {{ '{mfa:button_verify}'|trans }}
           </button>
@@ -81,7 +81,7 @@
           <span class="mdl-checkbox__label">
               {{ '{mfa:remember_this}'|trans }}
           </span>
-          <input type="checkbox" id="rememberMe"  name="rememberMe" {% if rememberMePreference == 'checked' %}checked{% endif %} class="mdl-checkbox__input">
+          <input type="checkbox" id="rememberMe"  name="rememberMe" checked class="mdl-checkbox__input">
         </label>
       </div>
     </form>

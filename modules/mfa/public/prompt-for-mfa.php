@@ -80,8 +80,6 @@ if (filter_has_var(INPUT_POST, 'submitMfa')) {
 
     $rememberMe = filter_input(INPUT_POST, 'rememberMe') ?? false;
 
-    Mfa::setRememberMePreferenceCookie($rememberMe);
-
     // NOTE: This will only return if validation fails.
     $errorMessage = Mfa::validateMfaSubmission(
         $mfaId,
@@ -142,7 +140,6 @@ $t->data['remember_me_js_path'] = '/module.php/mfa/remember-me.js';
 $t->data['masked_manager_email'] = $state['maskedManagerEmail'];
 $t->data['other_options'] = $otherOptions;
 $t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
-$t->data['rememberMePreference'] = filter_input(INPUT_COOKIE, 'remember_me_preference') ?? '';
 $t->send();
 
 $logger->info(json_encode([
