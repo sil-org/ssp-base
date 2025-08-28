@@ -28,7 +28,8 @@
     "psr/log": "^3.0",
     "monolog/monolog": "^3.0",
     "aws/aws-sdk-php": "^3.313",
-    "yidas/yii2-composer-bower-skip": "^2.0"
+    "yidas/yii2-composer-bower-skip": "^2.0",
+    "ext-pdo": "*"
   },
   "require-dev": {
     "behat/behat": "^3.8",

@@ -31,3 +31,6 @@ jsdeps:
 jsdepsupdate:
 	docker compose run --rm node npm update --ignore-scripts
 	make copyJsLib
+
+certs:
+	db/make-db-cert.sh

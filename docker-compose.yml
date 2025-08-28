@@ -1,6 +1,17 @@
+x-db_healthcheck: &db_healthcheck
+  healthcheck:
+    test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+    start_period: 10s
+    interval: 10s
+    timeout: 5s
+    retries: 3
+
 services:
   db:
     image: mariadb:10
+    volumes:
+      - ./db/certs:/certs:ro
+      - ./db/db.cnf:/etc/mysql/conf.d/my.cnf:ro
     ports:
       - "3306"
     environment:
@@ -8,6 +19,7 @@ services:
       MYSQL_DATABASE: silauth
       MYSQL_USER: silauth
       MYSQL_PASSWORD: silauth
+    <<: *db_healthcheck
 
   dbadmin:
     image: phpmyadmin
@@ -17,6 +29,7 @@ services:
       PMA_HOST: db
       PMA_USER: silauth
       PMA_PASSWORD: silauth
+      PMA_SSL: 1
 
   test:
     build:
@@ -46,6 +59,8 @@ services:
       MFA_RECOVERY_CONTACTS_API_KEY: "dummy-key"
       MFA_RECOVERY_CONTACTS_FALLBACK_NAME: "Dummy Name"
       MFA_RECOVERY_CONTACTS_FALLBACK_EMAIL: "dummy@example.com"
+    env_file:
+      - ./db/certs/test.env
     volumes:
       - ./dockerbuild/run-integration-tests.sh:/data/run-integration-tests.sh
       - ./dockerbuild/run-metadata-tests.sh:/data/run-metadata-tests.sh
@@ -60,7 +75,7 @@ services:
       - ./modules/silauth:/data/vendor/simplesamlphp/simplesamlphp/modules/silauth
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
-    command: [ "/data/run-tests.sh" ]
+    command: ["/data/run-tests.sh"]
 
   test-browser:
     image: justinribeiro/chrome-headless:stable
@@ -123,7 +138,8 @@ services:
   ssp-idp1.local: # using a database session store type ("sql")
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       # Utilize custom certs
       - ./development/idp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -154,9 +170,7 @@ services:
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     command: >
-      bash -c "whenavail db 3306 60 /data/vendor/simplesamlphp/simplesamlphp/modules/silauth/src/Auth/Source/yii migrate --interactive=0 &&
-      /data/enable-exampleauth.sh &&
-      /data/run.sh"
+      bash -c "/data/enable-exampleauth.sh && /data/run-idp.sh"
     ports:
       - "8085:80"
     environment:
@@ -183,12 +197,16 @@ services:
       HELP_CENTER_URL: "https://example.org/help"
       THEME_COLOR_SCHEME: "blue_grey-teal"
       HUB_MODE: "false"
+    env_file:
+      - ./db/certs/test.env
 
   ssp-idp2.local:
     build: .
     depends_on:
-      - db
-      - broker
+      db:
+        condition: service_healthy
+      broker:
+        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/idp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -230,6 +248,8 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "red-teal"
       HUB_MODE: "false"
+    env_file:
+      - ./db/certs/test.env
 
   ssp-idp3.local:
     build: .
@@ -422,7 +442,8 @@ services:
     ports:
       - "80"
     depends_on:
-      - brokerDb
+      brokerDb:
+        condition: service_healthy
     env_file:
       - ./local.broker.env
     environment:
@@ -455,7 +476,7 @@ services:
       MFA_WEBAUTHN_rpId: http://app99
     volumes:
       - ./development/m991231_235959_insert_test_users.php:/data/console/migrations/m991231_235959_insert_test_users.php
-    command: [ "bash", "-c", "whenavail brokerDb 3306 60 ./yii migrate --interactive=0 && ./run.sh" ]
+    command: ["bash", "-c", "./yii migrate --interactive=0 && ./run.sh"]
 
   brokerDb:
     image: mariadb:10
@@ -466,6 +487,7 @@ services:
       MYSQL_DATABASE: "broker"
       MYSQL_USER: "user"
       MYSQL_PASSWORD: "pass"
+    <<: *db_healthcheck
 
   brokerpma:
     image: phpmyadmin
@@ -524,4 +546,4 @@ networks:
           gateway: 10.20.38.1
 
 volumes:
-  composer-cache: { }
+  composer-cache: {}

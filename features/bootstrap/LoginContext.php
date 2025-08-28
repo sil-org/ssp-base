@@ -50,6 +50,15 @@ class LoginContext extends FeatureContext
      */
     public function __construct()
     {
+        $dbAttributes = [];
+        $caFile = Env::get('DB_CA_FILE_PATH');
+        if (file_exists($caFile)) {
+            $dbAttributes = [
+                PDO::MYSQL_ATTR_SSL_CA => $caFile,
+                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => 1,
+            ];
+        }
+
         ConfigManager::initializeYii2WebApp(['components' => ['db' => [
             'dsn' => sprintf(
                 'mysql:host=%s;dbname=%s',
@@ -58,6 +67,7 @@ class LoginContext extends FeatureContext
             ),
             'username' => Env::get('MYSQL_USER'),
             'password' => Env::get('MYSQL_PASSWORD'),
+            'attributes' => $dbAttributes,
         ]]]);
 
         $this->logger = new Psr3EchoLogger();

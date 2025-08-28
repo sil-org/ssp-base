@@ -889,23 +889,6 @@ class Mfa extends ProcessingFilter
         setcookie('c2', '', time() - 3600, '/', null, $secureCookie, true);
     }
 
-    public static function setRememberMePreferenceCookie(bool $rememberMe): void
-    {
-        $secureCookie = Env::get('SECURE_COOKIE', true);
-        setcookie(
-            'remember_me_preference',
-            $rememberMe ? 'checked' : '',
-            [
-                'expires' => $rememberMe ? time() + (86400 * 30) : time() - 3600,
-                'path' => '/',
-                'domain' => null,
-                'secure' => $secureCookie,
-                'httponly' => true,
-                'samesite' => 'Lax'
-            ]
-        );
-    }
-
     protected static function shouldPromptForMfa(array $mfa): bool
     {
         return (strtolower($mfa['prompt']) !== 'no');

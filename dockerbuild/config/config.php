@@ -61,6 +61,15 @@ $MYSQL_DATABASE = Env::get('MYSQL_DATABASE', '');
 $MYSQL_USER = Env::get('MYSQL_USER', '');
 $MYSQL_PASSWORD = Env::get('MYSQL_PASSWORD', '');
 
+$pdoOptions = [];
+$caFile = Env::get('DB_CA_FILE_PATH');
+if (file_exists($caFile)) {
+    $pdoOptions = [
+        PDO::MYSQL_ATTR_SSL_CA => $caFile,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => 1,
+    ];
+}
+
 $HUB_MODE = Env::get('HUB_MODE', false);
 $ANALYTICS_ID = Env::get('ANALYTICS_ID', null);
 $PASSWORD_CHANGE_URL = Env::get('PASSWORD_CHANGE_URL');
@@ -1357,7 +1366,7 @@ $config = [
     /*
      * The driver-options we should pass to the PDO-constructor.
      */
-    'store.sql.options' => [],
+    'store.sql.options' => $pdoOptions,
 
     /*
      * The hostname and port of the Redis datastore instance.

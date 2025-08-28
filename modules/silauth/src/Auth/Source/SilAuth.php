@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\silauth\Auth\Source;
 
 use Exception;
+use PDO;
 use Sil\Psr3Adapters\Psr3StdOutLogger;
 use SimpleSAML\Auth\State;
 use SimpleSAML\Error\Error;
@@ -51,6 +52,15 @@ class SilAuth extends UserPassBase
         $this->recaptchaConfig = ConfigManager::getConfigFor('recaptcha', $config);
         $this->templateData = ConfigManager::getConfigFor('templateData', $config);
 
+        $dbAttributes = [];
+        $caFile = getenv('DB_CA_FILE_PATH');
+        if (file_exists($caFile)) {
+            $dbAttributes = [
+                PDO::MYSQL_ATTR_SSL_CA => $caFile,
+                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => 1,
+            ];
+        }
+
         ConfigManager::initializeYii2WebApp(['components' => ['db' => [
             'dsn' => sprintf(
                 'mysql:host=%s;dbname=%s',
@@ -59,6 +69,7 @@ class SilAuth extends UserPassBase
             ),
             'username' => $this->mysqlConfig['user'],
             'password' => $this->mysqlConfig['password'],
+            'attributes' => $dbAttributes,
         ]]]);
     }
 

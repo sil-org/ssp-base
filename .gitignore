@@ -5,6 +5,7 @@ local.env
 composer.phar
 /nbproject/
 *.env
+!test.env
 *.aes
 dockercfg
 node_modules/

@@ -3,6 +3,16 @@
 use Sil\JsonLog\target\JsonStreamTarget;
 use yii\helpers\Json;
 
+
+$dbAttributes = [];
+$caFile = getenv('DB_CA_FILE_PATH');
+if (file_exists($caFile)) {
+    $dbAttributes = [
+        PDO::MYSQL_ATTR_SSL_CA => $caFile,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => 1,
+    ];
+}
+
 return [
     'basePath' => __DIR__ . '/../',
     'id' => 'SilAuth',
@@ -19,6 +29,7 @@ return [
             'dsn' => null,
             'username' => null,
             'password' => null,
+            'attributes' => $dbAttributes,
         ],
         'log' => [
             'targets' => [
