@@ -45,7 +45,7 @@ class FailedLoginUsername extends FailedLoginUsernameBase implements LoggerAware
     public static function countRecentFailedLoginsFor(string $username): int
     {
         $count = self::find()->where([
-            'username' => strtolower($username),
+            'username' => mb_strtolower($username),
         ])->andWhere([
             '>=', 'occurred_at_utc', UtcTime::format('-60 minutes')
         ])->count();
@@ -63,7 +63,7 @@ class FailedLoginUsername extends FailedLoginUsernameBase implements LoggerAware
      */
     public static function getFailedLoginsFor(string $username): array
     {
-        return self::findAll(['username' => strtolower($username)]);
+        return self::findAll(['username' => mb_strtolower($username)]);
     }
 
     /**
@@ -76,7 +76,7 @@ class FailedLoginUsername extends FailedLoginUsernameBase implements LoggerAware
     public static function getMostRecentFailedLoginFor(string $username): ?FailedLoginUsername
     {
         return self::find()->where([
-            'username' => strtolower($username),
+            'username' => mb_strtolower($username),
         ])->orderBy([
             'occurred_at_utc' => SORT_DESC,
         ])->one();
@@ -140,7 +140,7 @@ class FailedLoginUsername extends FailedLoginUsernameBase implements LoggerAware
         string          $username,
         LoggerInterface $logger
     ): void {
-        $newRecord = new FailedLoginUsername(['username' => strtolower($username)]);
+        $newRecord = new FailedLoginUsername(['username' => mb_strtolower($username)]);
         if (!$newRecord->save()) {
             $logger->critical(json_encode([
                 'event' => 'Failed to update login attempts counter in '
@@ -153,6 +153,6 @@ class FailedLoginUsername extends FailedLoginUsernameBase implements LoggerAware
 
     public static function resetFailedLoginsBy(string $username): void
     {
-        self::deleteAll(['username' => strtolower($username)]);
+        self::deleteAll(['username' => mb_strtolower($username)]);
     }
 }
