@@ -504,7 +504,7 @@ For more of the details, please see this Stack Overflow Q&A:
 https://stackoverflow.com/q/46566014/3813891
 
 #### Acknowledgements
-This is adapted from the `silinternational/simplesamlphp-module-mfa`
+This is adapted from the `sil-org/simplesamlphp-module-mfa`
 module, which itself is adapted from other modules. Thanks to all those who
 contributed to that work.
 
