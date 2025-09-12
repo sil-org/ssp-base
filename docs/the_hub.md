@@ -1,7 +1,7 @@
 The hub will need its certs, `config.php` and `authsources.php` files as a normal simplesamlphp installation. Examples of these can be found in the `./development/hub` folder. (Note the `discoURL` entry in the `authsources.php` file.)
 
 ### Metadata files
-The hub should use the `saml20-*-remote.php`  files from [ssp-base](https://github.com/silinternational/ssp-base) in `/data/vendor/simplesamlphp/simplesamlphp/metadata/`.  These pull in metadata from all the files named `idp-*.php` and `sp-*.php` respectively, including those in sub-folders.
+The hub should use the `saml20-*-remote.php`  files from [ssp-base](https://github.com/sil-org/ssp-base) in `/data/vendor/simplesamlphp/simplesamlphp/metadata/`.  These pull in metadata from all the files named `idp-*.php` and `sp-*.php` respectively, including those in sub-folders.
 
 In order for forced re-authentication to be limited only to situations which warrant it, the `saml20-idp-hosted.php` file should include an authproc as such ...
 >  [

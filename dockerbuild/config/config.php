@@ -51,7 +51,7 @@ $SHOW_SAML_ERRORS = Env::get('SHOW_SAML_ERRORS', false);
 $ENABLE_DEBUG = Env::get('ENABLE_DEBUG', false);
 $LOGGING_LEVEL = Env::get('LOGGING_LEVEL', 'NOTICE');
 
-// Options: https://github.com/silinternational/ssp-base/blob/main/README.md#branding
+// Options: https://github.com/sil-org/ssp-base/blob/main/README.md#branding
 $THEME_COLOR_SCHEME = Env::get('THEME_COLOR_SCHEME', null);
 
 $SECURE_COOKIE = Env::get('SECURE_COOKIE', true);
