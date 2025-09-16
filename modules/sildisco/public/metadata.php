@@ -13,8 +13,6 @@ use SimpleSAML\Metadata\SAMLBuilder;
 use SimpleSAML\Metadata\Signer;
 use SimpleSAML\Utils;
 
-use function PHPSTORM_META\type;
-
 // load SimpleSAMLphp, configuration and metadata
 $config = Configuration::getInstance();
 $metadata = MetaDataStorageHandler::getMetadataHandler();
