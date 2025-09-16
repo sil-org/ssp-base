@@ -19,7 +19,12 @@ $metadata['ssp-hub.local'] = [
     'privatekey' => 'saml.pem',
     'certificate' => 'saml.crt',
 
-    'SingleSignOnService' => 'http://ssp-hub.local/saml2/idp/SSOService.php',
+    'SingleSignOnService' => [
+        [
+            'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+            'Location' => 'http://ssp-hub.local/saml2/idp/SSOService.php',
+        ],
+    ],
 
     /*
      * Authentication source to use. Must be one that is configured in
