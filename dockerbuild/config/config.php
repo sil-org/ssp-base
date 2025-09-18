@@ -3,6 +3,7 @@
  * The configuration of SimpleSAMLphp
  *
  * 2024-06-14 -- Updated to simplesamlphp/config/config.php.dist 2.2.2
+ * 2025-09-17 -- Updated to simplesamlphp/config/config.php.dist 2.4.2
  *
  */
 
@@ -915,7 +916,7 @@ $config = [
      */
     'language.available' => [
         'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
-        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw',
+        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt_BR', 'tr', 'ja', 'zh', 'zh_TW',
         'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
     ],
     'language.rtl' => ['ar', 'dv', 'fa', 'ur', 'he'],
@@ -995,6 +996,14 @@ $config = [
      * set it to false.
      */
     'template.auto_reload' => false,
+
+
+    /*
+     * Set the 'template.debug' to true to enable debugging for Twig templates.
+     * This is useful during development as it provides better error messages.
+     * Defaults to false.
+     */
+    'template.debug' => $ENABLE_DEBUG,
 
     /*
      * Set this option to true to indicate that your installation of SimpleSAMLphp
@@ -1274,6 +1283,21 @@ $config = [
      * 'metadata.sources' => [
      *     ['type' => 'flatfile'],
      *     ['type' => 'xml', 'file' => 'idp.example.org-idpMeta.xml'],
+     * ],
+     *
+     * This example defines a remote xml-file with optional connection context.
+     * See PHP documentation for possible context options: https://www.php.net/manual/en/context.php
+     *
+     * 'metadata.sources' => [
+     *     [
+     *         'type' => 'xml',
+     *         'url' => 'https://example.org/idp.example.org-idpMeta.xml',
+     *         'context' => [
+     *             'ssl' => [
+     *                 'verify_peer' => true,
+     *             ],
+     *         ],
+     *     ],
      * ],
      *
      * This example defines an mdq source.

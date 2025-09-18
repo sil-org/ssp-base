@@ -82,7 +82,10 @@ try {
     $ssol = $metadata->getGenerated('SingleSignOnService', 'saml20-idp-hosted');
     $slol = $metadata->getGenerated('SingleLogoutService', 'saml20-idp-hosted');
 
-    if (is_array($ssob)) {
+
+    if (is_array($ssol)) {
+        $metaArray['SingleSignOnService'] = $ssol;
+    } else if (is_array($ssob)) {
         foreach ($ssob as $binding) {
             $metaArray['SingleSignOnService'][] = array(
                 'Binding' => $binding,
@@ -96,7 +99,9 @@ try {
         );
     }
 
-    if (is_array($slob)) {
+    if (is_array($slol)) {
+        $metaArray['SingleLogoutService'] = $slol;
+    } else if (is_array($slob)) {
         foreach ($slob as $binding) {
             $metaArray['SingleLogoutService'][] = array(
                 'Binding' => $binding,
