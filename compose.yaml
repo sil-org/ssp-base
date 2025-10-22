@@ -125,6 +125,7 @@ services:
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     ports:
       - "80:80"
+      - "443:443"
     environment:
       ADMIN_PASS: "abc123"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJ"
