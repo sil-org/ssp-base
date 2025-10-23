@@ -187,7 +187,7 @@ docker composer up -d ssp-hub.local
 4. Next in `Preferences` -> `Languages & Frameworks` -> `PHP` click on the `...`
    next to the `CLI Interpreter` and click `+` to add a new interpreter. Use
    settings:
- - Name: Remote PHP7
+ - Name: Remote PHP
  - Remote: Docker
  - Server: chose the Docker server we added
  - Debugger extension: `/usr/lib/php/20151012/xdebug.so`
