@@ -190,7 +190,7 @@ docker composer up -d ssp-hub.local
  - Name: Remote PHP
  - Remote: Docker
  - Server: chose the Docker server we added
- - Debugger extension: `/path/to/xdebug.so`
+ - Debugger extension: `/path/to/xdebug.so` (example: /usr/lib/php/20151012/xdebug.so)
 
 5. Hit `Apply` and `OK`
 6. On `PHP` for Path mappings edit it so the project root folder maps to /data on remote server
