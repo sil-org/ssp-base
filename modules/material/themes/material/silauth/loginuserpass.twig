@@ -9,6 +9,11 @@
     function preventDefault(event) {
       event.preventDefault();
     }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.mdl-textfield.is-invalid').forEach(el => {
+        el.classList.remove('is-invalid');
+      });
+    });
   </script>
 
   {% if site_key is not empty %}
