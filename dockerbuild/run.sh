@@ -33,6 +33,8 @@ if [[ -n "$SSL_CA_BASE64" ]]; then
     echo "Wrote cert to $DB_CA_FILE_PATH"
 fi
 
+make-ssl-cert generate-default-snakeoil
+
 if [[ $PARAMETER_STORE_PATH ]]; then
   config-shim --path $PARAMETER_STORE_PATH apache2ctl -k start -D FOREGROUND
 elif [[ $APP_ID ]]; then
