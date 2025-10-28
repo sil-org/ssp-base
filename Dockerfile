@@ -9,7 +9,6 @@ RUN apt-get update -y \
     && apt-get --no-install-recommends install -y jq php-gmp ssl-cert \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && make-ssl-cert generate-default-snakeoil \
     && a2enmod ssl
 
 WORKDIR /data
