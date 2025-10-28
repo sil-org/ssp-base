@@ -438,7 +438,7 @@ services:
 
   # the broker and brokerDb containers are used by the silauth module
   broker:
-    image: silintl/idp-id-broker:latest
+    image: ghcr.io/sil-org/idp-id-broker:latest
     platform: linux/amd64
     ports:
       - "80"

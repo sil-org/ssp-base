@@ -2,7 +2,7 @@
 
 Base image for SimpleSAMLphp IdP and Hub with custom modules
 
-Docker image: [silintl/ssp-base](https://hub.docker.com/r/silintl/ssp-base/)
+Docker image: [ghcr.io/sil-org/ssp-base](https://github.com/sil-org/ssp-base/pkgs/container/ssp-base)
 
 ## Prerequisite software
 [Docker](https://www.docker.com/products/overview) and [docker compose](https://docs.docker.com/compose/install)
