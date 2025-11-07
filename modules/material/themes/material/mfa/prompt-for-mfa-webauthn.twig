@@ -66,25 +66,21 @@
 
 <body class="gradient-bg">
 <div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">
-        {{ '{mfa:header}'|trans }}
-      </span>
-    </div>
-  </header>
-
   <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post">
+    <form layout-children="column" method="post" style="margin:auto;">
       <div class="mdl-card mdl-shadow--8dp">
         <div class="mdl-card__media white-bg margin" layout-children="column">
           <img src="mfa-webauthn.svg" alt="{{ '{mfa:webauthn_icon}'|trans }}" class="icon">
         </div>
 
         <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text">
+          <h1 class="mdl-card__title-text">{{ '{mfa:header}'|trans }}</h1>
+        </div>
+
+        <div class="mdl-card__title center">
+          <h3 class="mdl-card__subtitle-text">
             {{ '{mfa:webauthn_header}'|trans }}
-          </h1>
+          </h3>
         </div>
 
         <div class="mdl-card__title">

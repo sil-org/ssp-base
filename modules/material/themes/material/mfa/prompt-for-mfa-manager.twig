@@ -9,24 +9,21 @@
 </head>
 <body class="gradient-bg">
 <div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">
-        {{ '{mfa:header}'|trans }}
-      </span>
-    </div>
-  </header>
   <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post" autocomplete="off">
+    <form layout-children="column" method="post" autocomplete="off" style="margin:auto;">
       <div class="mdl-card mdl-shadow--8dp">
         <div class="mdl-card__media white-bg margin" layout-children="column">
           <img src="mfa-manager.svg" class="icon" alt="{{ '{mfa:manager_icon}'|trans }}">
         </div>
 
         <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text">
+          <h1 class="mdl-card__title-text">{{ '{mfa:header}'|trans }}</h1>
+        </div>
+
+        <div class="mdl-card__title center">
+          <h3 class="mdl-card__subtitle-text">
             {{ '{mfa:manager_header}'|trans }}
-          </h1>
+          </h3>
         </div>
 
         <div class="mdl-card__title center">
