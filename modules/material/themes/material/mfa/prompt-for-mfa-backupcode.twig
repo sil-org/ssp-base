@@ -66,6 +66,15 @@
         {% endif %}
 
         <div class="mdl-card__actions" layout-children="row">
+          <div>
+            <label for="rememberMe"  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+              <span class="mdl-checkbox__label">
+                  {{ '{mfa:remember_this}'|trans }}
+              </span>
+              <input type="checkbox" id="rememberMe"  name="rememberMe" checked class="mdl-checkbox__input">
+            </label>
+          </div>
+
           {{ include('other_mfas.twig') }}
 
           <span flex></span>
@@ -74,15 +83,6 @@
             {{ '{mfa:button_verify}'|trans }}
           </button>
         </div>
-      </div>
-
-      <div>
-        <label for="rememberMe"  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-          <span class="mdl-checkbox__label">
-              {{ '{mfa:remember_this}'|trans }}
-          </span>
-          <input type="checkbox" id="rememberMe"  name="rememberMe" checked class="mdl-checkbox__input">
-        </label>
       </div>
     </form>
   </main>
