@@ -438,7 +438,7 @@ services:
 
   # the broker and brokerDb containers are used by the silauth module
   broker:
-    image: ghcr.io/sil-org/idp-id-broker:latest
+    image: ghcr.io/sil-org/idp-id-broker:8
     platform: linux/amd64
     ports:
       - "80"
@@ -449,13 +449,11 @@ services:
       - ./local.broker.env
     environment:
       IDP_NAME: "idp"
+      IDP_DISPLAY_NAME: "Our App"
       MYSQL_HOST: "brokerDb"
       MYSQL_DATABASE: "broker"
       MYSQL_USER: "user"
       MYSQL_PASSWORD: "pass"
-      EMAIL_SERVICE_accessToken: "dummy"
-      EMAIL_SERVICE_assertValidIp: "false"
-      EMAIL_SERVICE_baseUrl: "dummy"
       EMAILER_CLASS: Sil\SilIdBroker\Behat\Context\fakes\FakeEmailer
       HELP_CENTER_URL: "https://example.org/help"
       PASSWORD_FORGOT_URL: "https://example.org/forgot"
@@ -467,16 +465,12 @@ services:
       RP_ORIGINS: "https://ssp-idp1.local,https://ssp-idp2.local,https://ssp-idp3.local,https://ssp-idp4.local"
       HIBP_CHECK_ON_LOGIN: "false"
       MFA_TOTP_apiBaseUrl: dummy
-      MFA_TOTP_apiKey: 10345678-1234-1234-1234-123456789012
-      MFA_TOTP_apiSecret: 11345678-1234-1234-1234-12345678
+      MFA_API_KEY: 10345678-1234-1234-1234-123456789012
+      MFA_API_SECRET: 11345678-1234-1234-1234-12345678
       MFA_WEBAUTHN_apiBaseUrl: dummy
-      MFA_WEBAUTHN_apiKey: 10345678-1234-1234-1234-123456789012
-      MFA_WEBAUTHN_apiSecret: 11345678-1234-1234-1234-12345678
-      MFA_WEBAUTHN_appId: ourApp99
-      MFA_WEBAUTHN_rpDisplayName: Our App
       MFA_WEBAUTHN_rpId: http://app99
     volumes:
-      - ./development/m991231_235959_insert_test_users.php:/data/console/migrations/m991231_235959_insert_test_users.php
+      - ./development/m991231_235959_insert_test_users.php:/app/console/migrations/m991231_235959_insert_test_users.php
     command: ["bash", "-c", "./yii migrate --interactive=0 && ./run.sh"]
 
   brokerDb:
