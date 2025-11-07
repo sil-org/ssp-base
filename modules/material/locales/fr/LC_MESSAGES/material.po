@@ -117,7 +117,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "Entrer le code"
 
 msgid "{mfa:totp_header}"
-msgstr "Obtenez un code depuis votre application d'authentification"
+msgstr "Application d'authentification"
 
 msgid "{mfa:totp_icon}"
 msgstr "Icône de l'application d'authentification"
