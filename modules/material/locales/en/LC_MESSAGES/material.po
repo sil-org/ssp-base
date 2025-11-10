@@ -75,7 +75,7 @@ msgid "{login:header}"
 msgstr "Login with your %idpName% identity"
 
 msgid "{login:label_username}"
-msgstr "Username"
+msgstr "Email or Username"
 
 msgid "{login:label_password}"
 msgstr "Password"

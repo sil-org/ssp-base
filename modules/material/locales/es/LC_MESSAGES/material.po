@@ -75,7 +75,7 @@ msgid "{login:header}"
 msgstr "Inicie sesión con su identidad de %idpName%"
 
 msgid "{login:label_username}"
-msgstr "Nombre de usuario"
+msgstr "Correo electrónico o nombre de usuario"
 
 msgid "{login:label_password}"
 msgstr "Contraseña"
