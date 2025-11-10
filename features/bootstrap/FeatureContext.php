@@ -129,7 +129,7 @@ class FeatureContext extends MinkContext
     {
         $this->fillField('username', $username);
         $this->fillField('password', $password);
-        $this->pressButton('Sign in');
+        $this->pressButton('Login');
     }
 
     /**
