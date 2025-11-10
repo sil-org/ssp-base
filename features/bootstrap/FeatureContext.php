@@ -257,7 +257,7 @@ class FeatureContext extends MinkContext
         $loginButton = null;
         foreach ($buttons as $button) {
             $lcButtonText = strtolower($button->getText());
-            if (strpos($lcButtonText, 'login') !== false) {
+            if (strpos($lcButtonText, 'Sign in') !== false) {
                 $loginButton = $button;
                 break;
             }
