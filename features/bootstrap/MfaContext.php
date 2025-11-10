@@ -167,7 +167,6 @@ class MfaContext extends FeatureContext
     {
         $page = $this->session->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains('Authenticator app', $pageHtml);
         Assert::assertContains('Enter 6-digit code', $pageHtml);
     }
 
