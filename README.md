@@ -141,7 +141,7 @@ foreach ($files as $file) {
 5. Change the BASE_URL_PATH for ssp-idp1.local in compose.yaml to have the port number, as
    specific in the comment on that line in the file.
 6. Bring up the various containers that you will want to interact with. Example:
-   `docker compose up -d ssp-hub.local ssp-idp1.local ssp-idp2.local ssp-idp3.local ssp-idp4.local ssp-sp1.local ssp-sp2.local ssp-sp3.local`
+   `docker compose up -d ssp-hub.local ssp-idp1.local ssp-idp2.local ssp-idp3.local ssp-idp4.local ssp-sp1.local ssp-sp2.local ssp-sp3.local`. You can use `make dev` as a shortcut for this command.
 7. Go to <http://ssp-sp1.local:8081> in a browser on your computer.
 8. Click "Test configured authentication sources"
 9. Click "ssp-hub-custom-port"
