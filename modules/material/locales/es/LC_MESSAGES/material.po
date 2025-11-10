@@ -75,7 +75,7 @@ msgid "{login:header}"
 msgstr "Inicie sesión con su identidad de %idpName%"
 
 msgid "{login:label_username}"
-msgstr "Nombre de usuario"
+msgstr "Correo electrónico o nombre de usuario"
 
 msgid "{login:label_password}"
 msgstr "Contraseña"
@@ -117,7 +117,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "Introduzca el código"
 
 msgid "{mfa:totp_header}"
-msgstr "Obtenga un código de su aplicación de autenticación"
+msgstr "Aplicación de autenticación"
 
 msgid "{mfa:totp_icon}"
 msgstr "Icono de aplicación de teléfono inteligente"

@@ -75,7 +75,7 @@ msgid "{login:header}"
 msgstr "%idpName% 신원 계정으로 로그인하십시오."
 
 msgid "{login:label_username}"
-msgstr "사용자 이름"
+msgstr "이메일 또는 사용자 이름"
 
 msgid "{login:label_password}"
 msgstr "암호"
@@ -117,7 +117,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "코드 입력"
 
 msgid "{mfa:totp_header}"
-msgstr "인증 앱에서 코드 받기"
+msgstr "인증 앱"
 
 msgid "{mfa:totp_icon}"
 msgstr "인증 응용 프로그램 아이콘"

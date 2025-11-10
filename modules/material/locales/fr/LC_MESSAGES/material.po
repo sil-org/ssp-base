@@ -75,7 +75,7 @@ msgid "{login:header}"
 msgstr "Connectez-vous avec votre identité %idpName%"
 
 msgid "{login:label_username}"
-msgstr "Nom d'utilisateur"
+msgstr "E-mail ou nom d'utilisateur"
 
 msgid "{login:label_password}"
 msgstr "Mot de passe"
@@ -117,7 +117,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "Entrer le code"
 
 msgid "{mfa:totp_header}"
-msgstr "Obtenez un code depuis votre application d'authentification"
+msgstr "Application d'authentification"
 
 msgid "{mfa:totp_icon}"
 msgstr "Icône de l'application d'authentification"
