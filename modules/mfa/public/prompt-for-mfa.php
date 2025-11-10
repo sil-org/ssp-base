@@ -139,6 +139,7 @@ $t->data['browser_js_path'] = '/module.php/mfa/simplewebauthn/browser.js?v=' . $
 $t->data['remember_me_js_path'] = '/module.php/mfa/remember-me.js';
 $t->data['masked_manager_email'] = $state['maskedManagerEmail'];
 $t->data['other_options'] = $otherOptions;
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
 $t->send();
 
 $logger->info(json_encode([
