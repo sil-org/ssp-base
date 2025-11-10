@@ -114,7 +114,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "코드 입력"
 
 msgid "{mfa:totp_header}"
-msgstr "인증 앱에서 코드 받기"
+msgstr "인증 앱"
 
 msgid "{mfa:totp_input}"
 msgstr "6 자리 코드 입력"
