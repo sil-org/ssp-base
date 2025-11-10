@@ -117,7 +117,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "코드 입력"
 
 msgid "{mfa:totp_header}"
-msgstr "인증 앱에서 코드 받기"
+msgstr "인증 앱"
 
 msgid "{mfa:totp_icon}"
 msgstr "인증 응용 프로그램 아이콘"
