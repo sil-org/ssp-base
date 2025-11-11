@@ -40,7 +40,14 @@
             <label for="mfaSubmission" class="mdl-textfield__label">
               {{ '{mfa:recovery_input}'|trans }}
             </label>
-            <input name="mfaSubmission" class="mdl-textfield__input mdl-color-text--black" autofocus id="mfaSubmission">
+            <input
+              name="mfaSubmission"
+              class="mdl-textfield__input mdl-color-text--black"
+              autofocus
+              id="mfaSubmission"
+              autocomplete="off"
+              data-1p-ignore
+            >
           </div>
         </div>
 
@@ -55,22 +62,22 @@
             </p>
           </div>
 
-          {% if analytics_tracking_id is not empty %}
-            <script>
-              gtag('event', '{{ error_message|e('js')|raw }}', {
-                'event_category': 'error',
-                'event_label': 'recoverycode'
-              });
-            </script>
-          {% endif %}
+        {% if analytics_tracking_id is not empty %}
+          <script>
+            gtag('event', '{{ error_message|e('js')|raw }}', {
+              'event_category': 'error',
+              'event_label': 'recoverycode'
+            });
+          </script>
+        {% endif %}
         {% endif %}
 
         <div style="margin:auto;">
-          <label for="rememberMe"  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+          <label for="rememberMe" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
             <span class="mdl-checkbox__label">
                 {{ '{mfa:remember_this}'|trans }}
             </span>
-            <input type="checkbox" id="rememberMe"  name="rememberMe" checked class="mdl-checkbox__input">
+            <input type="checkbox" id="rememberMe" name="rememberMe" checked class="mdl-checkbox__input">
           </label>
         </div>
 
