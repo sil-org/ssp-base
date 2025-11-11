@@ -24,6 +24,7 @@ if (filter_has_var(INPUT_POST, 'setUpMfa')) {
 $globalConfig = Configuration::getInstance();
 
 $t = new Template($globalConfig, 'mfa:must-set-up-mfa');
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
 $t->send();
 
 $logger->info(sprintf(

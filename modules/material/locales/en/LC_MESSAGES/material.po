@@ -107,9 +107,6 @@ msgstr "2-Step Verification"
 msgid "{mfa:backupcode_header}"
 msgstr "Printable code"
 
-msgid "{mfa:backupcode_icon}"
-msgstr "Printable code icon"
-
 msgid "{mfa:backupcode_reminder}"
 msgstr "Each code can only be used once, so the code you enter this time will be used up and will not be available again."
 
@@ -119,20 +116,11 @@ msgstr "Enter code"
 msgid "{mfa:totp_header}"
 msgstr "Authenticator app"
 
-msgid "{mfa:totp_icon}"
-msgstr "Authenticator app icon"
-
 msgid "{mfa:totp_input}"
 msgstr "Enter 6-digit code"
 
 msgid "{mfa:webauthn_header}"
 msgstr "Security key"
-
-msgid "{mfa:u2f_icon}"
-msgstr "USB key icon"
-
-msgid "{mfa:webauthn_icon}"
-msgstr "USB key icon"
 
 msgid "{mfa:webauthn_instructions}"
 msgstr "Follow the prompts to use your key."
@@ -149,9 +137,6 @@ msgstr "It looks like you clicked cancel. Would you like us to try again?"
 msgid "{mfa:webauthn_error_not_allowed}"
 msgstr "Something about that didn't work. Please ensure that your security key is plugged in and that you touch it within 60 seconds when it blinks."
 
-msgid "{mfa:manager_icon}"
-msgstr "Recovery contact icon"
-
 msgid "{mfa:manager_header}"
 msgstr "Ask Your Recovery Contact for Help"
 
@@ -163,9 +148,6 @@ msgstr "A temporary code was sent to your recovery contact at %maskedManagerEmai
 
 msgid "{mfa:manager_input}"
 msgstr "Enter code"
-
-msgid "{mfa:recovery_icon}"
-msgstr "Recovery contact icon"
 
 msgid "{mfa:recovery_header}"
 msgstr "Ask a Recovery Contact for Help"
@@ -184,9 +166,6 @@ msgstr "A temporary code was sent to your recovery contact. Please call them or 
 
 msgid "{mfa:recovery_input}"
 msgstr "Enter code"
-
-msgid "{mfa:shield_icon}"
-msgstr "Shield icon"
 
 msgid "{mfa:required_header}"
 msgstr "Protect this account"
