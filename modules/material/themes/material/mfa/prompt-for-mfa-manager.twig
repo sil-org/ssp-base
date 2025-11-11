@@ -40,7 +40,14 @@
             <label for="mfaSubmission" class="mdl-textfield__label">
               {{ '{mfa:manager_input}'|trans }}
             </label>
-            <input name="mfaSubmission" class="mdl-textfield__input mdl-color-text--black" autofocus id="mfaSubmission">
+            <input
+              name="mfaSubmission"
+              class="mdl-textfield__input mdl-color-text--black"
+              autofocus
+              id="mfaSubmission"
+              autocomplete="off"
+              data-1p-ignore
+            >
           </div>
         </div>
 
