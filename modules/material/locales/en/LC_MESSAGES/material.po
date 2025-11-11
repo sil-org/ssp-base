@@ -84,7 +84,7 @@ msgid "{login:error_wronguserpass}"
 msgstr "Something is wrong with that username or password, please verify and try again."
 
 msgid "{login:button_login}"
-msgstr "Login"
+msgstr "Sign in"
 
 msgid "{login:forgot}"
 msgstr "Forgot password?"
