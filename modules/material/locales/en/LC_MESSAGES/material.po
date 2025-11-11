@@ -84,7 +84,7 @@ msgid "{login:error_wronguserpass}"
 msgstr "Something is wrong with that username or password, please verify and try again."
 
 msgid "{login:button_login}"
-msgstr "Login"
+msgstr "Sign in"
 
 msgid "{login:forgot}"
 msgstr "Forgot password?"
@@ -117,7 +117,7 @@ msgid "{mfa:backupcode_input}"
 msgstr "Enter code"
 
 msgid "{mfa:totp_header}"
-msgstr "Get a code from your authenticator app"
+msgstr "Authenticator app"
 
 msgid "{mfa:totp_icon}"
 msgstr "Authenticator app icon"
