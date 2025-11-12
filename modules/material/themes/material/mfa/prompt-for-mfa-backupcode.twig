@@ -13,7 +13,7 @@
     <form layout-children="column" method="post" autocomplete="off" style="margin:auto;">
       <div class="mdl-card mdl-shadow--8dp">
         <div class="mdl-card__media white-bg margin" layout-children="column">
-          <img src="mfa-backupcode.svg" class="icon" alt="{{ '{mfa:backupcode_icon}'|trans }}">
+          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" style="max-width:200px;">
         </div>
 
         <div class="mdl-card__title center">
@@ -39,7 +39,14 @@
             <label for="mfaSubmission" class="mdl-textfield__label">
               {{ '{mfa:backupcode_input}'|trans }}
             </label>
-            <input name="mfaSubmission" class="mdl-textfield__input mdl-color-text--black" autofocus id="mfaSubmission">
+            <input
+              name="mfaSubmission"
+              class="mdl-textfield__input mdl-color-text--black"
+              autofocus
+              id="mfaSubmission"
+              autocomplete="off"
+              data-1p-ignore
+            >
           </div>
         </div>
 

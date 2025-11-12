@@ -65,6 +65,7 @@ $t = new Template($globalConfig, 'mfa:send-recovery-mfa');
 $t->data['recovery_contacts_by_name'] = $recoveryContactsForView;
 $t->data['masked_manager_email'] = $state['maskedManagerEmail'];
 $t->data['error_message'] = $errorMessage;
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
 $t->send();
 
 $logger->notice(json_encode([

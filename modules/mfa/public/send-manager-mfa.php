@@ -43,6 +43,7 @@ $globalConfig = Configuration::getInstance();
 $t = new Template($globalConfig, 'mfa:send-manager-mfa');
 $t->data['masked_manager_email'] = $state['maskedManagerEmail'];
 $t->data['error_message'] = $errorMessage;
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
 $t->send();
 
 $logger->notice(json_encode([

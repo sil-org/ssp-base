@@ -167,7 +167,6 @@ class MfaContext extends FeatureContext
     {
         $page = $this->session->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains('Authenticator app', $pageHtml);
         Assert::assertContains('Enter 6-digit code', $pageHtml);
     }
 
@@ -656,7 +655,7 @@ class MfaContext extends FeatureContext
     public function thereShouldBeAWayToRequestAManagerCode()
     {
         $page = $this->session->getPage();
-        Assert::assertContains('mfa-manager.svg', $page->getHtml());
+        Assert::assertContains('Ask Your Recovery Contact', $page->getHtml());
         $this->assertFormContains('name="send"', $page);
     }
 
