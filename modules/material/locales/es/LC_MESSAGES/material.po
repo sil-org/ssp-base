@@ -69,10 +69,10 @@ msgid "{footer:copyright}"
 msgstr "El uso no autorizado de este sitio está prohibido y puede ser sometido a procesamiento civil y penal."
 
 msgid "{login:title}"
-msgstr "Inicie sesión con su identidad de %idpName%"
+msgstr "Iniciar sesión en %idpName%"
 
 msgid "{login:header}"
-msgstr "Inicie sesión con su identidad de %idpName%"
+msgstr "Iniciar sesión en %idpName%"
 
 msgid "{login:label_username}"
 msgstr "Correo electrónico o nombre de usuario"
@@ -360,7 +360,7 @@ msgid "{selectidp-links:header-for-sp}"
 msgstr "Elija una cuenta de identidad para continuar en %spName%"
 
 msgid "{selectidp-links:enabled}"
-msgstr "Inicie sesión con su cuenta de identidad %idpName%"
+msgstr "Iniciar sesión en %idpName%"
 
 msgid "{selectidp-links:disabled}"
 msgstr "%idpName% próximamente"
