@@ -119,6 +119,9 @@ msgstr "Introduzca el código"
 msgid "{mfa:totp_header}"
 msgstr "Aplicación de autenticación"
 
+msgid "{mfa:totp_sub_header}"
+msgstr "Introduce el código de tu aplicación o extensión del navegador de autenticación en dos pasos a continuación"
+
 msgid "{mfa:totp_icon}"
 msgstr "Icono de aplicación de teléfono inteligente"
 
