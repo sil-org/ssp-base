@@ -107,9 +107,6 @@ msgstr "Vérification en deux étapes"
 msgid "{mfa:backupcode_header}"
 msgstr "code imprimable"
 
-msgid "{mfa:backupcode_icon}"
-msgstr "icône de code imprimable"
-
 msgid "{mfa:backupcode_reminder}"
 msgstr "Chaque code ne peut être utilisé qu'une seule fois, de sorte que le code que vous entrez cette fois sera épuisé et ne sera plus disponible."
 
@@ -131,12 +128,6 @@ msgstr "Entrer le code à 6 chiffres"
 msgid "{mfa:webauthn_header}"
 msgstr "Clé de sécurité"
 
-msgid "{mfa:u2f_icon}"
-msgstr "Icône de clé USB"
-
-msgid "{mfa:webauthn_icon}"
-msgstr "Icône de clé USB"
-
 msgid "{mfa:webauthn_instructions}"
 msgstr "Suivez les instructions pour utiliser votre clé."
 
@@ -152,9 +143,6 @@ msgstr "Il semble que vous ayez cliqué sur annuler. Souhaitez-vous que nous ess
 msgid "{mfa:webauthn_error_not_allowed}"
 msgstr "Quelque chose n'a pas fonctionné avec ça. Veuillez vous assurer que votre clé de sécurité est insérée et que vous la touchez dans les 60 secondes lorsqu'elle clignote."
 
-msgid "{mfa:manager_icon}"
-msgstr "Icône du contact de récupération"
-
 msgid "{mfa:manager_header}"
 msgstr "Demandez de l'aide à votre contact de récupération"
 
@@ -166,9 +154,6 @@ msgstr "Un code temporaire a été envoyé à votre contact de récupération à
 
 msgid "{mfa:manager_input}"
 msgstr "Entrer le code"
-
-msgid "{mfa:recovery_icon}"
-msgstr "Icône du contact de récupération"
 
 msgid "{mfa:recovery_header}"
 msgstr "Demandez de l'aide à un contact de récupération"
@@ -187,9 +172,6 @@ msgstr "Un code temporaire a été envoyé à votre contact de récupération. V
 
 msgid "{mfa:recovery_input}"
 msgstr "Entrer le code"
-
-msgid "{mfa:shield_icon}"
-msgstr "Icône de bouclier"
 
 msgid "{mfa:required_header}"
 msgstr "Protéger ce compte"

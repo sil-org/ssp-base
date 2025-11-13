@@ -7,15 +7,8 @@
 </head>
 <body class="gradient-bg">
 <div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">
-        {{ '{mfa:header}'|trans }}
-      </span>
-    </div>
-  </header>
   <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post">
+    <form layout-children="column" method="post" style="margin:auto;">
       <div class="mdl-card mdl-shadow--8dp">
         <div class="mdl-card__media white-bg margin" layout-children="column">
           <i class="mdl-color-text--red error material-icons mdl-typography--display-4">warning</i>
@@ -23,7 +16,13 @@
 
         <div class="mdl-card__title center">
           <h1 class="mdl-card__title-text">
-            {{ '{mfa:running_out_header}'|trans }}
+            {{ '{mfa:header}'|trans }}
+          </h1>
+        </div>
+
+        <div class="mdl-card__title center">
+          <h1 class="mdl-card__title-text" style="font-size: 1.125rem;">
+              {{ '{mfa:running_out_header}'|trans }}
           </h1>
         </div>
 
