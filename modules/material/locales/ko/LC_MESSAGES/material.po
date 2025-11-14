@@ -107,6 +107,9 @@ msgstr "2 단계 인증"
 msgid "{mfa:backupcode_header}"
 msgstr "인쇄 가능한 코드"
 
+msgid "{mfa:backupcode_icon}"
+msgstr "인쇄 가능한 코드 아이콘"
+
 msgid "{mfa:backupcode_reminder}"
 msgstr "각 코드는 한번만 사용할 수 있으므로 이번에 입력한 코드는 소멸되어 다시 사용할 수 없습니다."
 
@@ -116,11 +119,17 @@ msgstr "코드 입력"
 msgid "{mfa:totp_header}"
 msgstr "인증 앱"
 
+msgid "{mfa:totp_icon}"
+msgstr "인증 응용 프로그램 아이콘"
+
 msgid "{mfa:totp_input}"
 msgstr "6 자리 코드 입력"
 
 msgid "{mfa:webauthn_header}"
 msgstr "보안키"
+
+msgid "{mfa:webauthn_icon}"
+msgstr "USB 키 아이콘"
 
 msgid "{mfa:webauthn_instructions}"
 msgstr "메시지에 따라 키를 사용하세요."
@@ -137,6 +146,9 @@ msgstr "취소를 클릭하신 것 같습니다. 다시 시도해 보시겠어�
 msgid "{mfa:webauthn_error_not_allowed}"
 msgstr "문제가 해결되지 않았습니다. 보안 키가 연결되어 있고 깜박일 때 60초 이내에 터치했는지 확인하세요."
 
+msgid "{mfa:manager_icon}"
+msgstr "복구 연락처 아이콘"
+
 msgid "{mfa:manager_header}"
 msgstr "복구 담당자에게 도움을 요청하십시오"
 
@@ -148,6 +160,9 @@ msgstr "%maskedManagerEmail% (으)로 복구 담당자에게 임시 코드를 �
 
 msgid "{mfa:manager_input}"
 msgstr "코드 입력"
+
+msgid "{mfa:recovery_icon}"
+msgstr "복구 연락처 아이콘"
 
 msgid "{mfa:recovery_header}"
 msgstr "복구 연락처에 도움 요청"
