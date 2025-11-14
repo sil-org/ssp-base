@@ -69,10 +69,10 @@ msgid "{footer:copyright}"
 msgstr "이 사이트의 무단 사용은 금지되어 있으며 민사 및 형사 고발의 대상이 될 수 있습니다."
 
 msgid "{login:title}"
-msgstr "%idpName% 신원 계정으로 로그인하십시오."
+msgstr "%idpName%에 로그인"
 
 msgid "{login:header}"
-msgstr "%idpName% 신원 계정으로 로그인하십시오."
+msgstr "%idpName%에 로그인"
 
 msgid "{login:label_username}"
 msgstr "이메일 또는 사용자 이름"
@@ -360,7 +360,7 @@ msgid "{selectidp-links:header-for-sp}"
 msgstr "%spName%을 계속 진행하려면 신원 계정을 선택하십시오."
 
 msgid "{selectidp-links:enabled}"
-msgstr "%idpName% 신원 계정으로 로그인하십시오."
+msgstr "%idpName%에 로그인"
 
 msgid "{selectidp-links:disabled}"
 msgstr "%idpName% 곧 제공됨"
