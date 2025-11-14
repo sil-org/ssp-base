@@ -161,7 +161,7 @@ class FeatureContext extends MinkContext
     public function iClickOnTheTile($idpName)
     {
         $page = $this->session->getPage();
-        $idpTileTitle = sprintf('Login with your %s identity account', $idpName);
+        $idpTileTitle = sprintf('Sign in to %s', $idpName);
         $idpTile = $page->find(
             'css',
             sprintf('div[title="%s"]', $idpTileTitle)
