@@ -107,6 +107,9 @@ msgstr "Verificación en 2 pasos"
 msgid "{mfa:backupcode_header}"
 msgstr "código imprimible"
 
+msgid "{mfa:backupcode_icon}"
+msgstr "icono de código imprimible"
+
 msgid "{mfa:backupcode_reminder}"
 msgstr "Cada código solo se puede usar una vez, por lo que el código que ingrese esta vez se agotará y no estará disponible nuevamente."
 
@@ -128,6 +131,9 @@ msgstr "Ingrese el código de 6 dígitos"
 msgid "{mfa:webauthn_header}"
 msgstr "Clave de seguridad"
 
+msgid "{mfa:webauthn_icon}"
+msgstr "Icono de la llave USB"
+
 msgid "{mfa:webauthn_instructions}"
 msgstr "Siga las instrucciones para usar su clave."
 
@@ -143,6 +149,9 @@ msgstr "Parece que has hecho clic en cancelar. ¿Quieres que lo intentemos de nu
 msgid "{mfa:webauthn_error_not_allowed}"
 msgstr "Algo de eso no funcionó. Por favor, asegúrese de que su clave de seguridad está conectada y de que la toca en un plazo de 60 segundos cuando parpadea."
 
+msgid "{mfa:manager_icon}"
+msgstr "Icono de contacto de recuperación"
+
 msgid "{mfa:manager_header}"
 msgstr "Pida ayuda de contacto de recuperación"
 
@@ -154,6 +163,9 @@ msgstr "Se envió un código temporal a su contacto de recuperación en %maskedM
 
 msgid "{mfa:manager_input}"
 msgstr "Introduzca el código"
+
+msgid "{mfa:recovery_icon}"
+msgstr "Icono de contacto de recuperación"
 
 msgid "{mfa:recovery_header}"
 msgstr "Pida ayuda a un contacto de recuperación"
