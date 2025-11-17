@@ -13,7 +13,7 @@
     <form layout-children="column" method="post" autocomplete="off" style="margin:auto;">
       <div class="mdl-card mdl-shadow--8dp">
         <div class="mdl-card__media white-bg margin" layout-children="column">
-          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" style="max-width:200px;">
+          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" style="max-width:150px;">
         </div>
 
         <div class="mdl-card__title center">
@@ -22,8 +22,8 @@
           </h1>
         </div>
 
-        <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text" style="font-size: 1.125rem;">
+        <div class="mdl-card__title center" style="padding:0px;">
+          <h1 class="mdl-card__title-text" style="font-size: 1.25rem;">
             {{ '{mfa:recovery_header}'|trans }}
           </h1>
         </div>
