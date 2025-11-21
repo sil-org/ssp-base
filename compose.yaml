@@ -35,6 +35,8 @@ services:
     build:
       context: .
       args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
         COMPOSER_FLAGS: "--no-interaction --no-progress"
     depends_on:
       - ssp-hub.local
@@ -86,7 +88,11 @@ services:
       - SYS_ADMIN
 
   composer:
-    build: .
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       - ./composer.json:/data/composer.json
       - ./composer.lock:/data/composer.lock
@@ -100,7 +106,11 @@ services:
       COMPOSER_CACHE_DIR: /composer
 
   ssp-hub.local:
-    build: .
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/hub/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -137,7 +147,11 @@ services:
       LOGGING_LEVEL: INFO
 
   ssp-idp1.local: # using a database session store type ("sql")
-    build: .
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     depends_on:
       db:
         condition: service_healthy
@@ -202,7 +216,11 @@ services:
       - ./db/certs/test.env
 
   ssp-idp2.local:
-    build: .
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     depends_on:
       db:
         condition: service_healthy
@@ -253,7 +271,11 @@ services:
       - ./db/certs/test.env
 
   ssp-idp3.local:
-    build: .
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/idp3-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -285,7 +307,11 @@ services:
       HUB_MODE: "false"
 
   ssp-idp4.local:
-    build: .
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/idp4-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
