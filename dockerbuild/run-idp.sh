@@ -6,9 +6,6 @@ set -x
 # exit if any command fails
 set -e
 
-# Try to run database migrations
-chmod a+x /data/vendor/simplesamlphp/simplesamlphp/modules/silauth/src/Auth/Source/yii
-
 if [[ -n "$SSL_CA_BASE64" ]]; then
     # Decode the base64 and write to the file
     export DB_CA_FILE_PATH="/data/db_ca.pem"

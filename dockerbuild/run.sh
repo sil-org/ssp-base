@@ -33,7 +33,16 @@ if [[ -n "$SSL_CA_BASE64" ]]; then
     echo "Wrote cert to $DB_CA_FILE_PATH"
 fi
 
-make-ssl-cert generate-default-snakeoil
+SSL_DIR=/data/cert
+mkdir -p "$SSL_DIR"
+
+CRT="$SSL_DIR/server.pem"
+KEY="$SSL_DIR/server.key"
+
+if [ ! -f "$CRT" ] || [ ! -f "$KEY" ]; then
+  echo "Generating self-signed certificate..."
+  openssl req -x509 -newkey rsa:4096 -keyout "$KEY" -out "$CRT" -sha256 -days 3650 -nodes -subj "/CN=localhost"
+fi
 
 if [[ $PARAMETER_STORE_PATH ]]; then
   config-shim --path $PARAMETER_STORE_PATH apache2ctl -k start -D FOREGROUND
