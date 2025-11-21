@@ -225,7 +225,7 @@ services:
       db:
         condition: service_healthy
       broker:
-        condition: service_started
+        condition: service_healthy
     volumes:
       # Utilize custom certs
       - ./development/idp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -490,14 +490,20 @@ services:
       APP_ENV: "prod"
       RP_ORIGINS: "https://ssp-idp1.local,https://ssp-idp2.local,https://ssp-idp3.local,https://ssp-idp4.local"
       HIBP_CHECK_ON_LOGIN: "false"
-      MFA_TOTP_apiBaseUrl: dummy
+      MFA_TOTP_apiBaseUrl: "dummy/"
       MFA_API_KEY: 10345678-1234-1234-1234-123456789012
       MFA_API_SECRET: 11345678-1234-1234-1234-12345678
-      MFA_WEBAUTHN_apiBaseUrl: dummy
+      MFA_WEBAUTHN_apiBaseUrl: "dummy/"
       MFA_WEBAUTHN_rpId: http://app99
     volumes:
       - ./development/m991231_235959_insert_test_users.php:/app/console/migrations/m991231_235959_insert_test_users.php
     command: ["bash", "-c", "./yii migrate --interactive=0 && ./run.sh"]
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "localhost/site/status"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   brokerDb:
     image: mariadb:10
