@@ -7,6 +7,6 @@ set -x
 set -e
 
 cd /data
-export COMPOSER_ALLOW_SUPERUSER=1; composer install
+composer install
 
 ./vendor/bin/phpunit -v tests/MetadataTest.php
