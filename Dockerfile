@@ -33,9 +33,9 @@ EOT
 USER user
 WORKDIR /data
 
-COPY --chown=user dockerbuild/run.sh /data/run.sh
-COPY --chown=user dockerbuild/run-idp.sh /data/run-idp.sh
-COPY --chown=user dockerbuild/run-spidplinks.php /data/run-spidplinks.php
+COPY --chown=user dockerbuild/run.sh /data/
+COPY --chown=user dockerbuild/run-idp.sh /data/
+COPY --chown=user dockerbuild/run-spidplinks.php /data/
 COPY --chown=user dockerbuild/apply-dictionaries-overrides.php /data/
 
 # Note the name change: repos extending this one should only run the metadata
