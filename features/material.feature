@@ -13,7 +13,7 @@ Feature: Material theme
   Scenario: Login page
     When I go to the SP1 login page
     And I click on the "IDP 2" tile
-    Then I should see a "Sign in to IDP 2" page
+    Then I should see a "IDP 2 Sign in" page
     And I should see our material theme
 
   Scenario: Login error
