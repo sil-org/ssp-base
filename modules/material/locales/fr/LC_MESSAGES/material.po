@@ -69,10 +69,10 @@ msgid "{footer:copyright}"
 msgstr "L'utilisation non autorisée de ce site est interdite et peut faire l'objet de poursuites civiles et pénales."
 
 msgid "{login:title}"
-msgstr "Se connecter à %idpName%"
+msgstr "%idpName% Se connecter"
 
 msgid "{login:header}"
-msgstr "Se connecter à %idpName%"
+msgstr "%idpName% Se connecter"
 
 msgid "{login:label_username}"
 msgstr "E-mail ou nom d'utilisateur"
@@ -378,7 +378,7 @@ msgid "{selectidp-links:header-for-sp}"
 msgstr "Choisissez un compte d'identité pour continuer vers %spName%"
 
 msgid "{selectidp-links:enabled}"
-msgstr "Se connecter à %idpName%"
+msgstr "%idpName% Se connecter"
 
 msgid "{selectidp-links:disabled}"
 msgstr "%idpName% à venir"
