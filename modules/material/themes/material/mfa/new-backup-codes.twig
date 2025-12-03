@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ currentLanguage }}">
 <head>
-  <title>{{ '{mfa:title}'|trans }}</title>
+  <title>{{ '{mfa:title}'|trans({'%idpName%': idp_name})  }}</title>
 
   {{ include('header.twig') }}
 
@@ -68,7 +68,7 @@
     <form layout-children="column" method="post" style="margin:auto;">
       {% if new_backup_codes is not empty %}
         <h1 class="mdl-typography--display-1">
-          {{ '{mfa:header}'|trans }}
+          {{ '{mfa:header}'|trans({'%idpName%': idp_name}) }}
         </h1>
 
         <h2 class="mdl-typography--body-1">
@@ -86,10 +86,6 @@
 
         <div class="mdl-card mdl-shadow--8dp" style="min-height: 17em">
           <div class="mdl-card__supporting-text ff-temp-flexbug-fix" layout-children="column" id="code-card">
-            <p class="fill-parent" layout-children="row">
-              <span flex>{{ '{mfa:account}'|trans({'%idpName%': idp_name}) }}</span>
-              <em class="mdl-typography--caption">{{ "now"|date("M j, Y") }}</em>
-            </p>
 
             <div class="code-container">
               {% for newCode in new_backup_codes %}

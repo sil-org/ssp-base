@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ currentLanguage }}">
 <head>
-  <title>{{ '{mfa:title}'|trans }}</title>
+  <title>{{ '{mfa:title}'|trans({'%idpName%': idp_name})  }}</title>
 
   {{ include('header.twig') }}
 </head>
@@ -16,7 +16,7 @@
 
         <div class="mdl-card__title center">
           <h1 class="mdl-card__title-text">
-            {{ '{mfa:header}'|trans }}
+            {{ '{mfa:header}'|trans({'%idpName%': idp_name})({'%idpName%': idp_name}) }}
           </h1>
         </div>
 
