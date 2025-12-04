@@ -99,10 +99,10 @@ msgid "{login:profile}"
 msgstr "내 프로필 관리"
 
 msgid "{mfa:title}"
-msgstr "2 단계 인증"
+msgstr "%idpName% 2 단계 인증"
 
 msgid "{mfa:header}"
-msgstr "2 단계 인증"
+msgstr "%idpName% 2 단계 인증"
 
 msgid "{mfa:backupcode_header}"
 msgstr "인쇄 가능한 코드"

@@ -33,6 +33,8 @@ $globalConfig = Configuration::getInstance();
 
 $t = new Template($globalConfig, 'mfa:out-of-backup-codes');
 $t->data['has_other_mfa_options'] = $hasOtherMfaOptions;
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
+
 $t->send();
 
 $logger->info(sprintf(

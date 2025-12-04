@@ -99,10 +99,10 @@ msgid "{login:profile}"
 msgstr "Manage my profile"
 
 msgid "{mfa:title}"
-msgstr "2-Step Verification"
+msgstr "%idpName% 2-Step Verification"
 
 msgid "{mfa:header}"
-msgstr "2-Step Verification"
+msgstr "%idpName% 2-Step Verification"
 
 msgid "{mfa:backupcode_header}"
 msgstr "Printable code"
@@ -342,7 +342,7 @@ msgid "{review:info}"
 msgstr "Are these still correct?"
 
 msgid "{review:mfa_header}"
-msgstr "2-Step Verification"
+msgstr "%idpName% 2-Step Verification"
 
 msgid "{review:methods_header}"
 msgstr "Password Recovery Methods"

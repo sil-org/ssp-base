@@ -32,6 +32,8 @@ $globalConfig = Configuration::getInstance();
 
 $t = new Template($globalConfig, 'mfa:low-on-backup-codes');
 $t->data['num_backup_codes_remaining'] = $state['numBackupCodesRemaining'];
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
+
 $t->send();
 
 $logger->info(sprintf(

@@ -99,10 +99,10 @@ msgid "{login:profile}"
 msgstr "Gérer mon profil"
 
 msgid "{mfa:title}"
-msgstr "Vérification en deux étapes"
+msgstr "%idpName% Vérification en deux étapes"
 
 msgid "{mfa:header}"
-msgstr "Vérification en deux étapes"
+msgstr "%idpName% Vérification en deux étapes"
 
 msgid "{mfa:backupcode_header}"
 msgstr "code imprimable"
