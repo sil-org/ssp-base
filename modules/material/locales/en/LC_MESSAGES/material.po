@@ -69,10 +69,10 @@ msgid "{footer:copyright}"
 msgstr "Unauthorized use of this site is prohibited and may be subjected to civil and criminal prosecution."
 
 msgid "{login:title}"
-msgstr "Sign in to %idpName%"
+msgstr "%idpName% Sign in"
 
 msgid "{login:header}"
-msgstr "Sign in to %idpName%"
+msgstr "%idpName% Sign in"
 
 msgid "{login:label_username}"
 msgstr "Email or Username"
@@ -378,7 +378,7 @@ msgid "{selectidp-links:header-for-sp}"
 msgstr "Choose an identity account to continue to %spName%"
 
 msgid "{selectidp-links:enabled}"
-msgstr "Sign in to %idpName%"
+msgstr "%idpName% Sign in"
 
 msgid "{selectidp-links:disabled}"
 msgstr "%idpName% coming soon"
