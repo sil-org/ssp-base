@@ -681,10 +681,8 @@ class Mfa extends ProcessingFilter
             }
         }
 
-        if (isset($state['idBrokerConfig'])) {
-            $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
-            $idBrokerClient->updateUserLastLogin($employeeId);
-        }
+        $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
+        $idBrokerClient->updateUserLastLogin($employeeId);
         unset($state['Attributes']['manager_email']);
     }
 
