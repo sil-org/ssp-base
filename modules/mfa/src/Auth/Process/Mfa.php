@@ -661,6 +661,14 @@ class Mfa extends ProcessingFilter
         // backup codes pages.
         $state['mfaSetupUrl'] = $this->mfaSetupUrl;
 
+        $state['idBrokerConfig'] = [
+            'accessToken' => $this->idBrokerAccessToken,
+            'assertValidIp' => $this->idBrokerAssertValidIp,
+            'baseUri' => $this->idBrokerBaseUri,
+            'clientClass' => $this->idBrokerClientClass,
+            'trustedIpRanges' => $this->idBrokerTrustedIpRanges,
+        ];
+
         if (self::shouldPromptForMfa($mfa)) {
             if (self::hasMfaOptions($mfa)) {
                 $this->redirectToMfaPrompt($state, $employeeId, $mfa['options']);
@@ -673,10 +681,8 @@ class Mfa extends ProcessingFilter
             }
         }
 
-        if ($state['idBrokerConfig'] !== null) {
-            $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
-            $idBrokerClient->updateUserLastLogin($state['employeeId']);
-        }
+        $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
+        $idBrokerClient->updateUserLastLogin($employeeId);
         unset($state['Attributes']['manager_email']);
     }
 
@@ -724,13 +730,6 @@ class Mfa extends ProcessingFilter
         $state['mfaOptions'] = $mfaOptions;
         $state['maskedManagerEmail'] = self::getMaskedManagerEmail($state);
         $state['unmaskedManagerEmail'] = self::getManagerEmail($state);
-        $state['idBrokerConfig'] = [
-            'accessToken' => $this->idBrokerAccessToken,
-            'assertValidIp' => $this->idBrokerAssertValidIp,
-            'baseUri' => $this->idBrokerBaseUri,
-            'clientClass' => $this->idBrokerClientClass,
-            'trustedIpRanges' => $this->idBrokerTrustedIpRanges,
-        ];
         $state['recoveryConfig'] = [
             'api' => $this->recoveryContactsApi,
             'apiKey' => $this->recoveryContactsApiKey,
