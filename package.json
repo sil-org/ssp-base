@@ -1,6 +1,6 @@
 {
   "name": "ssp-base",
   "dependencies": {
-    "@simplewebauthn/browser": "^4.1.0"
+    "@simplewebauthn/browser": "^13.2.2"
   }
 }
