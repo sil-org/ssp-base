@@ -342,7 +342,7 @@ msgid "{review:info}"
 msgstr "여전히 맞습니까?"
 
 msgid "{review:mfa_header}"
-msgstr "2 단계 인증"
+msgstr "%idpName% 2 단계 인증"
 
 msgid "{review:methods_header}"
 msgstr "비밀번호 복구 방법"
