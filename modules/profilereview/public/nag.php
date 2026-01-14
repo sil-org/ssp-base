@@ -34,6 +34,7 @@ $t = new Template($globalConfig, 'profilereview:' . $state['template']);
 $t->data['profile_url'] = $state['profileUrl'];
 $t->data['method_options'] = $state['methodOptions'] ?? [];
 $t->data['mfa_options'] = $state['mfaOptions'] ?? [];
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
 $t->data['mfa_learn_more_url'] = $state['mfaLearnMoreUrl'] ?? '';
 $t->send();
 
