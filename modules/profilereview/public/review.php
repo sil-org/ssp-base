@@ -38,6 +38,7 @@ $t = new Template($globalConfig, 'profilereview:review');
 $t->data['profile_url'] = $state['profileUrl'];
 $t->data['method_options'] = $state['methodOptions'];
 $t->data['mfa_options'] = $state['mfaOptions'];
+$t->data['idp_name'] = $t->getEntityDisplayName($state['IdPMetadata']);
 $t->send();
 
 $logger->warning(json_encode([

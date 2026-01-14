@@ -342,7 +342,7 @@ msgid "{review:info}"
 msgstr "¿Siguen siendo correctos?"
 
 msgid "{review:mfa_header}"
-msgstr "Verificación en 2 pasos"
+msgstr "%idpName% Verificación en 2 pasos"
 
 msgid "{review:methods_header}"
 msgstr "Métodos de recuperación de contraseña"
