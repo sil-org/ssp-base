@@ -364,7 +364,7 @@ services:
       MFA_RECOVERY_CONTACTS_FALLBACK_EMAIL: "dummy@example.com"
 
   ssp-sp1.local:
-    image: ghcr.io/sil-org/ssp-base:11
+    image: ghcr.io/sil-org/ssp-base:10.1
     platform: linux/amd64
     volumes:
       # Utilize custom certs
@@ -391,7 +391,7 @@ services:
       ADMIN_PROTECT_INDEX_PAGE: "false"
 
   ssp-sp2.local:
-    image: ghcr.io/sil-org/ssp-base:11
+    image: ghcr.io/sil-org/ssp-base:10.1
     platform: linux/amd64
     volumes:
       # Utilize custom certs
@@ -415,7 +415,7 @@ services:
       ADMIN_PROTECT_INDEX_PAGE: "false"
 
   ssp-sp3.local:
-    image: ghcr.io/sil-org/ssp-base:11
+    image: ghcr.io/sil-org/ssp-base:10.1
     platform: linux/amd64
     volumes:
       # Utilize custom certs
@@ -441,7 +441,7 @@ services:
       ADMIN_PROTECT_INDEX_PAGE: "false"
 
   pwmanager.local:
-    image: ghcr.io/sil-org/ssp-base:11
+    image: ghcr.io/sil-org/ssp-base:10.1
     platform: linux/amd64
     volumes:
       # Utilize custom certs
