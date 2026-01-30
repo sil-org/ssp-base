@@ -17,9 +17,9 @@ class FeatureContext extends MinkContext
     private const HUB_BAD_AUTH_SOURCE_URL = 'http://ssp-hub.local/module.php/admin/test/wrong';
     private const HUB_DISCO_URL = 'http://ssp-hub.local/module.php/admin/test/hub-discovery';
     private const HUB_ADMIN_URL = 'http://ssp-hub.local/admin';
-    protected const SP1_LOGIN_PAGE = 'http://ssp-sp1.local/module.php/sildisco/authenticate.php?as=ssp-hub';
-    protected const SP2_LOGIN_PAGE = 'http://ssp-sp2.local/module.php/sildisco/authenticate.php?as=ssp-hub';
-    protected const SP3_LOGIN_PAGE = 'http://ssp-sp3.local/module.php/sildisco/authenticate.php?as=ssp-hub';
+    protected const SP1_LOGIN_PAGE = 'http://ssp-sp1.local/module.php/core/authenticate.php?as=ssp-hub';
+    protected const SP2_LOGIN_PAGE = 'http://ssp-sp2.local/module.php/core/authenticate.php?as=ssp-hub';
+    protected const SP3_LOGIN_PAGE = 'http://ssp-sp3.local/module.php/core/authenticate.php?as=ssp-hub';
 
     const SCREENSHOTS_PATH = '/data/features/screenshots/';
 
