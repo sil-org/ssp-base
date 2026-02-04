@@ -4,6 +4,8 @@ use PHPUnit\Framework\Assert;
 
 class SilDiscoContext extends FeatureContext
 {
+    protected const SP1_LOGOUT_PAGE = 'http://ssp-sp1.local/module.php/core/logout/ssp-hub';
+
     /**
      * @When I log in using my :idp credentials
      */
@@ -32,9 +34,9 @@ class SilDiscoContext extends FeatureContext
     }
 
     /**
-     * @Then I should see my attributes on :sp
+     * @Then I should end up at my intended destination on :sp
      */
-    public function iShouldSeeMyAttributesOnSp($sp)
+    public function iShouldEndUpAtMyIntendedDestinationOnSp($sp)
     {
         $currentUrl = $this->session->getCurrentUrl();
         Assert::assertStringStartsWith(
@@ -42,7 +44,7 @@ class SilDiscoContext extends FeatureContext
             $currentUrl,
             'Did NOT end up at ' . $sp
         );
-        $this->assertPageContainsText('Your attributes');
+        $this->assertPageContainsText('not much to see here.');
     }
 
     /**
@@ -84,20 +86,15 @@ class SilDiscoContext extends FeatureContext
      */
     public function iLogOutOfIdp1()
     {
-        $this->iGoToTheSpLoginPage('SP3');
-        $this->iClickOnTheTile('IDP 1');
-        $this->clickLink('Logout');
-        $this->assertPageContainsText('You have now been logged out.');
+        $this->visit(self::SP1_LOGOUT_PAGE);
     }
 
     /**
-     * @When I log out of IDP2
+     * @Then I should be prompted for a username and password
      */
-    public function iLogOutOfIdp2()
+    public function iShouldBePromptedForAUsernameAndPassword()
     {
-        $this->iGoToTheSpLoginPage('SP2');
-        $this->clickLink('Logout');
-        $this->assertPageContainsText('You have now been logged out.');
+        $this->assertPageBodyContainsText('Enter your username and password');
     }
 
     /**
