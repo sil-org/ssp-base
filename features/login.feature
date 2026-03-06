@@ -7,6 +7,17 @@ Feature: User login
   - Username and password are both required.
   - The user is only allowed through if all of the necessary checks pass.
 
+  Scenario Outline: Login Hint from SP is used to prefill username on IDP
+    Given I go to the SP2 login page
+    When I simulate providing <URL parameter>
+    Then I should see the username field prefilled
+
+    Examples:
+      | URL parameter |
+      | login_hint    |
+      | LoginHint     |
+      | username      |
+
   Scenario: Failing to provide a username
     Given I provide a password
     But I do not provide a username
