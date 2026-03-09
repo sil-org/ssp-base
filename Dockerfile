@@ -64,8 +64,10 @@ COPY --chown=user modules/material/themes/material/silauth/* $SSP_PATH/modules/s
 # Copy in SSP override files
 COPY --chown=user dockerbuild/config/* $SSP_PATH/config/
 COPY --chown=user dockerbuild/ssp-overrides/sp-php.patch sp-php.patch
+COPY --chown=user dockerbuild/ssp-overrides/login_hint.patch login_hint.patch
 RUN <<EOT
     patch /data/vendor/simplesamlphp/simplesamlphp/modules/saml/src/Auth/Source/SP.php sp-php.patch
+    patch /data/vendor/simplesamlphp/simplesamlphp/modules/saml/src/IdP/SAML2.php login_hint.patch
 
     # create features directory so the Docker Compose volume has a place to land
     mkdir -p /data/features
