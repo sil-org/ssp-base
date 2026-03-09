@@ -79,14 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfProtector->changeMasterToken();
 }
 
-// Some SPs will pass in a hint for who is logging in (like Google & EntraID)
-// BUT, it is not standardized so there are a few common ones used
-if (array_key_exists('login_hint', $_GET)) {
-    $username = filter_input(INPUT_GET, 'login_hint');
-} elseif (array_key_exists('LoginHint', $_GET)) {
-    $username = filter_input(INPUT_GET, 'LoginHint');
-} elseif (array_key_exists('username', $_GET)) {
-    $username = filter_input(INPUT_GET, 'username');
+if (isset($state['core:username'])) {
+    $username = $state['core:username'];
 }
 
 $t = new Template($globalConfig, 'silauth:loginuserpass');
