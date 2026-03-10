@@ -17,7 +17,6 @@ class FeatureContext extends MinkContext
     private const HUB_BAD_AUTH_SOURCE_URL = 'http://ssp-hub.local/module.php/admin/test/wrong';
     private const HUB_DISCO_URL = 'http://ssp-hub.local/module.php/admin/test/hub-discovery';
     private const HUB_ADMIN_URL = 'http://ssp-hub.local/admin';
-    private const SIMULATED_LOGIN_HINT = 'username@example.com';
     protected const SP1_LOGIN_PAGE = 'http://ssp-sp1.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
     protected const SP2_LOGIN_PAGE = 'http://ssp-sp2.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
     protected const SP3_LOGIN_PAGE = 'http://ssp-sp3.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
@@ -189,44 +188,6 @@ class FeatureContext extends MinkContext
                 $this->visit(self::SP3_LOGIN_PAGE);
                 break;
         }
-    }
-
-    /**
-     * Insert or Update a URL Query param
-     */
-    private function upsertUrlQueryParam($fullUrl, $param, $value)
-    {
-        $urlParts = parse_url($fullUrl);
-        $urlQuery = [];
-        parse_str($urlParts['query'], $urlQuery);
-        $urlQuery[$param] = $value;
-        $newQuery = http_build_query($urlQuery);
-        $urlWithoutQuery = strtok($fullUrl, '?');
-        return $urlWithoutQuery . "?" . $newQuery;
-    }
-
-    /**
-     * @When I simulate providing :hintParameter
-     */
-    public function iSimulateProvidingUsername($hintParameter)
-    {
-        $url = $this->session->getCurrentUrl();
-        $param = $hintParameter;
-        $value = self::SIMULATED_LOGIN_HINT;
-        $simulatedUrl = self::upsertUrlQueryParam($url, $param, $value);
-        $this->visit($simulatedUrl);
-    }
-
-    /**
-     * @Then I should see the username field prefilled
-     */
-    public function iShouldSeeTheUsernameFieldPrefilled()
-    {
-        $page = $this->session->getPage();
-        $username_field = $page->find('css', 'input[name=username]');
-        Assert::notNull($username_field, 'Failed to find username field');
-        $username_value = $username_field->getValue();
-        Assert::eq($username_value, self::SIMULATED_LOGIN_HINT);
     }
 
     protected function assertPageBodyContainsText(string $expectedText)
