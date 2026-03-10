@@ -197,7 +197,7 @@ class FeatureContext extends MinkContext
     private function upsertUrlQueryParam($fullUrl, $param, $value)
     {
         $urlParts = parse_url($fullUrl);
-        $urlQuery = array();
+        $urlQuery = [];
         parse_str($urlParts['query'], $urlQuery);
         $urlQuery[$param] = $value;
         $newQuery = http_build_query($urlQuery);
