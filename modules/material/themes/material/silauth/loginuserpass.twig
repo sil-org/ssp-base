@@ -15,7 +15,6 @@
       const clean = () => {
         document.querySelectorAll('.mdl-textfield').forEach(el => {
           el.classList.remove('is-invalid');
-          el.classList.remove('is-dirty');
         });
       };
       componentHandler.upgradeDom();
@@ -81,7 +80,7 @@
               type="text"
               required
               name="username"
-              class="mdl-textfield__input mdl-color-text--black"
+              class="mdl-textfield__input mdl-color-text--black {% if username is not empty %} is-dirty {% endif %}"
               value="{{ username|e }}"
               {% if username is empty %} autofocus {% endif %}
               id="username"
