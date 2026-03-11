@@ -79,6 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfProtector->changeMasterToken();
 }
 
+if (isset($state['core:username'])) {
+    $username = $state['core:username'];
+}
+
 $t = new Template($globalConfig, 'silauth:loginuserpass');
 $t->data['stateparams'] = array('AuthState' => $authStateId);
 $t->data['username'] = $username;
