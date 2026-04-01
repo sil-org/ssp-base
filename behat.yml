@@ -1,4 +1,7 @@
 default:
+  testers:
+    stop_on_failure: true
+    strict: true
   suites:
     dictionary_features:
       paths:    [ '%paths.base%//features//dictionary-overrides.feature' ]

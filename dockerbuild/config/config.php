@@ -52,6 +52,14 @@ $SHOW_SAML_ERRORS = Env::get('SHOW_SAML_ERRORS', false);
 $ENABLE_DEBUG = Env::get('ENABLE_DEBUG', false);
 $LOGGING_LEVEL = Env::get('LOGGING_LEVEL', 'NOTICE');
 
+if (str_starts_with($BASE_URL_PATH, "https://")) {
+    // production logs include the time for each event so it can be omitted from the log format
+    $loggingFormat = Env::get('LOG_FORMAT', '%level [%trackid] %msg');
+} else {
+    $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $loggingFormat = Env::get('LOG_FORMAT', "%date{M j H:i:s.v} %level [%trackid] ($requestPath) %msg')");
+}
+
 // Options: https://github.com/sil-org/ssp-base/blob/main/README.md#branding
 $THEME_COLOR_SCHEME = Env::get('THEME_COLOR_SCHEME', null);
 
@@ -482,7 +490,7 @@ $config = [
      * - %msg: the message to be logged.
      *
      */
-    //'logging.format' => '%date{M j H:i:s} %process %level %stat[%trackid] %msg',
+    'logging.format' => $loggingFormat,
 
     /*
      * Choose which facility should be used when logging with syslog.

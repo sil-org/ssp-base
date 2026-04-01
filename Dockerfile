@@ -75,5 +75,7 @@ RUN <<EOT
     mkdir -p /data/cache
 EOT
 
+ENV PATH=$PATH:/data/vendor/bin
+
 EXPOSE 80 443
 CMD ["/data/run.sh"]
