@@ -10,3 +10,4 @@ composer.phar
 dockercfg
 node_modules/
 features/screenshots/
+features/fakes/last-login-updated.txt
