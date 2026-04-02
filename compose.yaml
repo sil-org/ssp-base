@@ -145,6 +145,7 @@ services:
       HUB_MODE: "true"
       HELP_CENTER_URL: "https://example.org/help"
       LOGGING_LEVEL: INFO
+      ENABLE_DEBUG: "false"
 
   ssp-idp1.local: # using a database session store type ("sql")
     build:
@@ -212,6 +213,8 @@ services:
       HELP_CENTER_URL: "https://example.org/help"
       THEME_COLOR_SCHEME: "blue_grey-teal"
       HUB_MODE: "false"
+      LOGGING_LEVEL: INFO
+      ENABLE_DEBUG: "false"
     env_file:
       - ./db/certs/test.env
 
@@ -267,6 +270,8 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "red-teal"
       HUB_MODE: "false"
+      LOGGING_LEVEL: INFO
+      ENABLE_DEBUG: "false"
     env_file:
       - ./db/certs/test.env
 
@@ -305,6 +310,8 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "false"
+      LOGGING_LEVEL: INFO
+      ENABLE_DEBUG: "false"
 
   ssp-idp4.local:
     build:
@@ -362,6 +369,8 @@ services:
       MFA_RECOVERY_CONTACTS_API_KEY: "dummy-key"
       MFA_RECOVERY_CONTACTS_FALLBACK_NAME: "Dummy Name"
       MFA_RECOVERY_CONTACTS_FALLBACK_EMAIL: "dummy@example.com"
+      LOGGING_LEVEL: INFO
+      ENABLE_DEBUG: "false"
 
   ssp-sp1.local:
     image: ghcr.io/sil-org/ssp-base:11
@@ -389,6 +398,8 @@ services:
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
+      LOGGING_LEVEL: INFO
+      ENABLE_DEBUG: "false"
 
   ssp-sp2.local:
     image: ghcr.io/sil-org/ssp-base:11

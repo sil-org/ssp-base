@@ -12,7 +12,7 @@ Or, if you need to run just one of the tests, run ...
 
 then
 
-`$ vendor/bin/behat features/mfa.feature:7`
+`$ behat features/mfa.feature:7`
 
 The tests are found in `/features`.  They are similar to the manual tests listed below.
 
