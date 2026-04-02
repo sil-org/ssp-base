@@ -16,6 +16,8 @@ class FakeIdBrokerClient
 
     const RATE_LIMITED_MFA_ID = 987;
 
+    const LAST_LOGIN_UPDATED_FILE = '/data/features/fakes/last-login-updated.txt';
+
     /**
      * Constructor.
      *
@@ -69,12 +71,30 @@ class FakeIdBrokerClient
             throw new InvalidArgumentException('employeeId is required');
         }
 
+        file_put_contents(self::LAST_LOGIN_UPDATED_FILE, $employeeId . PHP_EOL, FILE_APPEND);
+
         $nowUtc = gmdate('Y-m-d H:i:s');
 
         return [
             'employee_id' => $employeeId,
             'last_login_utc' => $nowUtc,
         ];
+    }
+
+    public static function getUpdatedLastLoginEmployeeIds(): array
+    {
+        if (!file_exists(self::LAST_LOGIN_UPDATED_FILE)) {
+            return [];
+        }
+        $contents = file_get_contents(self::LAST_LOGIN_UPDATED_FILE);
+        return array_values(array_filter(explode(PHP_EOL, trim($contents))));
+    }
+
+    public static function clearLastLoginUpdatedFile(): void
+    {
+        if (file_exists(self::LAST_LOGIN_UPDATED_FILE)) {
+            unlink(self::LAST_LOGIN_UPDATED_FILE);
+        }
     }
 
     /**

@@ -29,6 +29,9 @@ default:
       paths:
         - '%paths.base%//features//sildisco.feature'
         - '%paths.base%//features//WwwMetadataCept.feature'
+    last_login_features:
+      paths:    [ '%paths.base%//features//last-login.feature' ]
+      contexts: [ 'LastLoginContext' ]
     status_features:
       paths:    [ '%paths.base%//features//status.feature' ]
       contexts: [ 'StatusContext' ]
