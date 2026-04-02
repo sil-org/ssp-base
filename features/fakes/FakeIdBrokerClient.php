@@ -71,7 +71,12 @@ class FakeIdBrokerClient
             throw new InvalidArgumentException('employeeId is required');
         }
 
-        file_put_contents(self::LAST_LOGIN_UPDATED_FILE, $employeeId . PHP_EOL, FILE_APPEND);
+        // Ensure directory exists and write tracking file (suppress errors - this is just for test verification)
+        $dir = dirname(self::LAST_LOGIN_UPDATED_FILE);
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0777, true);
+        }
+        @file_put_contents(self::LAST_LOGIN_UPDATED_FILE, $employeeId . PHP_EOL, FILE_APPEND);
 
         $nowUtc = gmdate('Y-m-d H:i:s');
 
