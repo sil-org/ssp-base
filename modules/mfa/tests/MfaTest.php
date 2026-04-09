@@ -2,12 +2,19 @@
 
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
+use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
 use SimpleSAML\Module\mfa\Auth\Process\Mfa;
 
 class MfaTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
+    }
+
+    protected function setUp(): void
+    {
+        SpyIdBrokerClient::reset();
     }
 
     public function testMaskEmail()
@@ -22,4 +29,118 @@ class MfaTest extends TestCase
         $this->assertEquals("@", Mfa::maskEmail("@"));
     }
 
+    /**
+     * Scenario 5 from IDP-1807: a user who has provided correct credentials
+     * and is being walked to the MFA setup URL should have last_login_utc
+     * updated. Exercises Mfa::redirectToMfaSetup() directly.
+     */
+    public function testRedirectToMfaSetup_UpdatesLastLogin(): void
+    {
+        $state = [
+            'employeeId' => 'EMP-100',
+            'mfaSetupUrl' => 'https://example.org/mfa-setup',
+            'loggerClass' => NullLogger::class,
+            'idBrokerConfig' => $this->buildIdBrokerConfig(),
+        ];
+
+        // redirectToMfaSetup() ends with a call to redirectTrustedURL(),
+        // which throws/exits in a non-HTTP test environment. The
+        // updateUserLastLogin() call happens BEFORE that redirect, so we
+        // catch the redirect exception and then assert on the spy.
+        try {
+            Mfa::redirectToMfaSetup($state);
+        } catch (\Throwable $t) {
+            // Expected: SimpleSAMLphp's redirect helpers throw under PHPUnit.
+        }
+
+        $this->assertSame(
+            ['EMP-100'],
+            SpyIdBrokerClient::$updateLastLoginCalls,
+            'Expected redirectToMfaSetup() to call updateUserLastLogin() exactly once with the employee id.'
+        );
+    }
+
+    /**
+     * Scenario 2 from IDP-1807: correct credentials and no 2SV required ->
+     * last_login_utc should be updated. Exercises Mfa::process() falling
+     * through to the post-MFA-block updateUserLastLogin() call.
+     */
+    public function testProcess_NoMfaRequired_UpdatesLastLogin(): void
+    {
+        $mfa = $this->buildMfaFilter();
+
+        $state = [
+            'Attributes' => [
+                'employeeNumber' => ['EMP-200'],
+                'mfa' => [
+                    'prompt' => 'no',
+                    'options' => [],
+                ],
+            ],
+        ];
+
+        $mfa->process($state);
+
+        $this->assertSame(
+            ['EMP-200'],
+            SpyIdBrokerClient::$updateLastLoginCalls,
+            'Expected process() with mfa.prompt=no to call updateUserLastLogin() exactly once.'
+        );
+    }
+
+    private function buildMfaFilter(): Mfa
+    {
+        return new Mfa([
+            'mfaSetupUrl' => 'https://example.org/mfa-setup',
+            'employeeIdAttr' => 'employeeNumber',
+            'idBrokerAccessToken' => 'fake-token',
+            'idBrokerBaseUri' => 'https://example.org/broker',
+            'idBrokerClientClass' => SpyIdBrokerClient::class,
+            'idpDomainName' => 'example.org',
+            'loggerClass' => NullLogger::class,
+        ], null);
+    }
+
+    private function buildIdBrokerConfig(): array
+    {
+        return [
+            'accessToken' => 'fake-token',
+            'assertValidIp' => false,
+            'baseUri' => 'https://example.org/broker',
+            'clientClass' => SpyIdBrokerClient::class,
+            'trustedIpRanges' => [],
+        ];
+    }
+}
+
+/**
+ * Spy client used by MfaTest. Records each updateUserLastLogin() call in a
+ * static array so the test can assert on it.
+ *
+ * Lives in this file because it has only one consumer. If a second test
+ * file ever needs it, promote it to its own file under tests/Fakes/.
+ */
+class SpyIdBrokerClient extends FakeIdBrokerClient
+{
+    /** @var string[] employee ids passed to updateUserLastLogin(), in call order */
+    public static array $updateLastLoginCalls = [];
+
+    public function __construct(string $baseUri, string $accessToken, array $config = [])
+    {
+        // No-op: tests don't need any of these.
+    }
+
+    public static function reset(): void
+    {
+        self::$updateLastLoginCalls = [];
+    }
+
+    public function updateUserLastLogin(string $employeeId): array
+    {
+        self::$updateLastLoginCalls[] = $employeeId;
+        return [
+            'employee_id' => $employeeId,
+            'last_login_utc' => gmdate('Y-m-d H:i:s'),
+        ];
+    }
 }
