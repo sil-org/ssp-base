@@ -628,6 +628,17 @@ class Mfa extends ProcessingFilter
             var_export($mfaSetupUrl, true)
         ));
 
+        try {
+            $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
+            $idBrokerClient->updateUserLastLogin($state['employeeId']);
+        } catch (Throwable $t) {
+            $logger->warning(sprintf(
+                'mfa: Failed to update last login for Employee ID %s being sent to MFA setup: %s',
+                var_export($state['employeeId'] ?? null, true),
+                $t->getMessage()
+            ));
+        }
+
         $httpUtils->redirectTrustedURL($mfaSetupUrl);
     }
 
