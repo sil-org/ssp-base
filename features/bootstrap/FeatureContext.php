@@ -47,7 +47,6 @@ class FeatureContext extends MinkContext
             $this->showPageDetails();
             $this->takeScreenshot();
         }
-        $this->getSession()->wait(100);
     }
 
     /**
