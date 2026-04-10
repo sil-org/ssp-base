@@ -1,9 +1,9 @@
 <?php
 
+require_once __DIR__ . '/SpyIdBrokerClient.php';
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
-use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
 use SimpleSAML\Module\mfa\Auth\Process\Mfa;
 
 class MfaTest extends TestCase
@@ -109,38 +109,6 @@ class MfaTest extends TestCase
             'baseUri' => 'https://example.org/broker',
             'clientClass' => SpyIdBrokerClient::class,
             'trustedIpRanges' => [],
-        ];
-    }
-}
-
-/**
- * Spy client used by MfaTest. Records each updateUserLastLogin() call in a
- * static array so the test can assert on it.
- *
- * Lives in this file because it has only one consumer. If a second test
- * file ever needs it, promote it to its own file under tests/Fakes/.
- */
-class SpyIdBrokerClient extends FakeIdBrokerClient
-{
-    /** @var string[] employee ids passed to updateUserLastLogin(), in call order */
-    public static array $updateLastLoginCalls = [];
-
-    public function __construct(string $baseUri, string $accessToken, array $config = [])
-    {
-        // No-op: tests don't need any of these.
-    }
-
-    public static function reset(): void
-    {
-        self::$updateLastLoginCalls = [];
-    }
-
-    public function updateUserLastLogin(string $employeeId): array
-    {
-        self::$updateLastLoginCalls[] = $employeeId;
-        return [
-            'employee_id' => $employeeId,
-            'last_login_utc' => gmdate('Y-m-d H:i:s'),
         ];
     }
 }
