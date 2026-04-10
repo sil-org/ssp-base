@@ -75,7 +75,6 @@ class MfaContext extends FeatureContext
         ));
         Assert::assertNotNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
-        $this->submitSecondarySspFormIfPresent($page);
     }
 
     /**
@@ -88,7 +87,6 @@ class MfaContext extends FeatureContext
     {
         $submitMfaButton = $this->getSubmitMfaButton($page);
         $submitMfaButton->click();
-        $this->submitSecondarySspFormIfPresent($page);
     }
 
     /**

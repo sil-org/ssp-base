@@ -1,8 +1,6 @@
 <?php
 
 use Behat\Mink\Element\DocumentElement;
-use Behat\Mink\Element\NodeElement;
-use Behat\Mink\Exception\ElementNotFoundException;
 use PHPUnit\Framework\Assert;
 use Sil\PhpEnv\Env;
 
@@ -50,7 +48,6 @@ class ProfileReviewContext extends FeatureContext
         ));
         Assert::assertNotNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
-        $this->submitSecondarySspFormIfPresent($page);
     }
 
     /**

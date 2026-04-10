@@ -309,7 +309,6 @@ class FeatureContext extends MinkContext
         ));
         Assert::notNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
-        $this->submitSecondarySspFormIfPresent($page);
     }
 
     /**
@@ -322,32 +321,6 @@ class FeatureContext extends MinkContext
     {
         $loginButton = $this->getLoginButton($page);
         $loginButton->click();
-        $this->submitSecondarySspFormIfPresent($page);
-    }
-
-    /**
-     * Submit the secondary page's form (if simpleSAMLphp shows another page
-     * because JavaScript isn't supported).
-     *
-     * @param DocumentElement $page The page.
-     */
-    protected function submitSecondarySspFormIfPresent($page)
-    {
-        // SimpleSAMLphp 1.15 markup for secondary page:
-        $postLoginSubmitButton = $page->findButton('postLoginSubmitButton');
-        if ($postLoginSubmitButton instanceof NodeElement) {
-            $postLoginSubmitButton->click();
-        } else {
-
-            // SimpleSAMLphp 1.14 markup for secondary page:
-            $body = $page->find('css', 'body');
-            if ($body instanceof NodeElement) {
-                $onload = $body->getAttribute('onload');
-                if ($onload === "document.getElementsByTagName('input')[0].click();") {
-                    $body->pressButton('Submit');
-                }
-            }
-        }
     }
 
     /**
