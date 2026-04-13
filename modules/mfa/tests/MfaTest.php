@@ -88,6 +88,116 @@ class MfaTest extends TestCase
         );
     }
 
+    /**
+     * Scenario 3 from IDP-1807: a user who fails 2-step verification
+     * (wrong code) should NOT have last_login_utc updated.
+     */
+    public function testValidateMfaSubmission_WrongCode_DoesNotUpdateLastLogin(): void
+    {
+        $state = [
+            'employeeId' => 'EMP-300',
+            'idBrokerConfig' => $this->buildIdBrokerConfig(),
+        ];
+
+        $result = Mfa::validateMfaSubmission(
+            1,
+            'EMP-300',
+            'wrong-code',
+            $state,
+            false,
+            new NullLogger(),
+            'totp',
+            'https://example.org'
+        );
+
+        $this->assertNotEmpty($result, 'Expected an error message for incorrect MFA code.');
+        $this->assertSame(
+            [],
+            SpyIdBrokerClient::$updateLastLoginCalls,
+            'Expected validateMfaSubmission() NOT to call updateUserLastLogin() when MFA verification fails.'
+        );
+    }
+
+    /**
+     * Remember-me cookie edge case from IDP-1807: when a valid remember-me
+     * cookie bypasses the MFA prompt, last_login_utc should still be updated.
+     */
+    public function testIsRememberMeCookieValid_ValidCookie_UpdatesLastLogin(): void
+    {
+        $employeeId = 'EMP-400';
+        $expireDate = time() + 86400;
+        $mfaOptions = [
+            ['id' => 101, 'type' => 'totp'],
+        ];
+        $state = [
+            'employeeId' => $employeeId,
+            'idBrokerConfig' => $this->buildIdBrokerConfig(),
+        ];
+
+        putenv('REMEMBER_ME_SECRET=test-secret-for-unit-test');
+        try {
+            $expectedString = Mfa::generateRememberMeCookieString(
+                'test-secret-for-unit-test',
+                $employeeId,
+                $expireDate,
+                $mfaOptions
+            );
+            $cookieHash = password_hash($expectedString, PASSWORD_DEFAULT);
+
+            $isValid = Mfa::isRememberMeCookieValid(
+                $cookieHash,
+                (string)$expireDate,
+                $mfaOptions,
+                $state
+            );
+
+            $this->assertTrue($isValid, 'Expected isRememberMeCookieValid() to return true for a valid cookie.');
+            $this->assertSame(
+                ['EMP-400'],
+                SpyIdBrokerClient::$updateLastLoginCalls,
+                'Expected isRememberMeCookieValid() to call updateUserLastLogin() exactly once for a valid cookie.'
+            );
+        } finally {
+            putenv('REMEMBER_ME_SECRET');
+        }
+    }
+
+    /**
+     * Scenario 4 from IDP-1807: a user who successfully completes 2-step
+     * verification should have last_login_utc updated.
+     */
+    public function testValidateMfaSubmission_SuccessfulMfa_UpdatesLastLogin(): void
+    {
+        $state = [
+            'employeeId' => 'EMP-300',
+            'idBrokerConfig' => $this->buildIdBrokerConfig(),
+            'mfaOptions' => [],
+            'Attributes' => [],
+        ];
+
+        try {
+            Mfa::validateMfaSubmission(
+                1,
+                'EMP-300',
+                '111111',
+                $state,
+                false,
+                new NullLogger(),
+                'totp',
+                'https://example.org'
+            );
+        } catch (\Throwable $t) {
+            // Expected: the success path calls ProcessingChain::resumeProcessing()
+            // and clearRememberMeCookies(), both of which throw under PHPUnit.
+        }
+
+        $this->assertSame(
+            ['EMP-300'],
+            SpyIdBrokerClient::$updateLastLoginCalls,
+            'Expected validateMfaSubmission() to call updateUserLastLogin() exactly once after successful MFA verification.'
+        );
+    }
+
     private function buildMfaFilter(): Mfa
     {
         return new Mfa([
