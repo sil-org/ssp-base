@@ -153,47 +153,47 @@
   },
   {
     "name": "simplesamlphp/assert",
-    "version": "v1.8.4"
+    "version": "v2.0.2"
   },
   {
     "name": "simplesamlphp/composer-module-installer",
-    "version": "v1.4.0"
+    "version": "v1.7.0"
   },
   {
     "name": "simplesamlphp/composer-xmlprovider-installer",
-    "version": "v1.0.2"
+    "version": "v1.3.0"
   },
   {
     "name": "simplesamlphp/saml2",
-    "version": "v5.0.5"
+    "version": "v6.1.5"
   },
   {
     "name": "simplesamlphp/saml2-legacy",
-    "version": "v4.19.2"
+    "version": "v4.20.1"
   },
   {
     "name": "simplesamlphp/simplesamlphp",
-    "version": "v2.4.5"
+    "version": "v2.5.0"
   },
   {
     "name": "simplesamlphp/simplesamlphp-assets-base",
-    "version": "v2.4.6"
+    "version": "v2.5.14"
   },
   {
     "name": "simplesamlphp/xml-common",
-    "version": "v1.25.1"
+    "version": "v2.8.0"
   },
   {
     "name": "simplesamlphp/xml-security",
-    "version": "v1.13.9"
+    "version": "v2.3.1"
   },
   {
     "name": "simplesamlphp/xml-soap",
-    "version": "v1.7.1"
+    "version": "v2.3.0"
   },
   {
     "name": "symfony/cache",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/cache-contracts",
@@ -201,15 +201,15 @@
   },
   {
     "name": "symfony/config",
-    "version": "v6.4.34"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/console",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/dependency-injection",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/deprecation-contracts",
@@ -229,35 +229,43 @@
   },
   {
     "name": "symfony/expression-language",
-    "version": "v6.4.32"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/filesystem",
-    "version": "v6.4.34"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/finder",
-    "version": "v6.4.34"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/framework-bundle",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
+  },
+  {
+    "name": "symfony/http-client",
+    "version": "v7.4.8"
+  },
+  {
+    "name": "symfony/http-client-contracts",
+    "version": "v3.6.0"
   },
   {
     "name": "symfony/http-foundation",
-    "version": "v6.4.35"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/http-kernel",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/intl",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/password-hasher",
-    "version": "v6.4.32"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/polyfill-ctype",
@@ -293,7 +301,7 @@
   },
   {
     "name": "symfony/routing",
-    "version": "v6.4.34"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/service-contracts",
@@ -309,7 +317,7 @@
   },
   {
     "name": "symfony/twig-bridge",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/var-dumper",
@@ -317,11 +325,11 @@
   },
   {
     "name": "symfony/var-exporter",
-    "version": "v6.4.36"
+    "version": "v7.4.8"
   },
   {
     "name": "symfony/yaml",
-    "version": "v6.4.34"
+    "version": "v7.4.8"
   },
   {
     "name": "twig/intl-extra",
@@ -333,7 +341,7 @@
   },
   {
     "name": "webmozart/assert",
-    "version": "1.11.0"
+    "version": "2.3.0"
   },
   {
     "name": "yidas/yii2-composer-bower-skip",
