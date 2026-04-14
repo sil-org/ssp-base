@@ -41,7 +41,7 @@ class ProfileReviewContext extends FeatureContext
      */
     protected function submitFormByClickingButtonNamed($buttonName)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $button = $page->find('css', sprintf(
             '[name=%s]',
             $buttonName
@@ -91,7 +91,7 @@ class ProfileReviewContext extends FeatureContext
 
     protected function pageContainsElementWithText($cssSelector, $text)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $elements = $page->findAll('css', $cssSelector);
         foreach ($elements as $element) {
             if (strpos($element->getText(), $text) !== false) {
@@ -106,7 +106,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function thereShouldBeAWayToContinueToMyIntendedDestination()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="continue"', $page);
     }
 
@@ -141,7 +141,7 @@ class ProfileReviewContext extends FeatureContext
     {
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
-        $currentUrl = $this->session->getCurrentUrl();
+        $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             $profileUrl,
             $currentUrl,
@@ -157,13 +157,13 @@ class ProfileReviewContext extends FeatureContext
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
 
-        $windowNames = $this->session->getWindowNames();
+        $windowNames = $this->getSession()->getWindowNames();
         Assert::assertGreaterThanOrEqual(2, sizeof($windowNames),
             'Expected to see at least 2 windows opened');
 
         foreach ($windowNames as $windowName) {
-            $this->session->switchToWindow($windowName);
-            $currentUrl = $this->session->getCurrentUrl();
+            $this->getSession()->switchToWindow($windowName);
+            $currentUrl = $this->getSession()->getCurrentUrl();
             if ($currentUrl == $profileUrl) {
                 return;
             }
@@ -177,7 +177,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldSeeTheMessage($message)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains($message, $page->getHtml());
     }
 
@@ -186,7 +186,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function thereShouldBeAWayToGoUpdateMyProfileNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="update"', $page);
     }
 
@@ -195,7 +195,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function thereShouldBeAWayToGoReviewMyProfileNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('Some of these need updating', $page->getHtml());
     }
 
@@ -214,7 +214,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldNotSeeAnyManagerMfaInformation()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $isManagerMfaPresent = $page->hasContent('manager');
         Assert::assertFalse($isManagerMfaPresent, 'found manager mfa data');
     }

@@ -23,21 +23,18 @@ class FeatureContext extends MinkContext
 
     const SCREENSHOTS_PATH = '/data/features/screenshots/';
 
-    /** @var Session */
-    protected $session;
-
     protected $username = null;
     protected $password = null;
 
     public function __construct()
     {
         $driver = new ChromeDriver('http://test-browser:9222', null, 'http://ssp-hub.local');
-        $this->session = new Session($driver);
-        $mink = new Mink(['default' => $this->session]);
+        $session = new Session($driver);
+        $mink = new Mink(['default' => $session]);
         $mink->setDefaultSessionName('default');
         $this->setMink($mink);
         // See http://mink.behat.org/en/latest/guides/session.html for docs.
-        $this->session->start();
+        $session->start();
     }
 
     /** @AfterStep */
@@ -67,7 +64,7 @@ class FeatureContext extends MinkContext
 
     protected function showPageDetails()
     {
-        echo '[' . $this->session->getStatusCode() . '] ';
+        echo '[' . $this->getSession()->getStatusCode() . '] ';
         $this->printLastResponse();
     }
 
@@ -84,7 +81,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeOurMaterialTheme()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $hasMaterialDesignElement = $page->has('css', '.mdl-layout');
         Assert::true(
             $hasMaterialDesignElement,
@@ -145,7 +142,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAPage($title)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $titleElement = $page->find('css', 'head > title');
         Assert::notNull($titleElement, "Could not find the page's title");
         Assert::same(
@@ -160,7 +157,7 @@ class FeatureContext extends MinkContext
      */
     public function iClickOnTheTile($idpName)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $idpTileTitle = sprintf('%s Sign in', $idpName);
         $idpTile = $page->find(
             'css',
@@ -192,7 +189,7 @@ class FeatureContext extends MinkContext
 
     protected function assertPageBodyContainsText(string $expectedText)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $body = $page->find('css', 'body');
         Assert::contains($body->getText(), $expectedText);
     }
@@ -271,7 +268,7 @@ class FeatureContext extends MinkContext
      */
     public function iLogIn()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         try {
             $page->fillField('username', $this->username);
             $page->fillField('password', $this->password);
@@ -302,7 +299,7 @@ class FeatureContext extends MinkContext
      */
     protected function submitFormByClickingButtonNamed($buttonName)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $button = $page->find('css', sprintf(
             '[name=%s]',
             $buttonName

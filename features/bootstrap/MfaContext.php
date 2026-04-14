@@ -68,7 +68,7 @@ class MfaContext extends FeatureContext
      */
     protected function submitFormByClickingButtonNamed($buttonName)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $button = $page->find('css', sprintf(
             '[name=%s]',
             $buttonName
@@ -114,7 +114,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAMessageThatIHaveToSetUpMfa()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('must set up 2-', $page->getHtml());
     }
 
@@ -123,7 +123,7 @@ class MfaContext extends FeatureContext
      */
     public function thereShouldBeAWayToGoSetUpMfaNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="setUpMfa"', $page);
     }
 
@@ -142,7 +142,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAPromptForABackupCode()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
         Assert::assertContains('Printable code', $pageHtml);
         Assert::assertContains('Enter code', $pageHtml);
@@ -163,7 +163,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAPromptForATotpCode()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
         Assert::assertContains('Enter 6-digit code', $pageHtml);
     }
@@ -183,16 +183,16 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAPromptForAWebAuthn()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('Security key', $page->getHtml());
     }
 
     protected function submitMfaValue($mfaValue)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $page->fillField('mfaSubmission', $mfaValue);
         $this->submitMfaForm($page);
-        return $page->getHtml();
+        return $page->getHtml(); // TODO: see if this is safe
     }
 
     /**
@@ -202,7 +202,8 @@ class MfaContext extends FeatureContext
     {
         if (!$this->pageContainsElementWithText('h1', 'Printable code')) {
             // find image of the backup code option presented in other_mfas.twig
-            $printableCodeOption = $this->session->getPage()->find('css', 'img[src=mfa-backupcode\002Esvg]');
+            $page = $this->getSession()->getPage();
+            $printableCodeOption = $page->find('css', 'img[src=mfa-backupcode\002Esvg]');
             $printableCodeOption->click();
         }
         $this->submitMfaValue(FakeIdBrokerClient::CORRECT_VALUE);
@@ -210,7 +211,7 @@ class MfaContext extends FeatureContext
 
     protected function pageContainsElementWithText($cssSelector, $text)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $elements = $page->findAll('css', $cssSelector);
         foreach ($elements as $element) {
             if (strpos($element->getText(), $text) !== false) {
@@ -233,7 +234,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAMessageThatIHaveToWaitBeforeTryingAgain()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
         Assert::assertContains(' wait ', $pageHtml);
         Assert::assertContains('try again', $pageHtml);
@@ -244,7 +245,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAMessageThatItWasIncorrect()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
         Assert::assertContains('Incorrect 2-step verification code', $pageHtml);
     }
@@ -264,7 +265,7 @@ class MfaContext extends FeatureContext
      */
     public function thereShouldBeAWayToContinueToMyIntendedDestination()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="continue"', $page);
     }
 
@@ -291,7 +292,7 @@ class MfaContext extends FeatureContext
     {
         $mfaSetupUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($mfaSetupUrl, 'No PROFILE_URL_FOR_TESTS provided');
-        $currentUrl = $this->session->getCurrentUrl();
+        $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             $mfaSetupUrl,
             $currentUrl,
@@ -304,7 +305,7 @@ class MfaContext extends FeatureContext
      */
     public function thereShouldNotBeAWayToContinueToMyIntendedDestination()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $continueButton = $this->getContinueButton($page);
         Assert::assertNull($continueButton, 'Should not have found a continue button');
     }
@@ -314,10 +315,10 @@ class MfaContext extends FeatureContext
      */
     public function iShouldNotBeAbleToGetToMyIntendedDestination()
     {
-        $this->session->visit(self::SP1_LOGIN_PAGE);
+        $this->getSession()->visit(self::SP1_LOGIN_PAGE);
         Assert::assertStringStartsNotWith(
             self::SP1_LOGIN_PAGE,
-            $this->session->getCurrentUrl(),
+            $this->getSession()->getCurrentUrl(),
             'Failed to prevent me from getting to SPs other than the MFA setup URL'
         );
     }
@@ -337,7 +338,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAMessageThatIAmRunningLowOnBackupCodes()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             'Almost out of printable codes',
             $page->getHtml()
@@ -349,7 +350,7 @@ class MfaContext extends FeatureContext
      */
     public function thereShouldBeAWayToGetMoreBackupCodesNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="getMore"', $page);
     }
 
@@ -368,7 +369,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAMessageThatIHaveUsedUpMyBackupCodes()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             'Last printable code used',
             $page->getHtml()
@@ -398,7 +399,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldBeToldIOnlyHaveBackupCodesLeft($numRemaining)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             'You only have ' . $numRemaining . ' more left',
             $page->getHtml()
@@ -410,7 +411,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldBeGivenMoreBackupCodes()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             'New printable codes',
             $page->getContent()
@@ -558,7 +559,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeALinkToSendACodeToTheUsersManager()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             '/module.php/mfa/send-manager-mfa.php',
             $page->getContent()
@@ -580,7 +581,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldNotSeeALinkToSendACodeToTheUsersManager()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertNotContains(
             '/module.php/mfa/send-manager-mfa.php',
             $page->getContent()
@@ -592,7 +593,7 @@ class MfaContext extends FeatureContext
      */
     public function iClickTheRequestAssistanceLink()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $helpOption = $page->findById('more-options-manager');
         Assert::assertNotNull(
             $helpOption,
@@ -614,7 +615,7 @@ class MfaContext extends FeatureContext
      */
     public function iShouldSeeAPromptForAManagerRescueCode()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
         Assert::assertContains('Ask Your Recovery Contact for Help', $pageHtml);
         Assert::assertContains('Enter code', $pageHtml);
@@ -652,7 +653,7 @@ class MfaContext extends FeatureContext
      */
     public function thereShouldBeAWayToRequestAManagerCode()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('Ask Your Recovery Contact', $page->getHtml());
         $this->assertFormContains('name="send"', $page);
     }

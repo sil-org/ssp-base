@@ -38,7 +38,7 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldEndUpAtMyIntendedDestinationOnSp($sp)
     {
-        $currentUrl = $this->session->getCurrentUrl();
+        $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             'http://ssp-' . strtolower($sp),
             $currentUrl,
@@ -102,10 +102,10 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldSeeTheMetadataInXmlFormat()
     {
-        $contentType = $this->session->getResponseHeader('Content-Type');
+        $contentType = $this->getSession()->getResponseHeader('Content-Type');
         Assert::assertEquals('application/xml', $contentType);
 
-        Assert::assertEquals(200, $this->session->getStatusCode());
+        Assert::assertEquals(200, $this->getSession()->getStatusCode());
 
         $xml = file_get_contents($this->getSession()->getCurrentUrl());
         Assert::assertStringContainsString(
