@@ -67,7 +67,6 @@ Feature: User login
     When I try to log in
     Then I should see a generic invalid-login error message
     And I should not be allowed through
-    And the last login should not have been updated
 
   Scenario: Providing unacceptable credentials that trigger a rate limit
     Given I provide a username

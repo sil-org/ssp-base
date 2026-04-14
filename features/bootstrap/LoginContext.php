@@ -170,22 +170,6 @@ class LoginContext extends FeatureContext
     }
 
     /**
-     * Verify that last_login_utc was NOT updated. In the silauth login path,
-     * updateUserLastLogin() only exists in the downstream MFA module — if
-     * authentication fails here, the MFA module never runs and last_login
-     * is never touched. (IDP-1807 scenario 1)
-     *
-     * @Then the last login should not have been updated
-     */
-    public function theLastLoginShouldNotHaveBeenUpdated()
-    {
-        Assert::false(
-            $this->authenticator->isAuthenticated(),
-            'Expected authentication to have failed (which prevents any last_login update).'
-        );
-    }
-
-    /**
      * @Given I do not provide a username
      */
     public function iDoNotProvideAUsername()
