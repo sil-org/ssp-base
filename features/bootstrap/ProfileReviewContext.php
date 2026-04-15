@@ -48,7 +48,6 @@ class ProfileReviewContext extends FeatureContext
         ));
         Assert::assertNotNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
-        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**
