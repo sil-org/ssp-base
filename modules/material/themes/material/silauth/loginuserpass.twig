@@ -10,6 +10,16 @@
       event.preventDefault();
     }
 
+    function forgotPassword() {
+      let url = '{{ password_forgot_url|e('js') }}';
+      const username = document.getElementById('username').value;
+      if (username) {
+        const separator = url.includes('?') ? '&' : '?';
+        url += separator + 'username=' + encodeURIComponent(username);
+      }
+      window.open(url, '_blank');
+    }
+
     //Remove invalid input state on page load
     window.addEventListener('load', () => {
       const clean = () => {
@@ -128,14 +138,13 @@
 
         <div class="mdl-card__actions" layout-children="row">
           {% if password_forgot_url is not empty %}
-            <a
-              href="{{ password_forgot_url|e }}"
-              target="_blank"
-              rel="noopener"
+            <button
+              type="button"
+              onclick="forgotPassword()"
               class="mdl-button mdl-button--colored mdl-typography--caption"
             >
               {{ '{login:forgot}'|trans }}
-            </a>
+            </button>
           {% endif %}
 
           <span flex></span>
