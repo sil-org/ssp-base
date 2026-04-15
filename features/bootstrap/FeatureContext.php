@@ -195,7 +195,7 @@ class FeatureContext extends MinkContext
         // Wait until the new page body contains the expected text (escape for JS string literal).
         $expectedJs = json_encode($expectedText, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-        $session->wait(5000, <<<JS
+        $session->wait(1000, <<<JS
   document.readyState === "complete"
   && document.body
   && document.body.innerText
@@ -341,11 +341,11 @@ JS);
     {
         $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
         $session = $this->getSession();
-        $session->wait(1000, <<<JS
+        Assert::true($session->wait(1000, <<<JS
   document.readyState === "complete"
   && window.location
   && window.location.href.endsWith($expectedPath)
-JS);
+JS), 'Did not reach the welcome page');
 
         $this->assertPageBodyContainsText('not much to see here.');
     }

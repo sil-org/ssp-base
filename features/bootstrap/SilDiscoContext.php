@@ -102,6 +102,13 @@ JS);
      */
     public function iShouldBePromptedForAUsernameAndPassword()
     {
+        $expectedPath = json_encode('module.php/core/loginuserpass', JSON_UNESCAPED_SLASHES);
+        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($expectedPath)
+JS), 'Did not reach the login page');
+
         $this->assertPageBodyContainsText('Enter your username and password');
     }
 
