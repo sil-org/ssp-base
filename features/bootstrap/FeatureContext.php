@@ -306,6 +306,7 @@ class FeatureContext extends MinkContext
         ));
         Assert::notNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**
