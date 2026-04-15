@@ -127,6 +127,7 @@ class FeatureContext extends MinkContext
         $this->fillField('username', $username);
         $this->fillField('password', $password);
         $this->pressButton('Login');
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**
@@ -189,9 +190,13 @@ class FeatureContext extends MinkContext
 
     protected function assertPageBodyContainsText(string $expectedText)
     {
+        print "assertPageBodyContainsText: " . $expectedText . "\n";
         $page = $this->getSession()->getPage();
+        print "page\n";
         $body = $page->find('css', 'body');
+        print "body\n";
         Assert::contains($body->getText(), $expectedText);
+        print "pass";
     }
 
     private static function ensureFolderExistsForTestFile($filePath)
@@ -319,6 +324,7 @@ class FeatureContext extends MinkContext
     {
         $loginButton = $this->getLoginButton($page);
         $loginButton->click();
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**

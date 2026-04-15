@@ -75,6 +75,7 @@ class MfaContext extends FeatureContext
         ));
         Assert::assertNotNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**
@@ -87,6 +88,7 @@ class MfaContext extends FeatureContext
     {
         $submitMfaButton = $this->getSubmitMfaButton($page);
         $submitMfaButton->click();
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**
@@ -205,6 +207,7 @@ class MfaContext extends FeatureContext
             $page = $this->getSession()->getPage();
             $printableCodeOption = $page->find('css', 'img[src=mfa-backupcode\002Esvg]');
             $printableCodeOption->click();
+            $this->getSession()->wait(5000, 'document.readyState === "complete"');
         }
         $this->submitMfaValue(FakeIdBrokerClient::CORRECT_VALUE);
     }
@@ -600,6 +603,7 @@ class MfaContext extends FeatureContext
             'Could not find the "I need help" option'
         );
         $helpOption->click();
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     /**

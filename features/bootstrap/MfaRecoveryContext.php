@@ -85,6 +85,7 @@ class MfaRecoveryContext extends MfaContext
             $elementID = $element->getAttribute('id');
             if ($elementID !== 'option-manager') {
                 $element->click();
+                $this->getSession()->wait(5000, 'document.readyState === "complete"');
                 return;
             }
         }
@@ -185,7 +186,9 @@ class MfaRecoveryContext extends MfaContext
         $page = $this->getSession()->getPage();
         $managerOption = $page->findById('option-manager');
         $managerOption->click();
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
         $page->pressButton('send');
+        $this->getSession()->wait(5000, 'document.readyState === "complete"');
     }
 
     #[Given('I provide credentials that have backup codes and a manager')]
