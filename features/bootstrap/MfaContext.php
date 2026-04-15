@@ -192,7 +192,6 @@ class MfaContext extends FeatureContext
         $page = $this->getSession()->getPage();
         $page->fillField('mfaSubmission', $mfaValue);
         $this->submitMfaForm($page);
-        return $page->getHtml(); // TODO: see if this is safe
     }
 
     /**
