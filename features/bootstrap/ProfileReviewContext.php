@@ -139,9 +139,18 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldEndUpAtTheUpdateProfileUrl()
     {
+
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
-        $currentUrl = $this->getSession()->getCurrentUrl();
+        $expectedUrl = json_encode($profileUrl, JSON_UNESCAPED_SLASHES);
+        $session = $this->getSession();
+        $session->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.startsWith($expectedUrl)
+JS);
+
+        $currentUrl = $session->getCurrentUrl();
         Assert::assertStringStartsWith(
             $profileUrl,
             $currentUrl,
@@ -154,22 +163,45 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldEndUpAtTheUpdateProfileUrlOnANewTab()
     {
+        $session = $this->getSession();
+
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
 
-        $windowNames = $this->getSession()->getWindowNames();
-        Assert::assertGreaterThanOrEqual(2, sizeof($windowNames),
-            'Expected to see at least 2 windows opened');
-
-        foreach ($windowNames as $windowName) {
-            $this->getSession()->switchToWindow($windowName);
-            $currentUrl = $this->getSession()->getCurrentUrl();
-            if ($currentUrl == $profileUrl) {
-                return;
+        // Wait until a new tab/window appears
+        $deadline = microtime(true) + 2; // seconds
+        do {
+            $windowNames = $session->getWindowNames();
+            if (count($windowNames) >= 2) {
+                break;
             }
-        }
+            $session->wait(100);
+        } while (microtime(true) < $deadline);
 
-        Assert::fail('Did NOT end up at the update profile URL');
+        Assert::assertGreaterThanOrEqual(
+            2,
+            count($windowNames),
+            'Expected to see at least 2 windows opened'
+        );
+
+        // Wait until one of the windows reaches the expected URL
+        $deadline = microtime(true) + 2; // seconds
+        do {
+            foreach ($session->getWindowNames() as $windowName) {
+                $session->switchToWindow($windowName);
+
+                $session->wait(100, 'document.readyState === "complete"');
+
+                if ($session->getCurrentUrl() === $profileUrl) {
+                    return;
+                }
+            }
+
+            $session->wait(100);
+        } while (microtime(true) < $deadline);
+
+        Assert::fail("Did not find a window on the profile URL {$profileUrl}. Last seen windows: " .
+            implode(', ', $session->getWindowNames()));
     }
 
     /**

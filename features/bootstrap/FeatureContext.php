@@ -192,7 +192,7 @@ class FeatureContext extends MinkContext
         $session = $this->getSession();
         $page = $session->getPage();
 
-// Wait until the new page body contains the expected text (escape for JS string literal).
+        // Wait until the new page body contains the expected text (escape for JS string literal).
         $expectedJs = json_encode($expectedText, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
         $session->wait(5000, <<<JS
@@ -341,7 +341,7 @@ JS);
     {
         $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
         $session = $this->getSession();
-        $session->wait(10000, <<<JS
+        $session->wait(1000, <<<JS
   document.readyState === "complete"
   && window.location
   && window.location.href.endsWith($expectedPath)

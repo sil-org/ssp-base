@@ -38,6 +38,14 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldEndUpAtMyIntendedDestinationOnSp($sp)
     {
+        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
+        $session = $this->getSession();
+        $session->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.endsWith($expectedPath)
+JS);
+
         $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             'http://ssp-' . strtolower($sp),
