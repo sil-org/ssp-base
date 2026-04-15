@@ -157,6 +157,13 @@ class FeatureContext extends MinkContext
      */
     public function iClickOnTheTile($idpName)
     {
+        $expectedPath = json_encode('module.php/sildisco/disco', JSON_UNESCAPED_SLASHES);
+        Assert::true($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($expectedPath)
+JS), 'Did not reach the discovery page');
+
         $page = $this->getSession()->getPage();
         $idpTileTitle = sprintf('%s Sign in', $idpName);
         $idpTile = $page->find(
