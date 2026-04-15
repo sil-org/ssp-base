@@ -70,9 +70,24 @@ JS);
     {
         $this->iGoToTheSpLoginPage($sp);
         $this->iClickOnTheTile('IDP 1');
+
+        $expectedPath = json_encode('module.php/core/loginuserpass', JSON_UNESCAPED_SLASHES);
+        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($expectedPath)
+JS), 'Did not reach the login page');
+
         $this->username = 'sildisco_idp1';
         $this->password = 'sildisco_password';
         $this->iLogIn();
+
+        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
+        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($expectedPath)
+JS), 'Did not reach the welcome page');
     }
 
     /**
@@ -95,6 +110,13 @@ JS);
     public function iLogOutOfIdp1()
     {
         $this->visit(self::SP1_LOGOUT_PAGE);
+
+        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
+        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($expectedPath)
+JS), 'Did not reach the welcome page');
     }
 
     /**
