@@ -342,6 +342,14 @@ JS);
      */
     public function iShouldEndUpAtMyIntendedDestination()
     {
+        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
+        $session = $this->getSession();
+        $session->wait(10000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.endsWith($expectedPath)
+JS);
+
         $this->assertPageBodyContainsText('not much to see here.');
     }
 }
