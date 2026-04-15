@@ -142,15 +142,9 @@ class ProfileReviewContext extends FeatureContext
 
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
-        $expectedUrl = json_encode($profileUrl, JSON_UNESCAPED_SLASHES);
-        $session = $this->getSession();
-        $session->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.startsWith($expectedUrl)
-JS);
+        $this->waitForPage($profileUrl);
 
-        $currentUrl = $session->getCurrentUrl();
+        $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             $profileUrl,
             $currentUrl,

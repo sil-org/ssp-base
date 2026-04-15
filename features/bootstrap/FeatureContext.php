@@ -157,12 +157,7 @@ class FeatureContext extends MinkContext
      */
     public function iClickOnTheTile($idpName)
     {
-        $expectedPath = json_encode('module.php/sildisco/disco', JSON_UNESCAPED_SLASHES);
-        Assert::true($this->getSession()->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.includes($expectedPath)
-JS), 'Did not reach the discovery page');
+        $this->waitForPage('module.php/sildisco/disco');
 
         $page = $this->getSession()->getPage();
         $idpTileTitle = sprintf('%s Sign in', $idpName);
@@ -346,14 +341,18 @@ JS);
      */
     public function iShouldEndUpAtMyIntendedDestination()
     {
-        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
-        $session = $this->getSession();
-        Assert::true($session->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.endsWith($expectedPath)
-JS), 'Did not reach the welcome page');
+        $this->waitForPage('module.php/core/welcome');
 
         $this->assertPageBodyContainsText('not much to see here.');
+    }
+
+    protected function waitForPage(string $path)
+    {
+        $jsPath = json_encode($path, JSON_UNESCAPED_SLASHES);
+        Assert::true($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($jsPath)
+JS), "Did not reach the $path page");
     }
 }

@@ -38,13 +38,7 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldEndUpAtMyIntendedDestinationOnSp($sp)
     {
-        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
-        $session = $this->getSession();
-        $session->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.endsWith($expectedPath)
-JS);
+        $this->waitForPage('module.php/core/welcome');
 
         $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
@@ -71,23 +65,13 @@ JS);
         $this->iGoToTheSpLoginPage($sp);
         $this->iClickOnTheTile('IDP 1');
 
-        $expectedPath = json_encode('module.php/core/loginuserpass', JSON_UNESCAPED_SLASHES);
-        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.includes($expectedPath)
-JS), 'Did not reach the login page');
+        $this->waitForPage('module.php/core/loginuserpass');
 
         $this->username = 'sildisco_idp1';
         $this->password = 'sildisco_password';
         $this->iLogIn();
 
-        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
-        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.includes($expectedPath)
-JS), 'Did not reach the welcome page');
+        $this->waitForPage('module.php/core/welcome');
     }
 
     /**
@@ -111,12 +95,7 @@ JS), 'Did not reach the welcome page');
     {
         $this->visit(self::SP1_LOGOUT_PAGE);
 
-        $expectedPath = json_encode('module.php/core/welcome', JSON_UNESCAPED_SLASHES);
-        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.includes($expectedPath)
-JS), 'Did not reach the welcome page');
+        $this->waitForPage('module.php/core/welcome');
     }
 
     /**
@@ -124,12 +103,7 @@ JS), 'Did not reach the welcome page');
      */
     public function iShouldBePromptedForAUsernameAndPassword()
     {
-        $expectedPath = json_encode('module.php/core/loginuserpass', JSON_UNESCAPED_SLASHES);
-        Assert::assertTrue($this->getSession()->wait(1000, <<<JS
-  document.readyState === "complete"
-  && window.location
-  && window.location.href.includes($expectedPath)
-JS), 'Did not reach the login page');
+        $this->waitForPage('module.php/core/loginuserpass');
 
         $this->assertPageBodyContainsText('Enter your username and password');
     }
