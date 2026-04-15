@@ -190,13 +190,23 @@ class FeatureContext extends MinkContext
 
     protected function assertPageBodyContainsText(string $expectedText)
     {
-        print "assertPageBodyContainsText: " . $expectedText . "\n";
-        $page = $this->getSession()->getPage();
-        print "page\n";
+        $session = $this->getSession();
+        $page = $session->getPage();
+
+// Wait until the new page body contains the expected text (escape for JS string literal).
+        $expectedJs = json_encode($expectedText, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+        $session->wait(5000, <<<JS
+  document.readyState === "complete"
+  && document.body
+  && document.body.innerText
+  && document.body.innerText.indexOf($expectedJs) !== -1
+JS);
+
+        // Now do the normal assertion (gives better failure output if it still fails)
         $body = $page->find('css', 'body');
-        print "body\n";
+        Assert::notNull($body, 'Could not find <body> element');
         Assert::contains($body->getText(), $expectedText);
-        print "pass";
     }
 
     private static function ensureFolderExistsForTestFile($filePath)
