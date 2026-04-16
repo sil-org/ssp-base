@@ -28,7 +28,7 @@ class LastLoginContext extends FeatureContext
         $this->password = self::BAD_PASSWORD;
         $this->iLogIn();
 
-        $pageText = $this->session->getPage()->getText();
+        $pageText = $this->getSession()->getPage()->getText();
         Assert::assertTrue(
             stripos($pageText, 'invalid login') !== false
             || stripos($pageText, 'incorrect') !== false
