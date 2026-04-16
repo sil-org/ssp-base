@@ -1,7 +1,6 @@
 <?php
 
 use Behat\Mink\Element\DocumentElement;
-use Behat\Mink\Session;
 use PHPUnit\Framework\Assert;
 
 /**
@@ -9,14 +8,6 @@ use PHPUnit\Framework\Assert;
  */
 class ExpiryContext extends FeatureContext
 {
-    /**
-     * The browser session, used for interacting with the website.
-     *
-     * @var Session
-     */
-    protected $session;
-
-
     /**
      * Assert that the given page has a form that contains the given text.
      *
