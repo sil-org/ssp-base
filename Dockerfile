@@ -25,7 +25,7 @@ RUN <<EOT
     composer self-update --no-interaction
 
     groupadd -g "$GID" user
-    useradd -m -u "$UID" -g "$GID" user
+    useradd --create-home --uid "$UID" --gid "$GID" --non-unique user
     mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2
     chown -R user:user /var/run/apache2 /var/lock/apache2 /var/log/apache2 /var/www/html
 EOT

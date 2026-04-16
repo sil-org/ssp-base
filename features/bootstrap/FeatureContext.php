@@ -23,21 +23,18 @@ class FeatureContext extends MinkContext
 
     const SCREENSHOTS_PATH = '/data/features/screenshots/';
 
-    /** @var Session */
-    protected $session;
-
     protected $username = null;
     protected $password = null;
 
     public function __construct()
     {
         $driver = new ChromeDriver('http://test-browser:9222', null, 'http://ssp-hub.local');
-        $this->session = new Session($driver);
-        $mink = new Mink(['default' => $this->session]);
+        $session = new Session($driver);
+        $mink = new Mink(['default' => $session]);
         $mink->setDefaultSessionName('default');
         $this->setMink($mink);
         // See http://mink.behat.org/en/latest/guides/session.html for docs.
-        $this->session->start();
+        $session->start();
     }
 
     /** @AfterStep */
@@ -67,7 +64,7 @@ class FeatureContext extends MinkContext
 
     protected function showPageDetails()
     {
-        echo '[' . $this->session->getStatusCode() . '] ';
+        echo '[' . $this->getSession()->getStatusCode() . '] ';
         $this->printLastResponse();
     }
 
@@ -84,7 +81,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeOurMaterialTheme()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $hasMaterialDesignElement = $page->has('css', '.mdl-layout');
         Assert::true(
             $hasMaterialDesignElement,
@@ -145,7 +142,7 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeAPage($title)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $titleElement = $page->find('css', 'head > title');
         Assert::notNull($titleElement, "Could not find the page's title");
         Assert::same(
@@ -160,7 +157,9 @@ class FeatureContext extends MinkContext
      */
     public function iClickOnTheTile($idpName)
     {
-        $page = $this->session->getPage();
+        $this->waitForPage('module.php/sildisco/disco');
+
+        $page = $this->getSession()->getPage();
         $idpTileTitle = sprintf('%s Sign in', $idpName);
         $idpTile = $page->find(
             'css',
@@ -192,8 +191,22 @@ class FeatureContext extends MinkContext
 
     protected function assertPageBodyContainsText(string $expectedText)
     {
-        $page = $this->session->getPage();
+        $session = $this->getSession();
+        $page = $session->getPage();
+
+        // Wait until the new page body contains the expected text (escape for JS string literal).
+        $expectedJs = json_encode($expectedText, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+        $session->wait(1000, <<<JS
+  document.readyState === "complete"
+  && document.body
+  && document.body.innerText
+  && document.body.innerText.indexOf($expectedJs) !== -1
+JS);
+
+        // Now do the normal assertion (gives better failure output if it still fails)
         $body = $page->find('css', 'body');
+        Assert::notNull($body, 'Could not find <body> element');
         Assert::contains($body->getText(), $expectedText);
     }
 
@@ -271,7 +284,7 @@ class FeatureContext extends MinkContext
      */
     public function iLogIn()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         try {
             $page->fillField('username', $this->username);
             $page->fillField('password', $this->password);
@@ -302,14 +315,13 @@ class FeatureContext extends MinkContext
      */
     protected function submitFormByClickingButtonNamed($buttonName)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $button = $page->find('css', sprintf(
             '[name=%s]',
             $buttonName
         ));
         Assert::notNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
-        $this->submitSecondarySspFormIfPresent($page);
     }
 
     /**
@@ -322,32 +334,6 @@ class FeatureContext extends MinkContext
     {
         $loginButton = $this->getLoginButton($page);
         $loginButton->click();
-        $this->submitSecondarySspFormIfPresent($page);
-    }
-
-    /**
-     * Submit the secondary page's form (if simpleSAMLphp shows another page
-     * because JavaScript isn't supported).
-     *
-     * @param DocumentElement $page The page.
-     */
-    protected function submitSecondarySspFormIfPresent($page)
-    {
-        // SimpleSAMLphp 1.15 markup for secondary page:
-        $postLoginSubmitButton = $page->findButton('postLoginSubmitButton');
-        if ($postLoginSubmitButton instanceof NodeElement) {
-            $postLoginSubmitButton->click();
-        } else {
-
-            // SimpleSAMLphp 1.14 markup for secondary page:
-            $body = $page->find('css', 'body');
-            if ($body instanceof NodeElement) {
-                $onload = $body->getAttribute('onload');
-                if ($onload === "document.getElementsByTagName('input')[0].click();") {
-                    $body->pressButton('Submit');
-                }
-            }
-        }
     }
 
     /**
@@ -355,6 +341,18 @@ class FeatureContext extends MinkContext
      */
     public function iShouldEndUpAtMyIntendedDestination()
     {
+        $this->waitForPage('module.php/core/welcome');
+
         $this->assertPageBodyContainsText('not much to see here.');
+    }
+
+    protected function waitForPage(string $path)
+    {
+        $jsPath = json_encode($path, JSON_UNESCAPED_SLASHES);
+        Assert::true($this->getSession()->wait(1000, <<<JS
+  document.readyState === "complete"
+  && window.location
+  && window.location.href.includes($jsPath)
+JS), "Did not reach the $path page");
     }
 }

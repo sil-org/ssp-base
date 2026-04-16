@@ -37,6 +37,6 @@ Feature: SIL IdP discovery (sildisco) module
   Scenario: IdP Logout
     Given I have authenticated with IDP1 for SP1
     When I log out of IDP1
-     And I go to the SP1 login page
-     And I click on the "IDP 1" tile
+    And I go to the SP1 login page
+    And I click on the "IDP 1" tile
     Then I should be prompted for a username and password
