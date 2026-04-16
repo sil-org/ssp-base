@@ -38,7 +38,9 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldEndUpAtMyIntendedDestinationOnSp($sp)
     {
-        $currentUrl = $this->session->getCurrentUrl();
+        $this->waitForPage('module.php/core/welcome');
+
+        $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             'http://ssp-' . strtolower($sp),
             $currentUrl,
@@ -62,9 +64,14 @@ class SilDiscoContext extends FeatureContext
     {
         $this->iGoToTheSpLoginPage($sp);
         $this->iClickOnTheTile('IDP 1');
+
+        $this->waitForPage('module.php/core/loginuserpass');
+
         $this->username = 'sildisco_idp1';
         $this->password = 'sildisco_password';
         $this->iLogIn();
+
+        $this->waitForPage('module.php/core/welcome');
     }
 
     /**
@@ -87,6 +94,8 @@ class SilDiscoContext extends FeatureContext
     public function iLogOutOfIdp1()
     {
         $this->visit(self::SP1_LOGOUT_PAGE);
+
+        $this->waitForPage('module.php/core/welcome');
     }
 
     /**
@@ -94,6 +103,8 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldBePromptedForAUsernameAndPassword()
     {
+        $this->waitForPage('module.php/core/loginuserpass');
+
         $this->assertPageBodyContainsText('Enter your username and password');
     }
 
@@ -102,10 +113,10 @@ class SilDiscoContext extends FeatureContext
      */
     public function iShouldSeeTheMetadataInXmlFormat()
     {
-        $contentType = $this->session->getResponseHeader('Content-Type');
+        $contentType = $this->getSession()->getResponseHeader('Content-Type');
         Assert::assertEquals('application/xml', $contentType);
 
-        Assert::assertEquals(200, $this->session->getStatusCode());
+        Assert::assertEquals(200, $this->getSession()->getStatusCode());
 
         $xml = file_get_contents($this->getSession()->getCurrentUrl());
         Assert::assertStringContainsString(

@@ -9,6 +9,9 @@ default:
     expiry_features:
       paths:    [ '%paths.base%//features//expirychecker.feature' ]
       contexts: [ 'ExpiryContext' ]
+    last_login_features:
+      paths:    [ '%paths.base%//features//last-login.feature' ]
+      contexts: [ 'LastLoginContext' ]
     login_features:
       paths:    [ '%paths.base%//features//login.feature' ]
       contexts: [ 'LoginContext' ]

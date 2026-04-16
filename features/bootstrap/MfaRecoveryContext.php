@@ -1,9 +1,9 @@
 <?php
 
-use Behat\Step\When;
 use Behat\Mink\Element\DocumentElement;
 use Behat\Step\Given;
 use Behat\Step\Then;
+use Behat\Step\When;
 use PHPUnit\Framework\Assert;
 use Sil\PhpEnv\Env;
 use SimpleSAML\Module\mfa\Auth\Process\Mfa;
@@ -22,7 +22,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see a link to send a code to a recovery contact')]
     public function iShouldSeeALinkToSendACodeToARecoveryContact(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             '/module.php/mfa/send-recovery-mfa.php',
             $page->getContent()
@@ -32,7 +32,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see a way to send an MFA recovery code to my manager')]
     public function iShouldSeeAWayToSendAnMfaRecoveryCodeToMyManager(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertNotNull(
             $page->findById('option-manager'),
             'Did not find a way to select my manager'
@@ -52,7 +52,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see a way to send an MFA recovery code to another recovery contact')]
     public function iShouldSeeAWayToSendAnMfaRecoveryCodeToAnotherRecoveryContact(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $foundNonManagerOption = false;
         $contactOptionElements = $page->findAll('css', 'input[name=mfaRecoveryContactID]');
         foreach ($contactOptionElements as $element) {
@@ -79,7 +79,7 @@ class MfaRecoveryContext extends MfaContext
 
     protected function selectARecoveryContactOption(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $contactOptionElements = $page->findAll('css', 'input[name=mfaRecoveryContactID]');
         foreach ($contactOptionElements as $element) {
             $elementID = $element->getAttribute('id');
@@ -94,7 +94,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should not see an error message')]
     public function iShouldNotSeeAnErrorMessage(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertNotContains(
             'error',
             $page->getContent()
@@ -104,7 +104,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see confirmation that the code was sent')]
     public function iShouldSeeConfirmationThatTheCodeWasSent(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             'A temporary code was sent to your recovery contact',
             $page->getContent()
@@ -147,7 +147,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see :optionText as one of the recovery contact options')]
     public function iShouldSeeAsOneOfTheRecoveryContactOptions($optionText): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains(
             'your supervisor',
             $page->getContent()
@@ -164,7 +164,7 @@ class MfaRecoveryContext extends MfaContext
         $recoveryContacts = $this->getRecoveryContactsFromMockApiFor($emailAddress);
         Assert::assertNotEmpty($recoveryContacts, 'API returned no recovery contacts');
 
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         foreach (array_keys($recoveryContacts) as $recoveryContactName) {
             Assert::assertNotContains(
                 $recoveryContactName,
@@ -182,7 +182,7 @@ class MfaRecoveryContext extends MfaContext
     #[When('I send the code to the manager')]
     public function iSendTheCodeToTheManager(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $managerOption = $page->findById('option-manager');
         $managerOption->click();
         $page->pressButton('send');
@@ -205,7 +205,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see a way to send an MFA recovery code to the fallback recovery contact')]
     public function iShouldSeeAWayToSendAnMfaRecoveryCodeToTheFallbackRecoveryContact(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $fallbackName = Env::requireEnv('MFA_RECOVERY_CONTACTS_FALLBACK_NAME');
         $foundFallbackOption = false;
 
@@ -235,7 +235,7 @@ class MfaRecoveryContext extends MfaContext
     #[Then('I should see a way to send an MFA recovery code to this account\'s recovery contact')]
     public function iShouldSeeAWayToSendAnMfaRecoveryCodeToThisAccountsRecoveryContact(): void
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $recoveryContactFullName = 'Anne Admin'; // Must match value in `api-mock/mfa-recovery-contacts.json`
         $recoveryContactAbbreviatedName = Mfa::abbreviateName($recoveryContactFullName);
         $foundThatRecoveryContact = false;

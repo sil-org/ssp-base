@@ -1,8 +1,6 @@
 <?php
 
 use Behat\Mink\Element\DocumentElement;
-use Behat\Mink\Element\NodeElement;
-use Behat\Mink\Session;
 use PHPUnit\Framework\Assert;
 
 /**
@@ -10,14 +8,6 @@ use PHPUnit\Framework\Assert;
  */
 class ExpiryContext extends FeatureContext
 {
-    /**
-     * The browser session, used for interacting with the website.
-     *
-     * @var Session
-     */
-    protected $session;
-
-
     /**
      * Assert that the given page has a form that contains the given text.
      *
@@ -87,7 +77,7 @@ class ExpiryContext extends FeatureContext
      */
     public function iShouldSeeAWarningThatMyPasswordWillExpireSoon()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('will expire', $page->getHtml());
     }
 
@@ -96,7 +86,7 @@ class ExpiryContext extends FeatureContext
      */
     public function thereShouldBeAWayToGoChangeMyPasswordNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('change', $page);
     }
 
@@ -105,7 +95,7 @@ class ExpiryContext extends FeatureContext
      */
     public function thereShouldBeAWayToContinueWithoutChangingMyPassword()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('continue', $page);
     }
 
@@ -124,7 +114,7 @@ class ExpiryContext extends FeatureContext
      */
     public function iShouldSeeAMessageThatMyPasswordHasExpired()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('has expired', $page->getHtml());
     }
 
@@ -133,7 +123,7 @@ class ExpiryContext extends FeatureContext
      */
     public function thereShouldNotBeAWayToContinueWithoutChangingMyPassword()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormNotContains('continue', $page);
     }
 
@@ -152,7 +142,7 @@ class ExpiryContext extends FeatureContext
      */
     public function iShouldSeeAnErrorMessage()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('We could not understand the expiration date', $page->getHtml());
     }
 

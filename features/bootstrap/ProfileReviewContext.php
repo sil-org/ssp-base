@@ -1,8 +1,6 @@
 <?php
 
 use Behat\Mink\Element\DocumentElement;
-use Behat\Mink\Element\NodeElement;
-use Behat\Mink\Exception\ElementNotFoundException;
 use PHPUnit\Framework\Assert;
 use Sil\PhpEnv\Env;
 
@@ -43,14 +41,13 @@ class ProfileReviewContext extends FeatureContext
      */
     protected function submitFormByClickingButtonNamed($buttonName)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $button = $page->find('css', sprintf(
             '[name=%s]',
             $buttonName
         ));
         Assert::assertNotNull($button, 'Failed to find button named ' . $buttonName);
         $button->click();
-        $this->submitSecondarySspFormIfPresent($page);
     }
 
     /**
@@ -94,7 +91,7 @@ class ProfileReviewContext extends FeatureContext
 
     protected function pageContainsElementWithText($cssSelector, $text)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $elements = $page->findAll('css', $cssSelector);
         foreach ($elements as $element) {
             if (strpos($element->getText(), $text) !== false) {
@@ -109,7 +106,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function thereShouldBeAWayToContinueToMyIntendedDestination()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="continue"', $page);
     }
 
@@ -142,9 +139,12 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldEndUpAtTheUpdateProfileUrl()
     {
+
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
-        $currentUrl = $this->session->getCurrentUrl();
+        $this->waitForPage($profileUrl);
+
+        $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
             $profileUrl,
             $currentUrl,
@@ -157,22 +157,45 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldEndUpAtTheUpdateProfileUrlOnANewTab()
     {
+        $session = $this->getSession();
+
         $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
         Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
 
-        $windowNames = $this->session->getWindowNames();
-        Assert::assertGreaterThanOrEqual(2, sizeof($windowNames),
-            'Expected to see at least 2 windows opened');
-
-        foreach ($windowNames as $windowName) {
-            $this->session->switchToWindow($windowName);
-            $currentUrl = $this->session->getCurrentUrl();
-            if ($currentUrl == $profileUrl) {
-                return;
+        // Wait until a new tab/window appears
+        $deadline = microtime(true) + 2; // seconds
+        do {
+            $windowNames = $session->getWindowNames();
+            if (count($windowNames) >= 2) {
+                break;
             }
-        }
+            $session->wait(100);
+        } while (microtime(true) < $deadline);
 
-        Assert::fail('Did NOT end up at the update profile URL');
+        Assert::assertGreaterThanOrEqual(
+            2,
+            count($windowNames),
+            'Expected to see at least 2 windows opened'
+        );
+
+        // Wait until one of the windows reaches the expected URL
+        $deadline = microtime(true) + 2; // seconds
+        do {
+            foreach ($session->getWindowNames() as $windowName) {
+                $session->switchToWindow($windowName);
+
+                $session->wait(100, 'document.readyState === "complete"');
+
+                if ($session->getCurrentUrl() === $profileUrl) {
+                    return;
+                }
+            }
+
+            $session->wait(100);
+        } while (microtime(true) < $deadline);
+
+        Assert::fail("Did not find a window on the profile URL {$profileUrl}. Last seen windows: " .
+            implode(', ', $session->getWindowNames()));
     }
 
     /**
@@ -180,7 +203,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldSeeTheMessage($message)
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains($message, $page->getHtml());
     }
 
@@ -189,7 +212,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function thereShouldBeAWayToGoUpdateMyProfileNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $this->assertFormContains('name="update"', $page);
     }
 
@@ -198,7 +221,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function thereShouldBeAWayToGoReviewMyProfileNow()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         Assert::assertContains('Some of these need updating', $page->getHtml());
     }
 
@@ -217,7 +240,7 @@ class ProfileReviewContext extends FeatureContext
      */
     public function iShouldNotSeeAnyManagerMfaInformation()
     {
-        $page = $this->session->getPage();
+        $page = $this->getSession()->getPage();
         $isManagerMfaPresent = $page->hasContent('manager');
         Assert::assertFalse($isManagerMfaPresent, 'found manager mfa data');
     }
