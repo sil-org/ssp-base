@@ -6,6 +6,14 @@ x-db_healthcheck: &db_healthcheck
     timeout: 5s
     retries: 3
 
+x-http_healthcheck: &http_healthcheck
+  healthcheck:
+    test: curl --connect-timeout 5 http://localhost:80/
+    start_period: 1s
+    interval: 1s
+    timeout: 3s
+    retries: 10
+
 services:
   db:
     image: mariadb:10
@@ -39,16 +47,26 @@ services:
         GID: ${GID:-1001}
         COMPOSER_FLAGS: "--no-interaction --no-progress"
     depends_on:
-      - ssp-hub.local
-      - ssp-idp1.local
-      - ssp-idp2.local
-      - ssp-idp3.local
-      - ssp-idp4.local
-      - ssp-sp1.local
-      - ssp-sp2.local
-      - ssp-sp3.local
-      - pwmanager.local
-      - test-browser
+      ssp-hub.local:
+        condition: service_healthy
+      ssp-idp1.local:
+        condition: service_healthy
+      ssp-idp2.local:
+        condition: service_healthy
+      ssp-idp3.local:
+        condition: service_healthy
+      ssp-idp4.local:
+        condition: service_healthy
+      ssp-sp1.local:
+        condition: service_healthy
+      ssp-sp2.local:
+        condition: service_healthy
+      ssp-sp3.local:
+        condition: service_healthy
+      pwmanager.local:
+        condition: service_healthy
+      test-browser:
+        condition: service_started
     environment:
       MYSQL_HOST: db
       MYSQL_DATABASE: silauth
@@ -146,6 +164,7 @@ services:
       HELP_CENTER_URL: "https://example.org/help"
       LOGGING_LEVEL: INFO
       ENABLE_DEBUG: "false"
+    <<: *http_healthcheck
 
   ssp-idp1.local: # using a database session store type ("sql")
     build:
@@ -217,6 +236,7 @@ services:
       ENABLE_DEBUG: "false"
     env_file:
       - ./db/certs/test.env
+    <<: *http_healthcheck
 
   ssp-idp2.local:
     build:
@@ -274,6 +294,7 @@ services:
       ENABLE_DEBUG: "false"
     env_file:
       - ./db/certs/test.env
+    <<: *http_healthcheck
 
   ssp-idp3.local:
     build:
@@ -312,6 +333,7 @@ services:
       HUB_MODE: "false"
       LOGGING_LEVEL: INFO
       ENABLE_DEBUG: "false"
+    <<: *http_healthcheck
 
   ssp-idp4.local:
     build:
@@ -371,6 +393,7 @@ services:
       MFA_RECOVERY_CONTACTS_FALLBACK_EMAIL: "dummy@example.com"
       LOGGING_LEVEL: INFO
       ENABLE_DEBUG: "false"
+    <<: *http_healthcheck
 
   ssp-sp1.local:
     image: ghcr.io/sil-org/ssp-base:11
@@ -400,6 +423,7 @@ services:
       ADMIN_PROTECT_INDEX_PAGE: "false"
       LOGGING_LEVEL: INFO
       ENABLE_DEBUG: "false"
+    <<: *http_healthcheck
 
   ssp-sp2.local:
     image: ghcr.io/sil-org/ssp-base:11
@@ -424,6 +448,7 @@ services:
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
+    <<: *http_healthcheck
 
   ssp-sp3.local:
     image: ghcr.io/sil-org/ssp-base:11
@@ -450,6 +475,7 @@ services:
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
+    <<: *http_healthcheck
 
   pwmanager.local:
     image: ghcr.io/sil-org/ssp-base:11
@@ -472,6 +498,7 @@ services:
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
+    <<: *http_healthcheck
 
   # the broker and brokerDb containers are used by the silauth module
   broker:
