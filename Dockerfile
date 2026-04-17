@@ -7,7 +7,7 @@ ENV GITHUB_REF_NAME=$GITHUB_REF_NAME
 
 RUN <<EOT
     apt-get update -y
-    apt-get --no-install-recommends install -y jq php-gmp ssl-cert
+    apt-get --no-install-recommends install -y jq php-bcmath php-gmp ssl-cert
     apt-get clean
     rm -rf /var/lib/apt/lists/*
     a2enmod ssl
