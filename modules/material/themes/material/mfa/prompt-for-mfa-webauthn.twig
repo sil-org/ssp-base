@@ -12,6 +12,7 @@
       function verifyWebAuthn() {
         document.getElementById('instructions').textContent = '{{ '{mfa:webauthn_instructions}'|trans|e('js') }}';
         const loginChallenge = {{ mfa_option_data|raw }};
+        console.log(JSON.stringify(loginChallenge));
         SimpleWebAuthnBrowser.startAuthentication({optionsJSON: loginChallenge.publicKey}).then(submitForm).catch(handleError);
       }
 
