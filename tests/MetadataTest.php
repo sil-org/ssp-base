@@ -420,4 +420,15 @@ class MetadataTest extends TestCase
                 ' metadata entry set ... ' . var_export($skippedSps, True));
         }
     }
+
+    public function testAdminModule()
+    {
+        $config = Configuration::getConfig();
+
+        $moduleEnable = $config->getArray('module.enable');
+        var_dump(['module.enable' => $moduleEnable]);
+        $this->assertNotEmpty($moduleEnable);
+
+        $this->assertFalse($moduleEnable['admin'] ?? false);
+    }
 }

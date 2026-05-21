@@ -134,6 +134,8 @@ services:
       - ./development/hub/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
 
       # Utilize custom configs
+      - ./dockerbuild/config/config.php:/data/vendor/simplesamlphp/simplesamlphp/config/config.php
+      - ./development/hub/config/extra-config.php:/data/extra-config.php
       - ./development/hub/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
       - ./dockerbuild/config/config.php:/data/vendor/simplesamlphp/simplesamlphp/config/config.php
       - ./development/announcement.php:/data/vendor/simplesamlphp/simplesamlphp/announcement/announcement.php
@@ -180,9 +182,10 @@ services:
       - ./development/idp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
 
       # Utilize custom configs
+      - ./dockerbuild/config/config.php:/data/vendor/simplesamlphp/simplesamlphp/config/config.php
+      - ./development/idp-local/config/extra-config.php:/data/extra-config.php
       - ./development/idp-local/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
       - ./development/announcement.php:/data/vendor/simplesamlphp/simplesamlphp/announcement/announcement.php
-      - ./development/enable-exampleauth.sh:/data/enable-exampleauth.sh
       - ./development/logo_idp1.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
       # Utilize custom metadata
@@ -205,7 +208,7 @@ services:
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     command: >
-      bash -c "/data/enable-exampleauth.sh && /data/run-idp.sh"
+      bash -c "/data/run-idp.sh"
     ports:
       - "8085:80"
     environment:
@@ -254,8 +257,9 @@ services:
       - ./development/idp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
 
       # Utilize custom configs
+      - ./dockerbuild/config/config.php:/data/vendor/simplesamlphp/simplesamlphp/config/config.php
+      - ./development/idp2-local/config/extra-config.php:/data/extra-config.php
       - ./development/idp2-local/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
-      - ./development/enable-exampleauth.sh:/data/enable-exampleauth.sh
       - ./development/logo_idp2.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
       # Utilize custom metadata
@@ -271,7 +275,6 @@ services:
       - ./modules/silauth:/data/vendor/simplesamlphp/simplesamlphp/modules/silauth
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
-    command: bash -c "/data/enable-exampleauth.sh && /data/run.sh"
     ports:
       - "8086:80"
     environment:
@@ -307,6 +310,8 @@ services:
       - ./development/idp3-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
 
       # Utilize custom configs
+      - ./dockerbuild/config/config.php:/data/vendor/simplesamlphp/simplesamlphp/config/config.php
+      - ./development/idp-local/config/extra-config.php:/data/extra-config.php
       - ./development/idp3-local/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
       - ./development/logo_idp3.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
@@ -346,8 +351,9 @@ services:
       - ./development/idp4-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
 
       # Utilize custom configs
+      - ./dockerbuild/config/config.php:/data/vendor/simplesamlphp/simplesamlphp/config/config.php
+      - ./development/idp-local/config/extra-config.php:/data/extra-config.php
       - ./development/idp4-local/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
-      - ./development/enable-exampleauth.sh:/data/enable-exampleauth.sh
 
       # Utilize custom metadata
       - ./development/idp4-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
@@ -365,7 +371,6 @@ services:
       - ./modules/silauth:/data/vendor/simplesamlphp/simplesamlphp/modules/silauth
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
-    command: bash -c "/data/enable-exampleauth.sh && /data/run.sh"
     depends_on:
       - api-mock.local
     ports:

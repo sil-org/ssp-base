@@ -655,7 +655,7 @@ $config = [
 
     'module.enable' => [
         'core' => true,
-        'admin' => true,
+        'admin' => false,
         'saml' => true,
         'expirychecker' => true,
         'material' => true,
@@ -1483,4 +1483,13 @@ if ($HUB_MODE) {
     // prefix the 'member' (urn:oid:2.5.4.31) attribute elements with idp.idp_name.
     $config['authproc.idp'][48] = 'sildisco:TagGroup';
     $config['authproc.idp'][49] = 'sildisco:AddIdp2NameId';
+}
+
+$extraConfigFile = '/data/extra-config.php';
+
+if (file_exists($extraConfigFile)) {
+    $extraConfig = include $extraConfigFile;
+    if (is_array($extraConfig)) {
+        $config = array_replace_recursive($config, $extraConfig);
+    }
 }
