@@ -9,4 +9,4 @@ set -e
 cd /data
 composer install
 
-./vendor/bin/phpunit -v tests/MetadataTest.php
+./vendor/bin/phpunit --display-all-issues tests/MetadataTest.php
