@@ -8,9 +8,9 @@ set -e
 
 /data/run-metadata-tests.sh
 
-./vendor/bin/phpunit -v tests/AnnouncementTest.php
-./vendor/bin/phpunit -v vendor/simplesamlphp/simplesamlphp/modules/sildisco/tests/
-./vendor/bin/phpunit -v vendor/simplesamlphp/simplesamlphp/modules/mfa/tests/
+./vendor/bin/phpunit --display-all-issues tests/AnnouncementTest.php
+./vendor/bin/phpunit --display-all-issues vendor/simplesamlphp/simplesamlphp/modules/sildisco/tests/
+./vendor/bin/phpunit --display-all-issues vendor/simplesamlphp/simplesamlphp/modules/mfa/tests/
 
 if [[ -n "$SSL_CA_BASE64" ]]; then
     # Decode the base64 and write to the file

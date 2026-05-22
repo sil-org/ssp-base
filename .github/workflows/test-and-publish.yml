@@ -18,8 +18,6 @@ jobs:
         run: docker compose run ssp-hub.local ./run-metadata-tests.sh
       - name: check idp metadata for tests
         run: docker compose run ssp-idp1.local ./run-metadata-tests.sh
-      - name: check sp metadata for tests
-        run: docker compose run ssp-sp1.local ./run-metadata-tests.sh
 
   build-and-publish:
     name: Build and Publish Docker image

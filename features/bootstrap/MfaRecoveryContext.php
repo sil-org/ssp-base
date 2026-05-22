@@ -23,7 +23,7 @@ class MfaRecoveryContext extends MfaContext
     public function iShouldSeeALinkToSendACodeToARecoveryContact(): void
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             '/module.php/mfa/send-recovery-mfa.php',
             $page->getContent()
         );
@@ -95,7 +95,7 @@ class MfaRecoveryContext extends MfaContext
     public function iShouldNotSeeAnErrorMessage(): void
     {
         $page = $this->getSession()->getPage();
-        Assert::assertNotContains(
+        Assert::assertStringNotContainsString(
             'error',
             $page->getContent()
         );
@@ -105,7 +105,7 @@ class MfaRecoveryContext extends MfaContext
     public function iShouldSeeConfirmationThatTheCodeWasSent(): void
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             'A temporary code was sent to your recovery contact',
             $page->getContent()
         );
@@ -148,7 +148,7 @@ class MfaRecoveryContext extends MfaContext
     public function iShouldSeeAsOneOfTheRecoveryContactOptions($optionText): void
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             'your supervisor',
             $page->getContent()
         );
@@ -166,13 +166,13 @@ class MfaRecoveryContext extends MfaContext
 
         $page = $this->getSession()->getPage();
         foreach (array_keys($recoveryContacts) as $recoveryContactName) {
-            Assert::assertNotContains(
+            Assert::assertStringNotContainsString(
                 $recoveryContactName,
                 $page->getContent()
             );
 
             $abbreviatedName = Mfa::abbreviateName($recoveryContactName);
-            Assert::assertContains(
+            Assert::assertStringContainsString(
                 $abbreviatedName,
                 $page->getContent()
             );

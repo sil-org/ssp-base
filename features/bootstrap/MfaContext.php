@@ -115,7 +115,7 @@ class MfaContext extends FeatureContext
     public function iShouldSeeAMessageThatIHaveToSetUpMfa()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('must set up 2-', $page->getHtml());
+        Assert::assertStringContainsString('must set up 2-', $page->getHtml());
     }
 
     /**
@@ -144,8 +144,8 @@ class MfaContext extends FeatureContext
     {
         $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains('Printable code', $pageHtml);
-        Assert::assertContains('Enter code', $pageHtml);
+        Assert::assertStringContainsString('Printable code', $pageHtml);
+        Assert::assertStringContainsString('Enter code', $pageHtml);
     }
 
     /**
@@ -165,7 +165,7 @@ class MfaContext extends FeatureContext
     {
         $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains('Enter 6-digit code', $pageHtml);
+        Assert::assertStringContainsString('Enter 6-digit code', $pageHtml);
     }
 
     /**
@@ -184,7 +184,7 @@ class MfaContext extends FeatureContext
     public function iShouldSeeAPromptForAWebAuthn()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('Security key', $page->getHtml());
+        Assert::assertStringContainsString('Security key', $page->getHtml());
     }
 
     protected function submitMfaValue($mfaValue)
@@ -235,8 +235,8 @@ class MfaContext extends FeatureContext
     {
         $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains(' wait ', $pageHtml);
-        Assert::assertContains('try again', $pageHtml);
+        Assert::assertStringContainsString(' wait ', $pageHtml);
+        Assert::assertStringContainsString('try again', $pageHtml);
     }
 
     /**
@@ -246,7 +246,7 @@ class MfaContext extends FeatureContext
     {
         $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains('Incorrect 2-step verification code', $pageHtml);
+        Assert::assertStringContainsString('Incorrect 2-step verification code', $pageHtml);
     }
 
     /**
@@ -346,7 +346,7 @@ JS);
     public function iShouldSeeAMessageThatIAmRunningLowOnBackupCodes()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             'Almost out of printable codes',
             $page->getHtml()
         );
@@ -377,7 +377,7 @@ JS);
     public function iShouldSeeAMessageThatIHaveUsedUpMyBackupCodes()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             'Last printable code used',
             $page->getHtml()
         );
@@ -407,7 +407,7 @@ JS);
     public function iShouldBeToldIOnlyHaveBackupCodesLeft($numRemaining)
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             'You only have ' . $numRemaining . ' more left',
             $page->getHtml()
         );
@@ -419,7 +419,7 @@ JS);
     public function iShouldBeGivenMoreBackupCodes()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             'New printable codes',
             $page->getContent()
         );
@@ -567,7 +567,7 @@ JS);
     public function iShouldSeeALinkToSendACodeToTheUsersManager()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains(
+        Assert::assertStringContainsString(
             '/module.php/mfa/send-manager-mfa.php',
             $page->getContent()
         );
@@ -589,7 +589,7 @@ JS);
     public function iShouldNotSeeALinkToSendACodeToTheUsersManager()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertNotContains(
+        Assert::assertStringNotContainsString(
             '/module.php/mfa/send-manager-mfa.php',
             $page->getContent()
         );
@@ -624,9 +624,9 @@ JS);
     {
         $page = $this->getSession()->getPage();
         $pageHtml = $page->getHtml();
-        Assert::assertContains('Ask Your Recovery Contact for Help', $pageHtml);
-        Assert::assertContains('Enter code', $pageHtml);
-        Assert::assertContains('m*****r@e******.c**', $pageHtml);
+        Assert::assertStringContainsString('Ask Your Recovery Contact for Help', $pageHtml);
+        Assert::assertStringContainsString('Enter code', $pageHtml);
+        Assert::assertStringContainsString('m*****r@e******.c**', $pageHtml);
     }
 
     /**
@@ -661,7 +661,7 @@ JS);
     public function thereShouldBeAWayToRequestAManagerCode()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('Ask Your Recovery Contact', $page->getHtml());
+        Assert::assertStringContainsString('Ask Your Recovery Contact', $page->getHtml());
         $this->assertFormContains('name="send"', $page);
     }
 

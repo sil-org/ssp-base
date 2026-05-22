@@ -78,7 +78,7 @@ class ExpiryContext extends FeatureContext
     public function iShouldSeeAWarningThatMyPasswordWillExpireSoon()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('will expire', $page->getHtml());
+        Assert::assertStringContainsString('will expire', $page->getHtml());
     }
 
     /**
@@ -115,7 +115,7 @@ class ExpiryContext extends FeatureContext
     public function iShouldSeeAMessageThatMyPasswordHasExpired()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('has expired', $page->getHtml());
+        Assert::assertStringContainsString('has expired', $page->getHtml());
     }
 
     /**
@@ -143,7 +143,7 @@ class ExpiryContext extends FeatureContext
     public function iShouldSeeAnErrorMessage()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('We could not understand the expiration date', $page->getHtml());
+        Assert::assertStringContainsString('We could not understand the expiration date', $page->getHtml());
     }
 
     /**

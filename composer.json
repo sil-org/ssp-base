@@ -35,9 +35,10 @@
   "require-dev": {
     "behat/behat": "^3.8",
     "dmore/chrome-mink-driver": "^2.8",
-    "phpunit/phpunit": "^7.5.19 || ^8.0",
+    "phpunit/phpunit": "^10.5",
     "roave/security-advisories": "dev-master",
-    "friends-of-behat/mink-extension": "^2.7"
+    "friends-of-behat/mink-extension": "^2.7",
+    "phpunit/php-code-coverage": "^10.1"
   },
   "autoload": {
     "files": [
