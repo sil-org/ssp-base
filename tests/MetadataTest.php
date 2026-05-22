@@ -46,7 +46,7 @@ class MetadataTest extends TestCase
             $nextCode = $entry[self::IdpCode];
             $this->assertIsString($nextCode, 'Metadata entry has an ' .
                 self::IdpCode . 'element that is not a string. IDP: ' . $entityId);
-            $this->assertRegExp("/^[A-Za-z0-9_-]+$/", $nextCode, 'Metadata entry has an ' .
+            $this->assertMatchesRegularExpression("/^[A-Za-z0-9_-]+$/", $nextCode, 'Metadata entry has an ' .
                 self::IdpCode . ' element that has something other than letters, ' .
                 'numbers, hyphens and underscores. IDP: ' . $entityId);
         }

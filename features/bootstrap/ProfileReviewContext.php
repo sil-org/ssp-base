@@ -204,7 +204,7 @@ class ProfileReviewContext extends FeatureContext
     public function iShouldSeeTheMessage($message)
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains($message, $page->getHtml());
+        Assert::assertStringContainsString($message, $page->getHtml());
     }
 
     /**
@@ -222,7 +222,7 @@ class ProfileReviewContext extends FeatureContext
     public function thereShouldBeAWayToGoReviewMyProfileNow()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertContains('Some of these need updating', $page->getHtml());
+        Assert::assertStringContainsString('Some of these need updating', $page->getHtml());
     }
 
     /**
