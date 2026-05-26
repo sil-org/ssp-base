@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ currentLanguage }}">
 <head>
-  <title>{{ '{mfa:title}'|trans({'%idpName%': idp_name})  }}</title>
+  <title>{{ '{mfa:title}'|trans({'%idpName%': idp_name}) }}</title>
 
   {{ include('header.twig') }}
 
@@ -12,7 +12,7 @@
       function verifyWebAuthn() {
         document.getElementById('instructions').textContent = '{{ '{mfa:webauthn_instructions}'|trans|e('js') }}';
         const loginChallenge = {{ mfa_option_data|raw }};
-        SimpleWebAuthnBrowser.startAuthentication(loginChallenge.publicKey).then(submitForm).catch(handleError);
+        SimpleWebAuthnBrowser.startAuthentication({optionsJSON: loginChallenge.publicKey}).then(submitForm).catch(handleError);
       }
 
       function handleError(error) {
@@ -40,12 +40,22 @@
         const submissionInput = createHiddenInput('submitMfa');
         const webAuthnResponseInput = createHiddenInput('mfaSubmission');
 
+        webAuthnResponse.response.userHandle = decodeBase64url(webAuthnResponse.response.userHandle);
         webAuthnResponseInput.value = JSON.stringify(webAuthnResponse);
 
         form.appendChild(submissionInput);
         form.appendChild(webAuthnResponseInput);
 
         form.submit();
+      }
+
+      // decodeBase64url performs a URL-type base64 decode
+      function decodeBase64url(str) {
+        const base64 = str
+          .replace(/-/g, '+')
+          .replace(/_/g, '/')
+          .padEnd(str.length + (4 - str.length % 4) % 4, '=');
+        return atob(base64);
       }
 
       function createHiddenInput(name) {
@@ -93,10 +103,10 @@
 
         {% if error_message is not empty and analytics_tracking_id is not empty %}
           <script>
-           gtag('event', '{{ error_message|e('js')|raw }}', {
-            'event_category': 'error',
-            'event_label': 'webauthn'
-          });
+            gtag('event', '{{ error_message|e('js')|raw }}', {
+              'event_category': 'error',
+              'event_label': 'webauthn'
+            });
           </script>
         {% endif %}
         <div class="mdl-card__supporting-text" layout-children="column">
@@ -110,7 +120,7 @@
         </div>
 
         <div style="margin:auto;">
-          <label for="rememberMe"  class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+          <label for="rememberMe" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
             <span class="mdl-checkbox__label">
                 {{ '{mfa:remember_this}'|trans }}
             </span>
