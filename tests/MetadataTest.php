@@ -336,9 +336,11 @@ class MetadataTest extends TestCase
         $spEntries = $metadata->getList('saml20-sp-remote');
 
         $badSps = [];
+        $skippedSps = [];
 
         foreach ($spEntries as $spEntityId => $spEntry) {
             if (!empty($spEntry[self::SkipTestsKey])) {
+                $skippedSps[] = $spEntityId;
                 continue;
             }
 
@@ -351,6 +353,11 @@ class MetadataTest extends TestCase
         $this->assertEmpty($badSps,
             'At least one SP has saml20.sign.response set to false ... ' .
             var_export($badSps, True));
+
+        if ($skippedSps) {
+            fwrite(STDERR, "Skipped saml20.sign.response check for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True) . "\n");
+        }
     }
 
     public function testMetadataSignAssertion()
@@ -360,9 +367,11 @@ class MetadataTest extends TestCase
         $spEntries = $metadata->getList('saml20-sp-remote');
 
         $badSps = [];
+        $skippedSps = [];
 
         foreach ($spEntries as $spEntityId => $spEntry) {
             if (!empty($spEntry[self::SkipTestsKey])) {
+                $skippedSps[] = $spEntityId;
                 continue;
             }
 
@@ -375,6 +384,11 @@ class MetadataTest extends TestCase
         $this->assertEmpty($badSps,
             'At least one SP has saml20.sign.assertion set to false ... ' .
             var_export($badSps, True));
+
+        if ($skippedSps) {
+            fwrite(STDERR, "Skipped saml20.sign.assertion check for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True) . "\n");
+        }
     }
 
     public function testMetadataEncryption()
@@ -384,9 +398,11 @@ class MetadataTest extends TestCase
         $spEntries = $metadata->getList('saml20-sp-remote');
 
         $badSps = [];
+        $skippedSps = [];
 
         foreach ($spEntries as $spEntityId => $spEntry) {
             if (!empty($spEntry[self::SkipTestsKey])) {
+                $skippedSps[] = $spEntityId;
                 continue;
             }
 
@@ -398,6 +414,11 @@ class MetadataTest extends TestCase
         $this->assertEmpty($badSps,
             'At least one SP does not have assertion.encryption set to True ... ' .
             var_export($badSps, True));
+
+        if ($skippedSps) {
+            fwrite(STDERR, "Skipped assertion.encryption check for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True) . "\n");
+        }
     }
 
     public function testAdminModule()
