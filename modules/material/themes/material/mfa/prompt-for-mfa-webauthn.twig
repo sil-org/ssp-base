@@ -40,7 +40,9 @@
         const submissionInput = createHiddenInput('submitMfa');
         const webAuthnResponseInput = createHiddenInput('mfaSubmission');
 
-        webAuthnResponse.response.userHandle = decodeBase64url(webAuthnResponse.response.userHandle);
+        if (webAuthnResponse.response.userHandle) {
+          webAuthnResponse.response.userHandle = decodeBase64url(webAuthnResponse.response.userHandle);
+        }
         webAuthnResponseInput.value = JSON.stringify(webAuthnResponse);
 
         form.appendChild(submissionInput);
@@ -51,6 +53,9 @@
 
       // decodeBase64url performs a URL-type base64 decode
       function decodeBase64url(str) {
+        if (!str) {
+          return str;
+        }
         return atob(str.replace(/-/g, '+').replace(/_/g, '/').padEnd(str.length + (4 - str.length % 4) % 4, '='));
       }
 
