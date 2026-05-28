@@ -355,8 +355,10 @@ class MetadataTest extends TestCase
             var_export($badSps, True));
 
         if ($skippedSps) {
-            fwrite(STDERR, "Skipped saml20.sign.response check for SPs with the '" . self::SkipTestsKey .
-                "' flag: " . var_export($skippedSps, True) . "\n");
+            $this->markTestIncomplete(
+                "Did not check saml20.sign.response for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True)
+            );
         }
     }
 
@@ -386,8 +388,10 @@ class MetadataTest extends TestCase
             var_export($badSps, True));
 
         if ($skippedSps) {
-            fwrite(STDERR, "Skipped saml20.sign.assertion check for SPs with the '" . self::SkipTestsKey .
-                "' flag: " . var_export($skippedSps, True) . "\n");
+            $this->markTestIncomplete(
+                "Did not check saml20.sign.assertion for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True)
+            );
         }
     }
 
@@ -416,8 +420,10 @@ class MetadataTest extends TestCase
             var_export($badSps, True));
 
         if ($skippedSps) {
-            fwrite(STDERR, "Skipped assertion.encryption check for SPs with the '" . self::SkipTestsKey .
-                "' flag: " . var_export($skippedSps, True) . "\n");
+            $this->markTestIncomplete(
+                "Did not check assertion.encryption for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True)
+            );
         }
     }
 
