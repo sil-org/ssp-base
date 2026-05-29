@@ -311,10 +311,12 @@ class MetadataTest extends TestCase
         $spEntries = $metadata->getList('saml20-sp-remote');
 
         $badSps = [];
+        $skippedSps = [];
 
         foreach ($spEntries as $spEntityId => $spEntry) {
 
             if (!empty($spEntry[self::SkipTestsKey])) {
+                $skippedSps[] = $spEntityId;
                 continue;
             }
 
@@ -327,6 +329,12 @@ class MetadataTest extends TestCase
             'At least one SP has no certData entry ... ' .
             var_export($badSps, True));
 
+        if ($skippedSps) {
+            $this->markTestIncomplete(
+                "Did not check certData for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True)
+            );
+        }
     }
 
     public function testMetadataSignResponse()
