@@ -98,6 +98,12 @@ msgstr "도움이 필요해."
 msgid "{login:profile}"
 msgstr "내 프로필 관리"
 
+msgid "{login:show_password}"
+msgstr "비밀번호 표시"
+
+msgid "{login:hide_password}"
+msgstr "비밀번호 숨기기"
+
 msgid "{mfa:title}"
 msgstr "%idpName% 2 단계 인증"
 

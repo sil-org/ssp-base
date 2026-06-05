@@ -98,6 +98,12 @@ msgstr "necesito ayuda"
 msgid "{login:profile}"
 msgstr "Administrar mi perfil"
 
+msgid "{login:show_password}"
+msgstr "Mostrar contraseña"
+
+msgid "{login:hide_password}"
+msgstr "Ocultar contraseña"
+
 msgid "{mfa:title}"
 msgstr "%idpName% Verificación en 2 pasos"
 
