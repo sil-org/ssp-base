@@ -93,46 +93,50 @@
         </div>
 
         <div class="mdl-card__supporting-text" layout-children="column">
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <label for="username" class="mdl-textfield__label">
-              {{ '{login:label_username}'|trans }}
-            </label>
+          <div class="login-inputs-wrapper">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 100%;">
+              <label for="username" class="mdl-textfield__label">
+                {{ '{login:label_username}'|trans }}
+              </label>
 
-            <input
-              type="text"
-              required
-              name="username"
-              class="mdl-textfield__input mdl-color-text--black {% if username is not empty %} is-dirty {% endif %}"
-              value="{{ username|e }}"
-              {% if username is empty %} autofocus {% endif %}
-              id="username"
-            >
-          </div>
+              <input
+                type="text"
+                required
+                name="username"
+                class="mdl-textfield__input mdl-color-text--black {% if username is not empty %} is-dirty {% endif %}"
+                value="{{ username|e }}"
+                {% if username is empty %} autofocus {% endif %}
+                id="username"
+              >
+            </div>
 
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label password-field-container">
-            <label for="password" class="mdl-textfield__label">
-              {{ '{login:label_password}'|trans }}
-            </label>
+            <div class="password-field-container">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 100%;">
+                <label for="password" class="mdl-textfield__label">
+                  {{ '{login:label_password}'|trans }}
+                </label>
 
-            <input
-              type="password"
-              required
-              name="password"
-              class="mdl-textfield__input mdl-color-text--black"
-              {% if username is not empty %} autofocus {% endif %}
-              id="password"
-            >
+                <input
+                  type="password"
+                  required
+                  name="password"
+                  class="mdl-textfield__input mdl-color-text--black"
+                  {% if username is not empty %} autofocus {% endif %}
+                  id="password"
+                >
+              </div>
 
-            <button
-              type="button"
-              class="mdl-button mdl-js-button mdl-button--icon password-visibility-toggle"
-              onclick="togglePasswordVisibility()"
-              aria-label="{{ '{login:show_password}'|trans|e }}"
-              aria-pressed="false"
-              id="password-visibility-toggle"
-            >
-              <i class="material-icons" aria-hidden="true">visibility</i>
-            </button>
+              <button
+                type="button"
+                class="mdl-button mdl-js-button mdl-button--icon password-visibility-toggle"
+                onclick="togglePasswordVisibility()"
+                aria-label="{{ '{login:show_password}'|trans|e }}"
+                aria-pressed="false"
+                id="password-visibility-toggle"
+              >
+                <i class="material-icons" aria-hidden="true">visibility</i>
+              </button>
+            </div>
           </div>
         </div>
 
