@@ -269,35 +269,6 @@ a.mdl-button.mdl-typography--body-2, a.mdl-button.mdl-typography--body-2 > i.mat
   max-width: 24px;
 }
 
-
-/* Password field show/hide toggle */
-.login-inputs-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: 100%;
-  max-width: 300px;
-}
-
-.password-field-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  width: 100%;
-}
-
-.password-field-container .mdl-textfield {
-  flex-grow: 1;
-  width: 0;
-}
-
-.password-visibility-toggle {
-  margin-bottom: 20px;
-  margin-left: 8px;
-  color: rgba(0, 0, 0, 0.54);
-  flex-shrink: 0;
-}
-
 /* Material icons */
 @font-face {
   font-family: 'Material Icons';

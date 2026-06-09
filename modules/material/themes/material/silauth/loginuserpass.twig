@@ -10,18 +10,6 @@
       event.preventDefault();
     }
 
-    function togglePasswordVisibility() {
-      const input = document.getElementById('password');
-      const btn = document.getElementById('password-visibility-toggle');
-      const icon = btn.querySelector('.material-icons');
-      const isHidden = input.type === 'password';
-
-      input.type = isHidden ? 'text' : 'password';
-      icon.textContent = isHidden ? 'visibility_off' : 'visibility';
-      btn.setAttribute('aria-label', isHidden ? '{{ '{login:hide_password}'|trans|e('js') }}' : '{{ '{login:show_password}'|trans|e('js') }}');
-      btn.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
-    }
-
     function forgotPassword() {
       let url = '{{ password_forgot_url|e('js') }}';
       const username = document.getElementById('username').value;
