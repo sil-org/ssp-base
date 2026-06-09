@@ -271,29 +271,31 @@ a.mdl-button.mdl-typography--body-2, a.mdl-button.mdl-typography--body-2 > i.mat
 
 
 /* Password field show/hide toggle */
+.login-inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 300px;
+}
+
 .password-field-container {
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   width: 100%;
 }
 
-.password-field-container .mdl-textfield__input {
-  padding-right: 40px;
+.password-field-container .mdl-textfield {
+  flex-grow: 1;
+  width: 0;
 }
 
 .password-visibility-toggle {
-  position: absolute;
-  right: 0;
-  bottom: 16px;
+  margin-bottom: 20px;
+  margin-left: 8px;
   color: rgba(0, 0, 0, 0.54);
-  width: 32px !important;
-  height: 32px !important;
-  min-width: 32px !important;
-  padding: 0 !important;
-}
-
-.password-visibility-toggle .material-icons {
-  font-size: 20px;
-  line-height: 32px;
+  flex-shrink: 0;
 }
 
 /* Material icons */
