@@ -37,27 +37,27 @@
   },
   {
     "name": "guzzlehttp/command",
-    "version": "1.3.2"
+    "version": "1.5.0"
   },
   {
     "name": "guzzlehttp/guzzle",
-    "version": "7.10.0"
+    "version": "7.11.1"
   },
   {
     "name": "guzzlehttp/guzzle-services",
-    "version": "1.4.2"
+    "version": "1.6.1"
   },
   {
     "name": "guzzlehttp/promises",
-    "version": "2.3.0"
+    "version": "2.5.0"
   },
   {
     "name": "guzzlehttp/psr7",
-    "version": "2.9.0"
+    "version": "2.11.0"
   },
   {
     "name": "guzzlehttp/uri-template",
-    "version": "v1.0.5"
+    "version": "v1.0.6"
   },
   {
     "name": "mlocati/ip-lib",
@@ -193,11 +193,11 @@
   },
   {
     "name": "symfony/cache",
-    "version": "v7.4.8"
+    "version": "v7.4.13"
   },
   {
     "name": "symfony/cache-contracts",
-    "version": "v3.6.0"
+    "version": "v3.7.0"
   },
   {
     "name": "symfony/config",
@@ -213,7 +213,7 @@
   },
   {
     "name": "symfony/deprecation-contracts",
-    "version": "v3.6.0"
+    "version": "v3.7.0"
   },
   {
     "name": "symfony/error-handler",
@@ -221,11 +221,11 @@
   },
   {
     "name": "symfony/event-dispatcher",
-    "version": "v7.4.8"
+    "version": "v7.4.9"
   },
   {
     "name": "symfony/event-dispatcher-contracts",
-    "version": "v3.6.0"
+    "version": "v3.7.0"
   },
   {
     "name": "symfony/expression-language",
@@ -253,11 +253,11 @@
   },
   {
     "name": "symfony/http-foundation",
-    "version": "v7.4.8"
+    "version": "v7.4.13"
   },
   {
     "name": "symfony/http-kernel",
-    "version": "v7.4.8"
+    "version": "v7.4.13"
   },
   {
     "name": "symfony/intl",
@@ -269,7 +269,7 @@
   },
   {
     "name": "symfony/polyfill-ctype",
-    "version": "v1.35.0"
+    "version": "v1.37.0"
   },
   {
     "name": "symfony/polyfill-intl-grapheme",
@@ -281,15 +281,15 @@
   },
   {
     "name": "symfony/polyfill-intl-normalizer",
-    "version": "v1.35.0"
+    "version": "v1.38.0"
   },
   {
     "name": "symfony/polyfill-mbstring",
-    "version": "v1.35.0"
+    "version": "v1.38.2"
   },
   {
     "name": "symfony/polyfill-php80",
-    "version": "v1.35.0"
+    "version": "v1.37.0"
   },
   {
     "name": "symfony/polyfill-php83",
@@ -297,15 +297,15 @@
   },
   {
     "name": "symfony/polyfill-php85",
-    "version": "v1.35.0"
+    "version": "v1.38.1"
   },
   {
     "name": "symfony/routing",
-    "version": "v7.4.8"
+    "version": "v7.4.13"
   },
   {
     "name": "symfony/service-contracts",
-    "version": "v3.6.1"
+    "version": "v3.7.0"
   },
   {
     "name": "symfony/string",
@@ -325,19 +325,19 @@
   },
   {
     "name": "symfony/var-exporter",
-    "version": "v7.4.8"
+    "version": "v7.4.9"
   },
   {
     "name": "symfony/yaml",
-    "version": "v7.4.8"
+    "version": "v7.4.13"
   },
   {
     "name": "twig/intl-extra",
-    "version": "v3.24.0"
+    "version": "v3.26.0"
   },
   {
     "name": "twig/twig",
-    "version": "v3.24.0"
+    "version": "v3.26.0"
   },
   {
     "name": "webmozart/assert",
@@ -349,7 +349,7 @@
   },
   {
     "name": "yiisoft/yii2",
-    "version": "2.0.54"
+    "version": "2.0.55"
   },
   {
     "name": "yiisoft/yii2-composer",
