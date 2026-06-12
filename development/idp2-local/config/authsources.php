@@ -38,7 +38,7 @@ $config = [
             'method' => [
                 'add' => 'no',
             ],
-            'profile_review' => 'no'
+            'profile_review' => ['no'],
         ],
     ]
 ];

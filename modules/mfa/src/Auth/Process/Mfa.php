@@ -591,7 +591,7 @@ class Mfa extends ProcessingFilter
          * If the user had to use a manager code, show the profile review page.
          */
         if ($mfaType === 'manager' && isset($state['Attributes']['profile_review'])) {
-            $state['Attributes']['profile_review'] = 'yes';
+            $state['Attributes']['profile_review'] = ['yes'];
         }
 
         unset($state['Attributes']['manager_email']);

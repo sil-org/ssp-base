@@ -31,7 +31,7 @@ $config = [
                 'schacExpiryDate' => [
                     gmdate('YmdHis\Z', strtotime('+6 months')),
                 ],
-                'profile_review' => 'no',
+                'profile_review' => ['no'],
                 'mfa' => [
                     'prompt' => 'yes',
                     'add' => 'no',
@@ -63,7 +63,7 @@ $config = [
                 'schacExpiryDate' => [
                     gmdate('YmdHis\Z', strtotime('+6 months')),
                 ],
-                'profile_review' => 'no',
+                'profile_review' => ['no'],
                 'mfa' => [
                     'prompt' => 'yes',
                     'add' => 'no',
@@ -100,7 +100,7 @@ $config = [
                 'schacExpiryDate' => [
                     gmdate('YmdHis\Z', strtotime('+6 months')),
                 ],
-                'profile_review' => 'no',
+                'profile_review' => ['no'],
                 'mfa' => [
                     'prompt' => 'yes',
                     'add' => 'no',
@@ -137,7 +137,7 @@ $config = [
                 'schacExpiryDate' => [
                     gmdate('YmdHis\Z', strtotime('+6 months')),
                 ],
-                'profile_review' => 'no',
+                'profile_review' => ['no'],
                 'mfa' => [
                     'prompt' => 'yes',
                     'add' => 'no',
@@ -174,7 +174,7 @@ $config = [
                 'schacExpiryDate' => [
                     gmdate('YmdHis\Z', strtotime('+6 months')),
                 ],
-                'profile_review' => 'no',
+                'profile_review' => ['no'],
                 'mfa' => [
                     'prompt' => 'yes',
                     'add' => 'no',
