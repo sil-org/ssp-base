@@ -40,4 +40,4 @@ Logs information (common name, eduPrincipalPersonalName, employee number, IdP, S
 The following config is not needed on AWS, but it is needed locally
 'DynamoEndpoint' ex. http://dynamo:8000
 
-Ensure the DYNAMO_ACCESS_KEY_ID and DYNAMO_SECRET_ACCESS_KEY environment variables are set as shown in the local.env.dist file.
+Ensure the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables are set as shown in the local.env.dist file.
