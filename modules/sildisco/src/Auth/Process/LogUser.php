@@ -5,6 +5,7 @@ namespace SimpleSAML\Module\sildisco\Auth\Process;
 use Aws\DynamoDb\Marshaler;
 use Aws\Sdk;
 use Exception;
+use Sil\PhpEnv\Env;
 use SimpleSAML\Auth\ProcessingFilter;
 use SimpleSAML\Error\MetadataNotFound;
 use SimpleSAML\Logger;
@@ -23,12 +24,6 @@ use SimpleSAML\Metadata\MetaDataStorageHandler;
  */
 class LogUser extends ProcessingFilter
 {
-
-    const AWS_ACCESS_KEY_ID_ENV = "DYNAMO_ACCESS_KEY_ID";
-
-    const AWS_SECRET_ACCESS_KEY_ENV = "DYNAMO_SECRET_ACCESS_KEY";
-
-
     const IDP_KEY = "saml:sp:IdP"; // the key that points to the entity id in the state
 
     // the metadata key for the IDP's Namespace code (i.e. short name)
@@ -78,17 +73,6 @@ class LogUser extends ProcessingFilter
             return;
         }
 
-        $awsKey = getenv(self::AWS_ACCESS_KEY_ID_ENV);
-        if (!$awsKey) {
-            Logger::error(self::AWS_ACCESS_KEY_ID_ENV . " environment variable is required for LogUser.");
-            return;
-        }
-        $awsSecret = getenv(self::AWS_SECRET_ACCESS_KEY_ENV);
-        if (!$awsSecret) {
-            Logger::error(self::AWS_SECRET_ACCESS_KEY_ENV . " environment variable is required for LogUser.");
-            return;
-        }
-
         assert(is_array($state));
 
         // Get the SP's entity id
@@ -99,12 +83,16 @@ class LogUser extends ProcessingFilter
 
         $sdkConfig = [
             'region' => $this->dynamoRegion,
-            'version' => 'latest',
-            'credentials' => [
+        ];
+
+        $awsKey = Env::getString('AWS_ACCESS_KEY_ID', Env::getString('DYNAMO_ACCESS_KEY_ID'));
+        $awsSecret = Env::getString('AWS_SECRET_ACCESS_KEY', Env::getString('DYNAMO_SECRET_ACCESS_KEY'));
+        if (!empty($awsSecret) && !empty($awsKey)) {
+            $sdkConfig['credentials'] = [
                 'key' => $awsKey,
                 'secret' => $awsSecret,
-            ],
-        ];
+            ];
+        }
 
         if (!empty($this->dynamoEndpoint)) {
             $sdkConfig['endpoint'] = $this->dynamoEndpoint;
