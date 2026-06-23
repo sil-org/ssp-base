@@ -379,7 +379,7 @@ $config = [
     ],
      */
     'headers.security' => [
-        'X-Frame-Options' => 'DENY',
+        'X-Frame-Options' => 'SAMEORIGIN',
         'X-Content-Type-Options' => 'nosniff',
     ],
 
