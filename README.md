@@ -616,11 +616,11 @@ SilAuth will rate limit failed logins by username and by every untrusted IP
 address from a login attempt.
 
 ##### tl;dr ("the short version")
-If there have been more than 10 failed logins for a given username (or IP
+If there have been more than 5 failed logins for a given username (or IP
 address) within the past hour, a captcha will be included in the webpage. The
 user may or may not have to directly interact with the captcha, though.
 
-If there have been more than 50 failed logins for that username (or IP address)
+If there have been more than 20 failed logins for that username (or IP address)
 within the past hour, logins for that username (or IP address) will be blocked
 for up to an hour.
 
@@ -646,10 +646,10 @@ also actual tests that are run to ensure those descriptions are correct.
 
 ##### Example 1
 
-- If `BLOCK_AFTER_NTH_FAILED_LOGIN` is 50, and
-- if `REQUIRE_CAPTCHA_AFTER_NTH_FAILED_LOGIN` is 10, and
+- If `BLOCK_AFTER_NTH_FAILED_LOGIN` is 20, and
+- if `REQUIRE_CAPTCHA_AFTER_NTH_FAILED_LOGIN` is 5, and
 - if there have been 4 failed login attempts for `john_smith`, and
-- there have been 10 failed login attempts from `11.22.33.44`, and
+- there have been 5 failed login attempts from `11.22.33.44`, and
 - there have been 3 failed login attempts from `192.168.1.2`, and
 - someone tries to login as `john_smith` from `192.168.1.2` and their request
   goes through a proxy at `11.22.33.44`, then
@@ -658,7 +658,7 @@ also actual tests that are run to ensure those descriptions are correct.
 ##### Example 2
 
 - However, if all of the above is true, but
-- there have now been 55 failed login attempts from `11.22.33.44`, then
+- there have now been 25 failed login attempts from `11.22.33.44`, then
 - any request involving that IP address will be blocked for 25 seconds after
   the most recent of those failed logins.
 
