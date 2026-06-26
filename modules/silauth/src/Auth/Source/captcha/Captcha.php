@@ -22,6 +22,10 @@ class Captcha
         }
 
         $captchaResponse = $request->getCaptchaResponse();
+        if (empty($captchaResponse)) {
+            return CaptchaResult::failure('captcha_response_empty');
+        }
+
         $ipAddress = $request->getMostLikelyIpAddress();
 
         $recaptcha = new ReCaptcha($this->secret);
