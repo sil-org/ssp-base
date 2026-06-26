@@ -78,12 +78,13 @@ class Authenticator
                 'username' => $username,
                 'ipAddresses' => join(',', $ipAddresses),
             ]));
-            if (!$captcha->isValidIn($request)) {
-                $logger->warning(json_encode([
-                    'event' => 'Invalid/missing captcha',
-                    'username' => $username,
-                    'ipAddresses' => join(',', $ipAddresses),
-                ]));
+            $result = $captcha->validate($request);
+            if (!$result->ok) {
+                $this->logger->warning('Invalid/missing captcha', [
+                    'event' => 'invalid_captcha',
+                    'reason' => $result->reason,
+                    ...$result->context,
+                ]);
                 $this->setErrorInvalidLogin();
                 return;
             }

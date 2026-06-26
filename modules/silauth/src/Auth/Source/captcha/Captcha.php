@@ -15,7 +15,7 @@ class Captcha
         $this->secret = $secret;
     }
 
-    public function isValidIn(Request $request): bool
+    public function validate(Request $request): CaptchaResult
     {
         if (empty($this->secret)) {
             throw new RuntimeException('No captcha secret available.', 1487342411);
@@ -27,6 +27,16 @@ class Captcha
         $recaptcha = new ReCaptcha($this->secret);
         $rcResponse = $recaptcha->verify($captchaResponse, $ipAddress);
 
-        return $rcResponse->isSuccess();
+        if ($rcResponse->isSuccess()) {
+            return CaptchaResult::success();
+        }
+
+        return CaptchaResult::failure(
+            'captcha_verification_failed',
+            [
+                'ip' => $ipAddress,
+                'errorCodes' => $rcResponse->getErrorCodes(),
+            ]
+        );
     }
 }
