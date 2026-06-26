@@ -42,19 +42,19 @@
           <p class="mdl-card__subtitle-text">
             {{ '{mfa:recovery_info_selection}'|trans }}<br />
 
-            {% for name in recovery_contacts_by_name|keys %}
-              <label class="recovery-option">
-                <input type="radio" name="mfaRecoveryContactID" value="{{ name }}">
-                {{ name }}
-              </label>
-            {% endfor %}
-
             {% if masked_manager_email is not empty %}
               <label class="recovery-option">
                 <input type="radio" name="mfaRecoveryContactID" id="option-manager" value="recovery-contact-id-manager">
                 {{ '{mfa:recovery_your_supervisor}'|trans }} ({{ masked_manager_email }})
               </label>
             {% endif %}
+
+            {% for name in recovery_contacts_by_name|keys %}
+              <label class="recovery-option">
+                <input type="radio" name="mfaRecoveryContactID" value="{{ name }}">
+                {{ name }}
+              </label>
+            {% endfor %}
           </p>
         </div>
 
