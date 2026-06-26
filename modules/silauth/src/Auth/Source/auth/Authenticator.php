@@ -17,8 +17,8 @@ use SimpleSAML\Module\silauth\Auth\Source\time\WaitTime;
  */
 class Authenticator
 {
-    const REQUIRE_CAPTCHA_AFTER_NTH_FAILED_LOGIN = 10;
-    const BLOCK_AFTER_NTH_FAILED_LOGIN = 50;
+    const REQUIRE_CAPTCHA_AFTER_NTH_FAILED_LOGIN = 5;
+    const BLOCK_AFTER_NTH_FAILED_LOGIN = 20;
     const MAX_SECONDS_TO_BLOCK = 3600; // 3600 seconds = 1 hour
 
     private ?AuthError $authError = null;
