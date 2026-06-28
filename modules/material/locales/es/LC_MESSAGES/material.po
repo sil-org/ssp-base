@@ -180,7 +180,7 @@ msgid "{mfa:recovery_info_introduction}"
 msgstr "Puede enviar un código de verificación de dos pasos a un contacto de recuperación (generalmente su supervisor u otro contacto de TI responsable)."
 
 msgid "{mfa:recovery_info_selection}"
-msgstr "Por favor seleccione una de las siguientes opciones:"
+msgstr "Por favor seleccione con quién está trabajando:"
 
 msgid "{mfa:recovery_your_supervisor}"
 msgstr "su supervisor"
