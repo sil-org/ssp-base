@@ -53,7 +53,7 @@
       }
 
       function onRecaptchaLoad() {
-        var loginButton = document.querySelector('button');
+        var loginButton = document.querySelector('#submit-button');
 
         grecaptcha.render(loginButton, {
           sitekey: '{{ site_key|e('js')|raw }}',
@@ -176,7 +176,7 @@
 
           <span flex></span>
 
-          <button class="mdl-button mdl-button--colored mdl-button--raised">
+          <button class="mdl-button mdl-button--colored mdl-button--raised" id="submit-button">
             {{ '{login:button_login}'|trans }}
           </button>
         </div>
