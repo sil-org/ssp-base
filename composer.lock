@@ -988,16 +988,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.12.1",
+            "version": "2.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "172ef2f4e9824c1e058b7f30be8ae25a02c0f2b7"
+                "reference": "7ec62dc3f44aa218487dbed81a9bf9bc647be55d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/172ef2f4e9824c1e058b7f30be8ae25a02c0f2b7",
-                "reference": "172ef2f4e9824c1e058b7f30be8ae25a02c0f2b7",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/7ec62dc3f44aa218487dbed81a9bf9bc647be55d",
+                "reference": "7ec62dc3f44aa218487dbed81a9bf9bc647be55d",
                 "shasum": ""
             },
             "require": {
@@ -1006,7 +1006,7 @@
                 "psr/http-message": "^1.1 || ^2.0",
                 "ralouphie/getallheaders": "^3.0",
                 "symfony/deprecation-contracts": "^2.5 || ^3.0",
-                "symfony/polyfill-php80": "^1.24"
+                "symfony/polyfill-php80": "^1.25"
             },
             "provide": {
                 "psr/http-factory-implementation": "1.0",
@@ -1087,7 +1087,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.12.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.12.3"
             },
             "funding": [
                 {
@@ -1103,7 +1103,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-18T09:49:37+00:00"
+            "time": "2026-06-23T15:21:08+00:00"
         },
         {
             "name": "guzzlehttp/uri-template",
@@ -3563,16 +3563,16 @@
         },
         {
             "name": "simplesamlphp/composer-xmlprovider-installer",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/composer-xmlprovider-installer.git",
-                "reference": "80a2d6a30c730a5fd90358f4875b94140114c643"
+                "reference": "7eed3afcd294fd754f012f177c266c5ca71c3c58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/composer-xmlprovider-installer/zipball/80a2d6a30c730a5fd90358f4875b94140114c643",
-                "reference": "80a2d6a30c730a5fd90358f4875b94140114c643",
+                "url": "https://api.github.com/repos/simplesamlphp/composer-xmlprovider-installer/zipball/7eed3afcd294fd754f012f177c266c5ca71c3c58",
+                "reference": "7eed3afcd294fd754f012f177c266c5ca71c3c58",
                 "shasum": ""
             },
             "require": {
@@ -3585,7 +3585,10 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "SimpleSAML\\Composer\\XMLProvider\\XMLProviderInstallerPlugin"
+                "class": "SimpleSAML\\Composer\\XMLProvider\\XMLProviderInstallerPlugin",
+                "branch-alias": {
+                    "dev-master": "1.4.0.x-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -3599,9 +3602,9 @@
             "description": "A composer plugin that will auto-generate a classmap with all classes that implement SerializableElementInterface.",
             "support": {
                 "issues": "https://github.com/simplesamlphp/composer-xmlprovider-installer/issues",
-                "source": "https://github.com/simplesamlphp/composer-xmlprovider-installer/tree/v1.3.0"
+                "source": "https://github.com/simplesamlphp/composer-xmlprovider-installer/tree/v1.3.1"
             },
-            "time": "2026-02-19T23:34:51+00:00"
+            "time": "2026-06-10T19:16:24+00:00"
         },
         {
             "name": "simplesamlphp/saml2",
@@ -3681,16 +3684,16 @@
         },
         {
             "name": "simplesamlphp/saml2-legacy",
-            "version": "v4.20.1",
+            "version": "v4.20.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/saml2-legacy.git",
-                "reference": "ac325057307cc8765e190fae20f7721d5f7b9f69"
+                "reference": "b43d5d10ea1180f478ddcd677ff13bb324cfa866"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/saml2-legacy/zipball/ac325057307cc8765e190fae20f7721d5f7b9f69",
-                "reference": "ac325057307cc8765e190fae20f7721d5f7b9f69",
+                "url": "https://api.github.com/repos/simplesamlphp/saml2-legacy/zipball/b43d5d10ea1180f478ddcd677ff13bb324cfa866",
+                "reference": "b43d5d10ea1180f478ddcd677ff13bb324cfa866",
                 "shasum": ""
             },
             "require": {
@@ -3713,7 +3716,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "v4.2.x-dev"
+                    "dev-master": "v4.20.x-dev"
                 }
             },
             "autoload": {
@@ -3733,9 +3736,9 @@
             ],
             "description": "SAML2 PHP library from SimpleSAMLphp",
             "support": {
-                "source": "https://github.com/simplesamlphp/saml2-legacy/tree/v4.20.1"
+                "source": "https://github.com/simplesamlphp/saml2-legacy/tree/v4.20.3"
             },
-            "time": "2026-03-13T12:39:43+00:00"
+            "time": "2026-05-25T16:06:14+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp",
@@ -3911,16 +3914,16 @@
         },
         {
             "name": "simplesamlphp/xml-common",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/xml-common.git",
-                "reference": "d3207b41e0e042ccbdfd0d0620f631e94c39d4ba"
+                "reference": "0308b8454ad25fe31d6ed4283b1df782e049eef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/xml-common/zipball/d3207b41e0e042ccbdfd0d0620f631e94c39d4ba",
-                "reference": "d3207b41e0e042ccbdfd0d0620f631e94c39d4ba",
+                "url": "https://api.github.com/repos/simplesamlphp/xml-common/zipball/0308b8454ad25fe31d6ed4283b1df782e049eef4",
+                "reference": "0308b8454ad25fe31d6ed4283b1df782e049eef4",
                 "shasum": ""
             },
             "require": {
@@ -3938,7 +3941,7 @@
                 "simplesamlphp/composer-xmlprovider-installer": "~1.3"
             },
             "require-dev": {
-                "simplesamlphp/simplesamlphp-test-framework": "~1.11"
+                "simplesamlphp/simplesamlphp-test-framework": "~1.11.5"
             },
             "type": "simplesamlphp-xmlprovider",
             "extra": {
@@ -3979,7 +3982,7 @@
                 "issues": "https://github.com/simplesamlphp/xml-common/issues",
                 "source": "https://github.com/simplesamlphp/xml-common"
             },
-            "time": "2026-04-13T20:34:07+00:00"
+            "time": "2026-04-24T08:51:06+00:00"
         },
         {
             "name": "simplesamlphp/xml-security",
@@ -7288,16 +7291,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.3.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "eb0d790f735ba6cff25c683a85a1da0eadeff9e4"
+                "reference": "2ccb7c2e821038c03a3e6e1700c570c158c55f70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/eb0d790f735ba6cff25c683a85a1da0eadeff9e4",
-                "reference": "eb0d790f735ba6cff25c683a85a1da0eadeff9e4",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/2ccb7c2e821038c03a3e6e1700c570c158c55f70",
+                "reference": "2ccb7c2e821038c03a3e6e1700c570c158c55f70",
                 "shasum": ""
             },
             "require": {
@@ -7313,7 +7316,11 @@
             },
             "type": "library",
             "extra": {
+                "psalm": {
+                    "pluginClass": "Webmozart\\Assert\\PsalmPlugin"
+                },
                 "branch-alias": {
+                    "dev-master": "2.0-dev",
                     "dev-feature/2-0": "2.0-dev"
                 }
             },
@@ -7344,9 +7351,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.3.0"
+                "source": "https://github.com/webmozarts/assert/tree/2.4.1"
             },
-            "time": "2026-04-11T10:33:05+00:00"
+            "time": "2026-06-15T15:31:57+00:00"
         },
         {
             "name": "yidas/yii2-composer-bower-skip",
