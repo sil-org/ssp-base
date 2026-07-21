@@ -135,7 +135,7 @@ msgid "{mfa:totp_input}"
 msgstr "6 자리 코드 입력"
 
 msgid "{mfa:webauthn_header}"
-msgstr "보안키"
+msgstr "패스키 또는 보안 키"
 
 msgid "{mfa:webauthn_icon}"
 msgstr "USB 키 아이콘"
