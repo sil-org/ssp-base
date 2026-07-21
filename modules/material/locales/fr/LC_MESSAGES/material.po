@@ -392,5 +392,17 @@ msgstr "%idpName% à venir"
 msgid "{selectidp-links:help}"
 msgstr "Aidez-moi"
 
+msgid "{welcome:title}"
+msgstr "Fournisseur d'identité %idpName%"
+
+msgid "{welcome:header}"
+msgstr "Fournisseur d'identité %idpName%"
+
+msgid "{welcome:info_p1}"
+msgstr "Ceci est une page d'atterrissage pour le fournisseur d'identité %idpName%. Pour lancer le processus de connexion, veuillez visiter l'URL du logiciel dans lequel vous souhaitez vous authentifier."
+
+msgid "{welcome:info_p2}"
+msgstr "Accéder directement à cette page, l'expiration du délai de connexion ou l'expiration de votre session peuvent vous amener sur cette page."
+
 # leave an extra empty line to separate the last non-empty line in this file from the first line in an override file
 

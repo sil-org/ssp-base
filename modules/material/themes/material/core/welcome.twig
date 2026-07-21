@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="{{ currentLanguage }}">
+<head>
+  <title>{{ '{welcome:title}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}</title>
+
+  {{ include('header.twig') }}
+</head>
+<body class="gradient-bg">
+<div class="mdl-layout mdl-layout--fixed-header">
+  <main class="mdl-layout__content" layout-children="column" child-spacing="center">
+    {{ include('announcement.twig') }}
+
+    <div class="mdl-card mdl-shadow--8dp fill-phone-viewport">
+      <div class="mdl-card__media white-bg margin" layout-children="column">
+        <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}" style="max-width:150px;">
+      </div>
+
+      <div class="mdl-card__title center">
+        <h1 class="mdl-card__title-text">
+          {{ '{welcome:header}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}
+        </h1>
+      </div>
+
+      <div class="mdl-card__supporting-text" layout-children="column">
+        <p class="mdl-typography--body-1 margin">
+          {{ '{welcome:info_p1}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}
+        </p>
+
+        <p class="mdl-typography--body-1 margin">
+          {{ '{welcome:info_p2}'|trans }}
+        </p>
+      </div>
+
+      {% if (help_center_url is defined and help_center_url is not empty) or (profile_url is defined and profile_url is not empty) %}
+        <div class="mdl-card__actions mdl-card--border" layout-children="row">
+          {% if help_center_url is defined and help_center_url is not empty %}
+            <a href="{{ help_center_url|e('html_attr') }}" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              {{ '{login:help}'|trans }}
+            </a>
+          {% endif %}
+
+          <span flex></span>
+
+          {% if profile_url is defined and profile_url is not empty %}
+            <a href="{{ profile_url|e('html_attr') }}" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              {{ '{login:profile}'|trans }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </main>
+
+  {{ include('footer.twig') }}
+</div>
+</body>
+</html>
