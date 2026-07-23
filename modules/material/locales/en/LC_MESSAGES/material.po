@@ -135,7 +135,7 @@ msgid "{mfa:totp_input}"
 msgstr "Enter 6-digit code"
 
 msgid "{mfa:webauthn_header}"
-msgstr "Passkey or Security Key"
+msgstr "Passkey or security key"
 
 msgid "{mfa:webauthn_icon}"
 msgstr "USB key icon"
