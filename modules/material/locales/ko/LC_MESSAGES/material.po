@@ -135,7 +135,7 @@ msgid "{mfa:totp_input}"
 msgstr "6 자리 코드 입력"
 
 msgid "{mfa:webauthn_header}"
-msgstr "보안키"
+msgstr "패스키 또는 보안 키"
 
 msgid "{mfa:webauthn_icon}"
 msgstr "USB 키 아이콘"
@@ -237,10 +237,10 @@ msgid "{mfa:use_others}"
 msgstr "추가 옵션"
 
 msgid "{mfa:use_u2f}"
-msgstr "내 보안키 사용"
+msgstr "대신 내 패스키 또는 보안 키 사용"
 
 msgid "{mfa:use_webauthn}"
-msgstr "내 보안키 사용"
+msgstr "대신 내 패스키 또는 보안 키 사용"
 
 msgid "{mfa:use_totp}"
 msgstr "내 인증 앱 사용"
