@@ -237,10 +237,10 @@ msgid "{mfa:use_others}"
 msgstr "Mas opciones"
 
 msgid "{mfa:use_u2f}"
-msgstr "Use mi clave de seguridad en su lugar"
+msgstr "Use mi llave de acceso o llave de seguridad en su lugar"
 
 msgid "{mfa:use_webauthn}"
-msgstr "Use mi clave de seguridad en su lugar"
+msgstr "Use mi llave de acceso o llave de seguridad en su lugar"
 
 msgid "{mfa:use_totp}"
 msgstr "Use la aplicación autenticación en su lugar"
