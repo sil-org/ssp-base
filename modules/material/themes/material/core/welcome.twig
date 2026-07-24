@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ currentLanguage }}">
 <head>
-  <title>{{ '{welcome:title}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}</title>
+  <title>{{ '{welcome:title}'|trans }}</title>
 
   {{ include('header.twig') }}
 </head>
@@ -12,18 +12,18 @@
 
     <div class="mdl-card mdl-shadow--8dp fill-phone-viewport">
       <div class="mdl-card__media white-bg margin" layout-children="column">
-        <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}" style="max-width:150px;">
+        <img src="/logo.png" alt="{{ '{welcome:title}'|trans }}" style="max-width:150px;">
       </div>
 
       <div class="mdl-card__title center">
         <h1 class="mdl-card__title-text">
-          {{ '{welcome:header}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}
+          {{ '{welcome:header}'|trans }}
         </h1>
       </div>
 
       <div class="mdl-card__supporting-text" layout-children="column">
         <p class="mdl-typography--body-1 margin">
-          {{ '{welcome:info_p1}'|trans({'%idpName%': idp_name})|replace({'  ': ' '})|trim }}
+          {{ '{welcome:info_p1}'|trans }}
         </p>
 
         <p class="mdl-typography--body-1 margin">

@@ -85,7 +85,6 @@ $PASSWORD_CHANGE_URL = Env::get('PASSWORD_CHANGE_URL');
 $PASSWORD_FORGOT_URL = Env::get('PASSWORD_FORGOT_URL');
 $HELP_CENTER_URL = Env::get('HELP_CENTER_URL');
 $PROFILE_URL = Env::get('PROFILE_URL');
-$IDP_NAME = Env::get('IDP_NAME');
 $TRUSTED_URL_DOMAINS = Env::getArray('TRUSTED_URL_DOMAINS', null);
 
 $config = [
@@ -104,7 +103,6 @@ $config = [
     'passwordForgotUrl' => $PASSWORD_FORGOT_URL,
     'helpCenterUrl' => $HELP_CENTER_URL,
     'profileUrl' => $PROFILE_URL,
-    'idp_name' => $IDP_NAME,
 
     /*******************************
      | BASIC CONFIGURATION OPTIONS |

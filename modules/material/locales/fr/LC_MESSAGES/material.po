@@ -393,13 +393,13 @@ msgid "{selectidp-links:help}"
 msgstr "Aidez-moi"
 
 msgid "{welcome:title}"
-msgstr "Fournisseur d'identité %idpName%"
+msgstr "Fournisseur d'identité"
 
 msgid "{welcome:header}"
-msgstr "Fournisseur d'identité %idpName%"
+msgstr "Fournisseur d'identité"
 
 msgid "{welcome:info_p1}"
-msgstr "Ceci est une page d'atterrissage pour le fournisseur d'identité %idpName%. Pour lancer le processus de connexion, veuillez visiter l'URL du logiciel dans lequel vous souhaitez vous authentifier."
+msgstr "Ceci est une page d'atterrissage pour le fournisseur d'identité. Pour lancer le processus de connexion, veuillez visiter l'URL du logiciel dans lequel vous souhaitez vous authentifier."
 
 msgid "{welcome:info_p2}"
 msgstr "Accéder directement à cette page, l'expiration du délai de connexion ou l'expiration de votre session peuvent vous amener sur cette page."

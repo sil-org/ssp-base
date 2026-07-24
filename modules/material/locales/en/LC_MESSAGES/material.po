@@ -393,13 +393,13 @@ msgid "{selectidp-links:help}"
 msgstr "Help"
 
 msgid "{welcome:title}"
-msgstr "%idpName% Identity Provider"
+msgstr "Identity Provider"
 
 msgid "{welcome:header}"
-msgstr "%idpName% Identity Provider"
+msgstr "Identity Provider"
 
 msgid "{welcome:info_p1}"
-msgstr "This is a landing page for the %idpName% Identity Provider. To initiate the login process, please visit the URL for the software you want to authenticate into."
+msgstr "This is a landing page for the Identity Provider. To initiate the login process, please visit the URL for the software you want to authenticate into."
 
 msgid "{welcome:info_p2}"
 msgstr "Accessing this page directly, having a login process timeout, or your session expiring can all bring you to this page."

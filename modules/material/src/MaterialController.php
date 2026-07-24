@@ -33,9 +33,6 @@ class MaterialController implements TemplateControllerInterface
         $data['theme_color_scheme'] = $globalConfig->getOptionalString('theme.color-scheme', null);
         $data['analytics_tracking_id'] = $globalConfig->getOptionalString('analytics.trackingId', '');
 
-        if (empty($data['idp_name'])) {
-            $data['idp_name']  = $globalConfig->getOptionalString('idp_name', '');
-        }
         if (empty($data['help_center_url'])) {
             $data['help_center_url'] = $globalConfig->getOptionalString('helpCenterUrl', '');
         }

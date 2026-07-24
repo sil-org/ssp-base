@@ -393,13 +393,13 @@ msgid "{selectidp-links:help}"
 msgstr "도움"
 
 msgid "{welcome:title}"
-msgstr "%idpName% 인증 공급자"
+msgstr "인증 공급자"
 
 msgid "{welcome:header}"
-msgstr "%idpName% 인증 공급자"
+msgstr "인증 공급자"
 
 msgid "{welcome:info_p1}"
-msgstr "이 페이지는 %idpName% 인증 공급자 랜딩 페이지입니다. 로그인 프로세스를 시작하려면 인증하려는 소프트웨어의 URL을 방문하십시오."
+msgstr "이 페이지는 인증 공급자 랜딩 페이지입니다. 로그인 프로세스를 시작하려면 인증하려는 소프트웨어의 URL을 방문하십시오."
 
 msgid "{welcome:info_p2}"
 msgstr "이 페이지에 직접 액세스하거나 로그인 프로세스 시간이 초과되거나 세션이 만료되면 이 페이지로 이동할 수 있습니다."
