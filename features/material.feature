@@ -22,3 +22,9 @@ Feature: Material theme
     And I provide a username and an incorrect password
     And I log in
     Then I should see "There was a problem with that username or password"
+
+  Scenario: Home page
+    When I go to "http://ssp-hub.local/"
+    Then I should see our material theme
+    And I should see "landing page for the"
+
