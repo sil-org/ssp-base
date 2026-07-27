@@ -13,6 +13,7 @@ Feature: Prompt to review profile information
     Given I provide credentials that are due for a <category> <nag type> reminder
     When I log in
     Then I should see the message: <message>
+    And I should see the message: "Requires reauthentication to profile management application."
     And there should be a way to go update my profile now
     And there should be a way to continue to my intended destination
 
