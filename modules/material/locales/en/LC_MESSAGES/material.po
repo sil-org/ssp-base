@@ -237,7 +237,7 @@ msgid "{mfa:use_others}"
 msgstr "More options"
 
 msgid "{mfa:use_u2f}"
-msgstr "Use my passkey or security key instead"
+msgstr "Use my security key instead"
 
 msgid "{mfa:use_webauthn}"
 msgstr "Use my passkey or security key instead"
