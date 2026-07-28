@@ -184,7 +184,7 @@ class MfaContext extends FeatureContext
     public function iShouldSeeAPromptForAWebAuthn()
     {
         $page = $this->getSession()->getPage();
-        Assert::assertStringContainsString('Security key', $page->getHtml());
+        Assert::assertStringContainsString('security key', $page->getHtml());
     }
 
     protected function submitMfaValue($mfaValue)
