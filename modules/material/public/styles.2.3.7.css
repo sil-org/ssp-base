@@ -255,6 +255,10 @@ a.mdl-button.mdl-typography--body-2, a.mdl-button.mdl-typography--body-2 > i.mat
   justify-content: center;
 }
 
+.mdl-card__title--stacked {
+    flex-direction: column;
+}
+
 [flex] {
   flex: 1;
 }
