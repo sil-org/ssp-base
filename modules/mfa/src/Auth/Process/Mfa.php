@@ -787,7 +787,7 @@ class Mfa extends ProcessingFilter
         if (!empty($cookieHash) && !empty($expireDate) && is_numeric($expireDate)) {
             // Check if value of expireDate is in future
             if ((int)$expireDate > time()) {
-                $expectedString = self::generateRememberMeCookieString($rememberSecret, $state['employeeId'], $expireDate, $mfaOptions);
+                $expectedString = self::generateRememberMeCookieString($state['employeeId'], $expireDate, $mfaOptions);
                 $expectedHash = hash_hmac('sha256', $expectedString, $rememberSecret);
                 $isValid = hash_equals($expectedHash, $cookieHash);
 
@@ -805,14 +805,12 @@ class Mfa extends ProcessingFilter
 
     /**
      * Generate and return a string to be hashed for remember me cookie
-     * @param string $rememberSecret
      * @param string $employeeId
      * @param int $expireDate
      * @param array $mfaOptions
      * @return string
      */
     public static function generateRememberMeCookieString(
-        string $rememberSecret,
         string $employeeId,
         int    $expireDate,
         array  $mfaOptions
@@ -824,7 +822,7 @@ class Mfa extends ProcessingFilter
             }
         }
 
-        return $rememberSecret . $employeeId . $expireDate . $allMfaIds;
+        return $employeeId . $expireDate . $allMfaIds;
     }
 
     /**
@@ -888,7 +886,7 @@ class Mfa extends ProcessingFilter
         $rememberSecret = Env::requireEnv('REMEMBER_ME_SECRET');
         $secureCookie = Env::get('SECURE_COOKIE', true);
         $expireDate = strtotime($rememberDuration);
-        $cookieString = self::generateRememberMeCookieString($rememberSecret, $employeeId, $expireDate, $mfaOptions);
+        $cookieString = self::generateRememberMeCookieString($employeeId, $expireDate, $mfaOptions);
         $cookieHash = hash_hmac('sha256', $cookieString, $rememberSecret);
         setcookie('c1', base64_encode($cookieHash), $expireDate, '/', null, $secureCookie, true);
         setcookie('c2', $expireDate, $expireDate, '/', null, $secureCookie, true);

@@ -137,7 +137,6 @@ class MfaTest extends TestCase
         putenv('REMEMBER_ME_SECRET=test-secret-for-unit-test');
         try {
             $expectedString = Mfa::generateRememberMeCookieString(
-                'test-secret-for-unit-test',
                 $employeeId,
                 $expireDate,
                 $mfaOptions
