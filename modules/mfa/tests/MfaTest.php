@@ -141,7 +141,7 @@ class MfaTest extends TestCase
                 $expireDate,
                 $mfaOptions
             );
-            $cookieHash = hash_hmac('sha256', $expectedString, 'test-secret-for-unit-test');
+            $cookieHash = hash_hmac('sha256', $expectedString, (string)getenv('REMEMBER_ME_SECRET'));
 
             $isValid = Mfa::isRememberMeCookieValid(
                 $cookieHash,
