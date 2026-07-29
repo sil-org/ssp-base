@@ -822,7 +822,7 @@ class Mfa extends ProcessingFilter
             }
         }
 
-        return $employeeId . $expireDate . $allMfaIds;
+        return $employeeId . '|' . $expireDate . '|' . $allMfaIds;
     }
 
     /**
