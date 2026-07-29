@@ -788,7 +788,8 @@ class Mfa extends ProcessingFilter
             // Check if value of expireDate is in future
             if ((int)$expireDate > time()) {
                 $expectedString = self::generateRememberMeCookieString($rememberSecret, $state['employeeId'], $expireDate, $mfaOptions);
-                $isValid = password_verify($expectedString, $cookieHash);
+                $expectedHash = hash_hmac('sha256', $expectedString, $rememberSecret);
+                $isValid = hash_equals($expectedHash, $cookieHash);
 
                 if ($isValid) {
                     $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
@@ -888,7 +889,7 @@ class Mfa extends ProcessingFilter
         $secureCookie = Env::get('SECURE_COOKIE', true);
         $expireDate = strtotime($rememberDuration);
         $cookieString = self::generateRememberMeCookieString($rememberSecret, $employeeId, $expireDate, $mfaOptions);
-        $cookieHash = password_hash($cookieString, PASSWORD_DEFAULT);
+        $cookieHash = hash_hmac('sha256', $cookieString, $rememberSecret);
         setcookie('c1', base64_encode($cookieHash), $expireDate, '/', null, $secureCookie, true);
         setcookie('c2', $expireDate, $expireDate, '/', null, $secureCookie, true);
     }
