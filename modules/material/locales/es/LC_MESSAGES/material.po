@@ -338,6 +338,9 @@ msgstr "Habilite ahora"
 msgid "{nag:button_add}"
 msgstr "Agrega uno ahora"
 
+msgid "{nag:reauth_notice}"
+msgstr "Requiere reautenticación en la aplicación de gestión de perfil."
+
 msgid "{review:title}"
 msgstr "Revisión del perfil"
 
