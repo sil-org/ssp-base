@@ -257,6 +257,8 @@ a.mdl-button.mdl-typography--body-2, a.mdl-button.mdl-typography--body-2 > i.mat
 
 .mdl-card__title--stacked {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
 }
 
 [flex] {
