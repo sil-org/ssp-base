@@ -4,24 +4,24 @@ on:
   push:
 
 jobs:
-  #  tests:
-  #    name: Tests
-  #    runs-on: ubuntu-latest
-  #    steps:
-  #      - name: Checkout code
-  #        uses: actions/checkout@v6
-  #      - name: Create env files
-  #        run: cp local.env.dist local.env && cp local.broker.env.dist local.broker.env
-  #      - name: test
-  #        run: docker compose run test ./run-tests.sh
-  #      - name: check hub metadata for tests
-  #        run: docker compose run ssp-hub.local ./run-metadata-tests.sh
-  #      - name: check idp metadata for tests
-  #        run: docker compose run ssp-idp1.local ./run-metadata-tests.sh
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Create env files
+        run: cp local.env.dist local.env && cp local.broker.env.dist local.broker.env
+      - name: test
+        run: docker compose run test ./run-tests.sh
+      - name: check hub metadata for tests
+        run: docker compose run ssp-hub.local ./run-metadata-tests.sh
+      - name: check idp metadata for tests
+        run: docker compose run ssp-idp1.local ./run-metadata-tests.sh
 
   build-and-publish:
     name: Build and Publish Docker image
-    #    needs: tests
+    needs: tests
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
