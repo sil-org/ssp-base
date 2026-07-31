@@ -12,7 +12,7 @@ $config = [
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
-        'discoURL' => 'http://ssp-hub.local/module.php/sildisco/disco.php',
+        'discoURL' => 'https://ssp-hub.local/module.php/sildisco/disco.php',
         'privatekey' => 'saml.pem',
     ],
 
@@ -25,4 +25,3 @@ $config = [
     ],
 
 ];
-

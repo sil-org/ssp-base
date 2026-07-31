@@ -118,7 +118,14 @@ class SilDiscoContext extends FeatureContext
 
         Assert::assertEquals(200, $this->getSession()->getStatusCode());
 
-        $xml = file_get_contents($this->getSession()->getCurrentUrl());
+        $sslContext = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
+        $xml = file_get_contents($this->getSession()->getCurrentUrl(), false, $sslContext);
+        Assert::assertNotFalse($xml, "Could not retrieve metadata XML");
         Assert::assertStringContainsString(
             'entityID="ssp-hub.local"',
             $xml,

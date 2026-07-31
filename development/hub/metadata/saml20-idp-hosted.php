@@ -22,7 +22,7 @@ $metadata['ssp-hub.local'] = [
     'SingleSignOnService' => [
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-            'Location' => 'http://ssp-hub.local/saml2/idp/SSOService.php',
+            'Location' => 'https://ssp-hub.local/saml2/idp/SSOService.php',
         ],
     ],
 

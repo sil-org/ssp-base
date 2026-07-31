@@ -1,0 +1,16 @@
+{
+	auto_https disable_redirects
+}
+
+http://ssp-hub.local {
+	redir https://ssp-hub.local{uri} 308
+}
+
+https://ssp-hub.local {
+	tls /certs/saml.crt /certs/saml.pem
+	reverse_proxy https://ssp-hub-app:443 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}

@@ -24,7 +24,6 @@ Feature: Material theme
     Then I should see "There was a problem with that username or password"
 
   Scenario: Home page
-    When I go to "http://ssp-hub.local/"
+    When I go to "https://ssp-hub.local/"
     Then I should see our material theme
     And I should see "landing page for the"
-

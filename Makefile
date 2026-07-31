@@ -16,7 +16,7 @@ depsupdate:
 
 test:
 	docker compose run --rm test
-	docker compose run --rm ssp-hub.local ./run-metadata-tests.sh
+	docker compose run --rm ssp-hub-app ./run-metadata-tests.sh
 	docker compose run --rm ssp-idp1.local ./run-metadata-tests.sh
 
 test-integration:
