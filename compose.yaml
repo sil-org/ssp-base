@@ -123,7 +123,7 @@ services:
     environment:
       COMPOSER_CACHE_DIR: /composer
 
-  ssp-hub.local:
+  ssp-hub-app:
     build:
       context: .
       args:
@@ -153,13 +153,11 @@ services:
       - ./modules/silauth:/data/vendor/simplesamlphp/simplesamlphp/modules/silauth
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
-    ports:
-      - "80:80"
-      - "443:443"
     environment:
       ADMIN_PASS: "abc123"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJ"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
+      BASE_URL_PATH: "https://ssp-hub.local/"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "true"
@@ -167,6 +165,24 @@ services:
       LOGGING_LEVEL: INFO
       ENABLE_DEBUG: "false"
     <<: *http_healthcheck
+
+  ssp-hub.local:
+    image: caddy:2
+    depends_on:
+      ssp-hub-app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./development/hub/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./development/hub/cert:/certs:ro
+    healthcheck:
+      test: ["CMD", "caddy", "version"]
+      start_period: 1s
+      interval: 1s
+      timeout: 3s
+      retries: 10
 
   ssp-idp1.local: # using a database session store type ("sql")
     build:

@@ -756,7 +756,7 @@ $config = [
      * Example:
      *  'session.cookie.samesite' => 'None',
      */
-    'session.cookie.samesite' => null,
+    'session.cookie.samesite' => $SECURE_COOKIE ? 'None' : 'Lax',
 
     /*
      * Options to override the default settings for php sessions.
