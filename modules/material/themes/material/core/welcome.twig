@@ -5,44 +5,43 @@
 
   {{ include('header.twig') }}
 </head>
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <main class="mdl-layout__content" layout-children="column" child-spacing="center">
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container d-flex flex-column flex-grow-1 min-vh-100 py-3">
+  <main class="w-100 d-flex flex-column justify-content-center align-items-center flex-grow-1 my-auto">
     {{ include('announcement.twig') }}
 
-    <div class="mdl-card mdl-shadow--8dp fill-phone-viewport">
-      <div class="mdl-card__media white-bg margin" layout-children="column">
-        <img src="/logo.png" alt="{{ '{welcome:title}'|trans }}" style="max-width:150px;">
+    <div class="card idp-card shadow-lg border-0 rounded-3">
+      <div class="card-header bg-white text-center border-0 pt-4 pb-4">
+        <img src="/logo.png" alt="{{ '{welcome:title}'|trans }}" class="img-fluid" style="max-width:150px;">
       </div>
 
-      <div class="mdl-card__title center">
-        <h1 class="mdl-card__title-text">
+      <div class="card-body text-center px-4 py-2">
+        <h1 class="h3 card-title text-body mb-4">
           {{ '{welcome:header}'|trans }}
         </h1>
-      </div>
 
-      <div class="mdl-card__supporting-text" layout-children="column">
-        <p class="mdl-typography--body-1 margin">
+        <p class="card-text text-secondary mb-3 lh-lg">
           {{ '{welcome:info_p1}'|trans }}
         </p>
 
-        <p class="mdl-typography--body-1 margin">
+        <p class="card-text text-secondary mb-3 lh-lg">
           {{ '{welcome:info_p2}'|trans }}
         </p>
       </div>
 
       {% if (help_center_url is defined and help_center_url is not empty) or (profile_url is defined and profile_url is not empty) %}
-        <div class="mdl-card__actions mdl-card--border" layout-children="row">
+        <hr class="mb-0"/>
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center p-3">
           {% if help_center_url is defined and help_center_url is not empty %}
-            <a href="{{ help_center_url|e('html_attr') }}" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            <a href="{{ help_center_url|e('html_attr') }}" target="_blank" rel="noopener" class="btn btn-outline-primary">
               {{ '{login:help}'|trans }}
             </a>
           {% endif %}
 
-          <span flex></span>
+          <span class="flex-grow-1"></span>
 
           {% if profile_url is defined and profile_url is not empty %}
-            <a href="{{ profile_url|e('html_attr') }}" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            <a href="{{ profile_url|e('html_attr') }}" target="_blank" rel="noopener" class="btn btn-primary">
               {{ '{login:profile}'|trans }}
             </a>
           {% endif %}
@@ -55,3 +54,4 @@
 </div>
 </body>
 </html>
+
