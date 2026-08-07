@@ -271,16 +271,9 @@ a.mdl-button.mdl-typography--body-2, a.mdl-button.mdl-typography--body-2 > i.mat
                               rgba(200,200,200,1) 100%);
 }
 
-/* Bootstrap integration helpers */
-.idp-card {
-  max-width: 450px;
-  width: 100%;
-}
-
 .mdl-card > .mdl-card__media > img.icon {
   max-width: 24px;
 }
-
 
 /* Password field show/hide toggle */
 .login-inputs-wrapper {
