@@ -87,7 +87,7 @@ class FeatureContext extends MinkContext
     public function iShouldSeeOurMaterialTheme()
     {
         $page = $this->getSession()->getPage();
-        $hasThemeElement = $page->has('css', '.mdl-layout') || $page->has('css', '.bootstrap-layout') || $page->has('css', '.idp-card');
+        $hasThemeElement = $page->has('css', '.mdl-layout') || $page->has('css', '.bootstrap-layout');
         Assert::true(
             $hasThemeElement,
             'Failed to find the expected evidence of our theme'
