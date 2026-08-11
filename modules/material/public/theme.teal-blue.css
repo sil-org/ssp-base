@@ -1,0 +1,27 @@
+:root {
+  --bs-primary: rgb(0, 150, 136);
+  --bs-primary-rgb: 0, 150, 136;
+  --bs-link-color: rgb(0, 150, 136);
+  --bs-link-hover-color: rgb(0, 121, 107);
+  --bs-focus-ring-color: rgba(0, 150, 136, 0.25);
+}
+
+.btn-primary {
+  --bs-btn-bg: rgb(0, 150, 136);
+  --bs-btn-border-color: rgb(0, 150, 136);
+  --bs-btn-hover-bg: rgb(0, 121, 107);
+  --bs-btn-hover-border-color: rgb(0, 121, 107);
+  --bs-btn-active-bg: rgb(0, 121, 107);
+  --bs-btn-active-border-color: rgb(0, 121, 107);
+  --bs-btn-focus-shadow-rgb: 0, 150, 136;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: rgb(0, 150, 136);
+  --bs-btn-border-color: rgb(0, 150, 136);
+  --bs-btn-hover-bg: rgb(0, 150, 136);
+  --bs-btn-hover-border-color: rgb(0, 150, 136);
+  --bs-btn-active-bg: rgb(0, 121, 107);
+  --bs-btn-active-border-color: rgb(0, 121, 107);
+  --bs-btn-focus-shadow-rgb: 0, 150, 136;
+}
