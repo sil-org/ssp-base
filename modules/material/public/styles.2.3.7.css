@@ -265,6 +265,27 @@ a.mdl-button.mdl-typography--body-2, a.mdl-button.mdl-typography--body-2 > i.mat
   flex: 1;
 }
 
+@media (max-width: 575.98px) {
+  .idp-card {
+    width: 100vw !important;
+    min-height: 100vh !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 576px) {
+  .idp-card {
+    max-width: 450px;
+    width: 100%;
+  }
+}
+
 .gradient-bg {
   background: linear-gradient(rgba(200,200,200,1) 0%,
                               rgba(250,250,250,1) 50%,
