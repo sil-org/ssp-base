@@ -14,7 +14,7 @@
       idpInput.value = id;
 
       document.querySelector('form').appendChild(idpInput);
-      
+
       {% if analytics_tracking_id is not empty %}
         gtag('event', 'IdP', {
           'event_category': 'hub',
@@ -22,10 +22,10 @@
           'value': id
         });
       {% endif %}
-      
+
       document.querySelector('form').submit();
     }
-    
+
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('button[data-entityid]').forEach((idp) => {
         idp.addEventListener('click', () => {
@@ -45,11 +45,11 @@
     }
   </script>
 </head>
-<body>
-<div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title scale-to-parent">
+<body class="d-flex flex-column">
+<div class="bootstrap-layout container-fluid p-0 d-flex flex-column flex-grow-1">
+  <header class="navbar navbar-expand-lg bg-primary navbar-dark px-3 py-2 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 text-wrap me-auto">
         {% if sp|entityDisplayName is empty %}
           {{ '{selectidp-links:header}'|trans }}
         {% else %}
@@ -57,11 +57,9 @@
         {% endif %}
       </span>
 
-      <div class="mdl-layout-spacer"></div>
-
       {% if help_center_url is defined and help_center_url is not empty %}
-        <nav class="mdl-navigation">
-          <a href="{{ help_center_url|e('html_attr') }}" target="_blank" rel="noopener" class="mdl-navigation__link">
+        <nav class="d-flex align-items-center ms-auto">
+          <a href="{{ help_center_url|e('html_attr') }}" target="_blank" rel="noopener" class="nav-link text-white">
             {{ '{selectidp-links:help}'|trans }}
           </a>
         </nav>
@@ -69,37 +67,39 @@
     </div>
   </header>
 
-  <main class="mdl-layout__content">
+  <main class="container d-flex flex-column align-items-center flex-grow-1 my-auto py-4">
     {{ include('announcement.twig') }}
 
-    <form layout-children="row" child-spacing="space-around">
+    <form class="row justify-content-center g-4 w-100">
       <input type="hidden" name="entityID" value="{{ entity_id|e('html_attr') }}"/>
       <input type="hidden" name="return" value="{{ return|e('html_attr') }}"/>
       <input type="hidden" name="returnIDParam" value="{{ return_id_param|e('html_attr') }}"/>
 
       {% for idp in idp_list %}
-        <div
-          class="mdl-card mdl-shadow--8dp row-aware"
-          title="{{ '{selectidp-links:enabled}'|trans({'%idpName%': idp|entityDisplayName}) }}"
-        >
-          <div class="mdl-card__media white-bg fixed-height">
-            <button data-entityid="{{idp.entityid|e}}" type="button" class="mdl-button logo-container fill-parent">
-              <div class="image-wrapper">
-                <img
-                  class="logo"
-                  id="{{ idp.entityid|e }}"
-                  src="{{ idp.logoURL|default('default-logo.png') }}"
-                >
-              </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+          <div
+            class="card idp-select-card shadow-lg border-0 rounded-3 w-100 text-center"
+            title="{{ '{selectidp-links:enabled}'|trans({'%idpName%': idp|entityDisplayName}) }}"
+          >
+            <div class="card-body p-3 d-flex flex-column align-items-center justify-content-between h-100">
+              <button data-entityid="{{idp.entityid|e}}" type="button" class="btn btn-link text-decoration-none w-100 h-100 d-flex flex-column align-items-center justify-content-between p-0">
+                <div class="image-wrapper d-flex align-items-center justify-content-center" style="height: 130px; width: 100%;">
+                  <img
+                    class="logo img-fluid"
+                    id="{{ idp.entityid|e }}"
+                    src="{{ idp.logoURL|default('default-logo.png') }}"
+                    style="max-height: 130px; max-width: 90%;"
+                  >
+                </div>
 
-              <span class="mdl-color-text--grey-600 logo-caption clickable-caption">
-                {{ idp.logoCaption|e|default('<br>') }}
-              </span>
-            </button>
+                <span class="logo-caption text-secondary mt-2">
+                  {{ idp.logoCaption|e|default('<br>') }}
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       {% endfor %}
-
     </form>
   </main>
 
@@ -115,6 +115,7 @@
 
   .logo-caption {
     font-size: 1.5rem;
+    text-transform: none;
   }
 
   @media only screen and (max-width: 1200px) {
@@ -123,29 +124,8 @@
     }
   }
 
-  .logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  .logo-caption {
-    text-transform: none;
-  }
-
-  .mdl-button:hover > .clickable-caption {
-    color: #004F9E !important;
-  }
-
-  .mdl-card {
-    border-radius: 8px;
-  }
-
-  .logo {
-    max-height: 130px;
-    max-width: 90%;
-    padding-top: 4px;
+  .btn-link:hover .logo-caption {
+    color: var(--bs-primary) !important;
   }
 </style>
 </body>
