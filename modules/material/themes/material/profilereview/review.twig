@@ -66,7 +66,7 @@
                     <span class="mdl-list__item-primary-content">
                       <img class="mdl-list__item-icon" src="mfa-{{ mfa.type }}.svg">
 
-                      {{ mfa.label }}
+                      {{ mfa.label is not empty ? mfa.label : mfa.data.label }}
 
                       {% if mfa.type == 'backupcode' %}
                         {{ '{review:remaining}'|trans({'%count%': mfa.data.count}) }}
