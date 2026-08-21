@@ -29,15 +29,17 @@ services:
       MYSQL_PASSWORD: silauth
     <<: *db_healthcheck
 
-  dbadmin:
-    image: phpmyadmin
+  # Adminer URL for silauth database, password is 'silauth'
+  # http://localhost:8080/?server=db&username=silauth&db=silauth
+
+  adminer:
+    image: ghcr.io/sil-org/terraform-aws-adminer:4.1
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
-      PMA_HOST: db
-      PMA_USER: silauth
-      PMA_PASSWORD: silauth
-      PMA_SSL: 1
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_PLUGINS: "backward-keys before-unload edit-foreign enum-option highlight-monaco"
+      ADMINER_SSL_CONFIG: '{"verify": true}'
 
   test:
     build:
@@ -575,14 +577,16 @@ services:
       MYSQL_PASSWORD: "pass"
     <<: *db_healthcheck
 
-  brokerpma:
-    image: phpmyadmin
+  # Adminer URL for broker database, password is 'pass'
+  # http://localhost:8090/?server=brokerDb&username=user&db=broker
+
+  adminer-broker:
+    image: adminer
     ports:
-      - "8090:80"
+      - "8090:8080"
     environment:
-      PMA_HOST: brokerDb
-      PMA_USER: user
-      PMA_PASSWORD: pass
+      ADMINER_DEFAULT_SERVER: brokerDb
+      ADMINER_PLUGINS: "backward-keys before-unload edit-foreign enum-option highlight-monaco"
 
   dynamo:
     image: cnadiminti/dynamodb-local
