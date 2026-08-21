@@ -8,16 +8,15 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       function prettifyDates() {
-        const relevantNodes = Array.from(document.querySelectorAll('span.mdl-list__item-text-body'))
+        const relevantNodes = Array.from(document.querySelectorAll('.item-text-body'))
 
         relevantNodes.filter(hasDate).map(replaceWithLocaleDate)
       }
 
       const hasDate = node => node.innerText.includes('Z')
       const replaceWithLocaleDate = node => {
-        // assuming a string like this but could be in Spanish, French or Korean for example:  "last used: 2019-04-04T13:30:04Z"
         const matches = node.innerText.match(/(.*: )(.*)/)
-
+        if (!matches) return;
         const label = matches[1]
         const date = new Date(matches[2])
 
@@ -27,116 +26,116 @@
       prettifyDates();
 
       document.getElementById('launch').addEventListener('click', function(e) {
-        document.getElementsByName('continue').click()
+        const continueBtn = document.querySelector('[name=continue]');
+        if (continueBtn) {
+          continueBtn.click();
+        }
       });
     });
   </script>
 </head>
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 d-flex flex-column flex-grow-1 min-vh-100">
+  <header class="navbar navbar-expand-lg bg-primary navbar-dark px-3 py-2 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 text-wrap me-auto">
         {{ '{review:header}'|trans }}
       </span>
     </div>
   </header>
 
-  <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post">
-      <p>
-      <h2 class="mdl-typography--headline">
+  <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto py-4">
+    <form method="post" class="w-75 d-flex flex-column align-items-center gap-4">
+      <h2 class="h2 text-center text-body my-3">
         {{ '{review:info}'|trans }}
       </h2>
-      </p>
 
-      <section layout-children="row-top">
+      <div class="row justify-content-center g-4 w-100 mb-3">
         {% if mfa_options|length > 0 %}
-          <div class="mdl-card fixed-width mdl-shadow--8dp">
-            <div class="mdl-card__title center">
-              <h1 class="mdl-card__title-text">
-                {{ '{review:mfa_header}'|trans({'%idpName%': idp_name}) }}
-              </h1>
-            </div>
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-3 h-100">
+              <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+                <h1 class="h4 card-title text-body mb-0">
+                  {{ '{review:mfa_header}'|trans({'%idpName%': idp_name}) }}
+                </h1>
+              </div>
 
-            <div class="mdl-card__title">
-              <ul class="mdl-card__subtitle-text mdl-list">
-                {% for mfa in mfa_options %}
-                  <li class="mdl-list__item mdl-list__item--three-line">
-                    <span class="mdl-list__item-primary-content">
-                      <img class="mdl-list__item-icon" src="mfa-{{ mfa.type }}.svg">
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  {% for mfa in mfa_options %}
+                    <li class="list-group-item d-flex align-items-start border-0 px-0 py-2">
+                      <img class="me-3" src="mfa-{{ mfa.type }}.svg" width="32" height="32" alt="{{ mfa.type }}">
 
-                      {{ mfa.label }}
+                      <div>
+                        <div class="fw-semibold text-body">
+                          {{ mfa.label }}
+                          {% if mfa.type == 'backupcode' %}
+                            {{ '{review:remaining}'|trans({'%count%': mfa.data.count}) }}
+                          {% endif %}
+                        </div>
 
-                      {% if mfa.type == 'backupcode' %}
-                        {{ '{review:remaining}'|trans({'%count%': mfa.data.count}) }}
-                      {% endif %}
-
-                      <span class="mdl-list__item-text-body">
-                        {% if mfa.last_used_utc is empty %}
-                          {{ '{review:used_never}'|trans }}
-                        {% else %}
-                          {{ '{review:used}'|trans({'%when%': mfa.last_used_utc}) }}
-                        {% endif %}
-                      </span>
-                    </span>
-                  </li>
-                {% endfor %}
-              </ul>
+                        <small class="text-secondary mdl-list__item-text-body item-text-body d-block">
+                          {% if mfa.last_used_utc is empty %}
+                            {{ '{review:used_never}'|trans }}
+                          {% else %}
+                            {{ '{review:used}'|trans({'%when%': mfa.last_used_utc}) }}
+                          {% endif %}
+                        </small>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
           </div>
         {% endif %}
 
         {% if method_options|length > 0 %}
-          <div
-            class="mdl-card fixed-width mdl-shadow--8dp"
-            {# if there are two cards, remove the right margin so the buttons align with the edge of the card. #}
-            {% if method_options|length == 2 %}
-              style="margin-right: 0px"
-            {% endif %}
-          >
-            <div class="mdl-card__title center">
-              <h1 class="mdl-card__title-text">
-                {{ '{review:methods_header}'|trans }}
-              </h1>
-            </div>
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-3 h-100">
+              <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+                <h1 class="h4 card-title text-body mb-0">
+                  {{ '{review:methods_header}'|trans }}
+                </h1>
+              </div>
 
-            <div class="mdl-card__title">
-              <ul class="mdl-card__subtitle-text mdl-list">
-                {% for method in method_options %}
-                  <li class="mdl-list__item mdl-list__item--two-line">
-                    <span class="mdl-list__item-primary-content">
-                      <img class="mdl-list__item-icon" src="email.svg">
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  {% for method in method_options %}
+                    <li class="list-group-item d-flex align-items-start border-0 px-0 py-2">
+                      <img class="me-3" src="email.svg" width="32" height="32" alt="email">
 
-                      {{ method.value }}
+                      <div>
+                        <div class="fw-semibold text-body">
+                          {{ method.value }}
+                        </div>
 
-                      <span class="mdl-list__item-sub-title">
-                        {% set key = '{review:' ~ (method.verified ? 'verified' : 'unverified') ~ '}' %}
-                        {{ key|trans }}
-                      </span>
-                    </span>
-                  </li>
-                {% endfor %}
-              </ul>
+                        <small class="text-secondary d-block">
+                          {% set key = '{review:' ~ (method.verified ? 'verified' : 'unverified') ~ '}' %}
+                          {{ key|trans }}
+                        </small>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
           </div>
         {% endif %}
-      </section>
+      </div>
 
-      <section layout-children="row" child-spacing="end" class="fill-parent margin">
-        <a id="launch" href="{{ profile_url }}" target="_blank" rel="noopener"
-           class="mdl-button mdl-button--colored" layout-children="row">
-          {{ '{review:button_update}'|trans }} <i class="material-icons">launch</i>
+      <div class="d-flex justify-content-center justify-content-sm-end align-items-center gap-3 w-100 mt-3">
+        <a id="launch" href="{{ profile_url }}" target="_blank" rel="noopener" class="btn btn-outline-primary d-inline-flex align-items-center">
+          {{ '{review:button_update}'|trans }} <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
         </a>
 
-        <button name="continue" class="mdl-button mdl-button--raised mdl-button--colored">
+        <button name="continue" class="btn btn-primary">
           {{ '{review:button_continue}'|trans }}
         </button>
-      </section>
+      </div>
     </form>
   </main>
-
-  {{ include('footer.twig') }}
+    {{ include('footer.twig') }}
 </div>
 </body>
 </html>
