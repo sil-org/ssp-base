@@ -42,6 +42,15 @@ class System
         $globalConfig = Configuration::getInstance();
 
         /*
+         * If 'trusted.url.domains' is not NULL, the 'baseurlpath' check can be skipped. This is explicitly checked
+         * against null because an empty string tells SimpleSAMLphp to not trust URLs from any domain but its own.
+         */
+        $trustedUrlDomains = $globalConfig->getOptionalString('trusted.url.domains', '');
+        if ($trustedUrlDomains !== null) {
+            return true;
+        }
+
+        /*
          * NOTE: We require that SSP's baseurlpath configuration is set (and
          *       matches the corresponding RegExp) in order to prevent a
          *       security hole in \SimpleSAML\Utils\HTTP::getBaseURL() where the
