@@ -8,7 +8,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       function prettifyDates() {
-        const relevantNodes = Array.from(document.querySelectorAll('.mdl-list__item-text-body, .item-text-body'))
+        const relevantNodes = Array.from(document.querySelectorAll('.item-text-body'))
 
         relevantNodes.filter(hasDate).map(replaceWithLocaleDate)
       }
