@@ -524,11 +524,7 @@ class Mfa extends ProcessingFilter
                 try {
                     $idBrokerClient->updateUserLastLogin($employeeId);
                 } catch (Throwable $t) {
-                    $logger->error(sprintf(
-                        'mfa: Failed to update last login for Employee ID %s: %s',
-                        var_export($employeeId, true),
-                        $t->getMessage()
-                    ));
+                    $logger->error('mfa: Failed to update last login for Employee ID {employee_id}: {message}', ['employee_id' => $employeeId, 'message' => $t->getMessage()]);
                 }
             }
         } catch (Throwable $t) {
@@ -704,11 +700,7 @@ class Mfa extends ProcessingFilter
             $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
             $idBrokerClient->updateUserLastLogin($employeeId);
         } catch (Throwable $t) {
-            $this->logger->error(sprintf(
-                'mfa: Failed to update last login for Employee ID %s: %s',
-                var_export($employeeId, true),
-                $t->getMessage()
-            ));
+            $this->logger->error('mfa: Failed to update last login for Employee ID {employee_id}: {message}', ['employee_id' => $employeeId, 'message' => $t->getMessage()]);
         }
         unset($state['Attributes']['manager_email']);
     }
