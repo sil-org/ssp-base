@@ -14,6 +14,9 @@ deps:
 depsupdate:
 	docker compose run --rm composer bash -c "./update-composer-deps.sh"
 
+composershow:
+	docker compose run --rm composer composer show --format=json --no-dev --no-ansi --locked | jq "[.locked[] | { \"name\": .name, \"version\": .version }]" > installed-packages.json
+
 test:
 	docker compose run --rm test
 	docker compose run --rm ssp-hub-app ./run-metadata-tests.sh
