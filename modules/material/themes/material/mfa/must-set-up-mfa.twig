@@ -1,50 +1,47 @@
 <!DOCTYPE html>
 <html lang="{{ currentLanguage }}">
 <head>
-  <title>{{ '{mfa:title}|trans' }}</title>
+  <title>{{ '{mfa:title}'|trans({'%idpName%': idp_name})  }}</title>
 
   {{ include('header.twig') }}
 </head>
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post" style="margin:auto;">
-      <div class="mdl-card mdl-shadow--8dp">
-        <div class="mdl-card__media white-bg margin" layout-children="column">
-          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" style="max-width:150px;">
-        </div>
-
-        <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text">
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 p-sm-3 d-flex flex-column flex-grow-1 min-vh-100">
+  <main class="w-100 d-flex flex-column justify-content-center align-items-center flex-grow-1 my-auto">
+    <form method="post" class="w-100 d-flex justify-content-center">
+      <div class="card idp-card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" class="img-fluid" style="max-width:150px;">
+          <h1 class="h3 card-title text-body mt-3 mb-5">
             {{ '{mfa:header}'|trans({'%idpName%': idp_name}) }}
           </h1>
-        </div>
-
-        <div class="mdl-card__title center" style="padding:0px;">
-          <h1 class="mdl-card__title-text" style="font-size: 1.25rem;">
+          <h2 class="h4 card-title text-body mb-2">
             {{ '{mfa:required_header}'|trans }}
-          </h1>
-        </div>
-
-        <div class="mdl-card__title center mdl-card__title--stacked">
-          <p class="mdl-card__subtitle-text">
+          </h2>
+           <p class="card-text text-secondary mb-4 mx-4">
             {{ '{mfa:required_info}'|trans }}
           </p>
-          <p class="mdl-card__subtitle-text">
+        </div>
+
+        <div class="card-body p-4 text-center">
+          <p class="card-text text-secondary small mb-0">
             {{ '{nag:reauth_notice}'|trans }}
           </p>
         </div>
 
-        <div class="mdl-card__actions" layout-children="row">
-          <span flex></span>
-
-          <button name="setUpMfa" class="mdl-button mdl-button--raised mdl-button--primary">
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-end align-items-center p-3">
+          <button name="setUpMfa" type="submit" class="btn btn-primary">
             {{ '{mfa:button_set_up}'|trans }}
           </button>
         </div>
       </div>
     </form>
   </main>
+
+  <div class="d-none d-sm-block">
+    {{ include('footer.twig') }}
+  </div>
 </div>
 </body>
 </html>
+

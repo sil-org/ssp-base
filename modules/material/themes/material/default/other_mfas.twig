@@ -1,38 +1,30 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll(".mdl-menu__item").forEach(function(li) {
-      li.addEventListener('click', function(e) {
-        location.href = li.dataset.callback;
+    document.querySelectorAll(".dropdown-item[data-callback]").forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        location.href = item.dataset.callback;
       });
     });
   });
 </script>
 
 {% if other_options|length > 0 %}
-  <div layout-children="column" child-spacing="center">
-    {# used type=button to avoid form submission on click since this is just used to display the ul #}
-    <button id="others" type="button" class="mdl-button mdl-js-button mdl-button--raised">
-      <span class="mdl-typography--caption">
-        {{ '{mfa:use_others}'|trans }}
-      </span>
+  <div class="dropdown">
+    <button id="others" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <small>{{ '{mfa:use_others}'|trans }}</small>
     </button>
-    <ul class="mdl-menu mdl-js-menu mdl-menu--top-left" data-mdl-for="others">
+    <ul class="dropdown-menu shadow" aria-labelledby="others">
       {% for option in other_options %}
-        {# TODO: Non-interactive elements should not be assigned mouse or keyboard event listeners. #}
-        <li class="mdl-menu__item" data-callback="{{ option.callback|raw }}"
-            id="more-options-{{ option.type }}">
-          <span class="mdl-list__item-primary-content">
-            <img
-              class="mdl-list__item-icon"
-              src="{{ option.image }}"
-              {% set alt = '{mfa:' ~ option.type ~ '_icon}' %}
-              alt="{{ alt|trans }}"
-            >
+        <li>
+          <a class="dropdown-item d-flex align-items-center py-2" href="#" data-callback="{{ option.callback|raw }}" id="more-options-{{ option.type }}">
+            <img class="me-2" src="{{ option.image }}" width="20" height="20" {% set alt = '{mfa:' ~ option.type ~ '_icon}' %} alt="{{ alt|trans }}">
             {% set text = '{mfa:use_' ~ option.label ~ '}' %}
-            {{ text|trans }}
-          </span>
+            <span>{{ text|trans }}</span>
+          </a>
         </li>
       {% endfor %}
     </ul>
   </div>
 {% endif %}
+
