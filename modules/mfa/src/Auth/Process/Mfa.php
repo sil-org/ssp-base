@@ -805,11 +805,10 @@ class Mfa extends ProcessingFilter
                         $idBrokerClient->updateUserLastLogin($state['employeeId']);
                     } catch (Throwable $t) {
                         $logger = LoggerFactory::getAccordingToState($state);
-                        $logger->error(sprintf(
-                            'mfa: Failed to update last login for Employee ID %s: %s',
-                            var_export($state['employeeId'] ?? null, true),
-                            $t->getMessage()
-                        ));
+                        $logger->error(
+                            'mfa: Failed to update last login for Employee ID {employee_id}: {message}',
+                            ['employee_id' => $state['employeeId'] ?? null, 'message' => $t->getMessage()]
+                        );
                     }
                 }
 
