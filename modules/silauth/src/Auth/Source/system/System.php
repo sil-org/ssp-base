@@ -43,13 +43,6 @@ class System
         $baseURLpath = $globalConfig->getOptionalString('baseurlpath', '');
         $trustedUrlDomains = $globalConfig->getOptionalArray('trusted.url.domains', null);
 
-        $this->logger->info(json_encode([
-            'baseurlpath' => $baseURLpath,
-            'trusted.url.domains' => $trustedUrlDomains,
-            'host' => $_SERVER['HTTP_HOST'] ?? '',
-            'message' => 'Checking required configuration settings',
-        ]));
-
         /*
          * If 'trusted.url.domains' is not NULL, the 'baseurlpath' check can be skipped. This is explicitly checked
          * against null because an empty string tells SimpleSAMLphp to not trust URLs from any domain but its own.

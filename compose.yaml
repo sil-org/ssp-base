@@ -248,8 +248,7 @@ services:
       MYSQL_DATABASE: "silauth"
       MYSQL_USER: "silauth"
       MYSQL_PASSWORD: "silauth"
-      BASE_URL_PATH: "http://ssp-idp1.local/" # for automated tests
-      #BASE_URL_PATH: "http://ssp-idp1.local:8085" # for manual browser testing
+      TRUSTED_URL_DOMAINS: "ssp-hub.local"
       HELP_CENTER_URL: "https://example.org/help"
       THEME_COLOR_SCHEME: "blue_grey-teal"
       HUB_MODE: "false"
@@ -297,6 +296,7 @@ services:
       - "8086:80"
     environment:
       ADMIN_PASS: "b"
+      BASE_URL_PATH: "https://ssp-idp2.local/"
       SECRET_SALT: "h57fjemb&dn^nsJFGNjweJ"
       IDP_DOMAIN_NAME: "ssp-idp2.local"
       ID_BROKER_ACCESS_TOKEN: "test-cli-abc123"
@@ -408,8 +408,7 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "false"
-      BASE_URL_PATH: "http://ssp-idp4.local/" # for automated tests
-      #BASE_URL_PATH: "http://ssp-idp4.local:8088" # for manual browser testing
+      TRUSTED_URL_DOMAINS: "ssp-hub.local"
       MFA_RECOVERY_CONTACTS_API: "http://api-mock.local/recovery-contacts"
       MFA_RECOVERY_CONTACTS_API_KEY: "dummy-key"
       MFA_RECOVERY_CONTACTS_FALLBACK_NAME: "Dummy Name"
