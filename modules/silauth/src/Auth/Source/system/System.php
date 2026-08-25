@@ -47,7 +47,7 @@ class System
          * If 'trusted.url.domains' is not NULL, the 'baseurlpath' check can be skipped. This is explicitly checked
          * against null because an empty string tells SimpleSAMLphp to not trust URLs from any domain but its own.
          */
-        $trustedUrlDomains = $globalConfig->getOptionalString('trusted.url.domains', '');
+        $trustedUrlDomains = $globalConfig->getOptionalArray('trusted.url.domains', []);
         if ($trustedUrlDomains !== null) {
             return true;
         }
