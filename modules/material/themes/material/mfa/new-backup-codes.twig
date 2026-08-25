@@ -104,7 +104,7 @@
 
         <div class="card shadow-lg border-0 rounded-3 w-100 mb-4" style="min-height: 17em">
           <div class="card-body p-4 text-center" id="code-card">
-            <div class="code-container font-monospace mb-3 fs-5" style="column-count: 2; column-gap: 2rem;">
+            <div class="code-container font-monospace mb-3 fs-5" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem;">
               {% for newCode in new_backup_codes %}
                 <div class="py-1">☐ {{ newCode }}</div>
               {% endfor %}
@@ -132,14 +132,14 @@
 
             <button id="copyBtn" class="btn btn-outline-primary" type="button">
               {{ '{mfa:button_copy}'|trans }}
-              <textarea class="out-of-sight d-none">{{ codes_for_clipboard }}</textarea>
+              <textarea class="out-of-sight visually-hidden">{{ codes_for_clipboard }}</textarea>
             </button>
           </div>
         </div>
       {% else %}
         <div class="card shadow-lg border-0 rounded-3 w-100 mb-4">
           <div class="card-header bg-white text-center border-0 pt-4 pb-2">
-            <i class="material-icons text-danger display-1">error</i>
+            <i class="material-icons text-danger" style="font-size: 3rem;">error</i>
             <h1 class="h3 card-title text-body mt-3 mb-1">
               {{ '{error:header}'|trans }}
             </h1>
