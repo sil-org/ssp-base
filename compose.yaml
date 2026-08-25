@@ -159,6 +159,7 @@ services:
       ADMIN_PASS: "abc123"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJ"
       SECURE_COOKIE: "true"
+      BASE_URL_PATH: "https://ssp-hub.local/"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "true"
@@ -247,6 +248,8 @@ services:
       MYSQL_DATABASE: "silauth"
       MYSQL_USER: "silauth"
       MYSQL_PASSWORD: "silauth"
+      BASE_URL_PATH: "http://ssp-idp1.local/" # for automated tests
+      #BASE_URL_PATH: "http://ssp-idp1.local:8085" # for manual browser testing
       HELP_CENTER_URL: "https://example.org/help"
       THEME_COLOR_SCHEME: "blue_grey-teal"
       HUB_MODE: "false"
@@ -405,6 +408,8 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "false"
+      BASE_URL_PATH: "http://ssp-idp4.local/" # for automated tests
+      #BASE_URL_PATH: "http://ssp-idp4.local:8088" # for manual browser testing
       MFA_RECOVERY_CONTACTS_API: "http://api-mock.local/recovery-contacts"
       MFA_RECOVERY_CONTACTS_API_KEY: "dummy-key"
       MFA_RECOVERY_CONTACTS_FALLBACK_NAME: "Dummy Name"
