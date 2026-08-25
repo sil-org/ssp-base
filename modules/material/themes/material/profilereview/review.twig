@@ -44,7 +44,7 @@
     </div>
   </header>
 
-  <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto py-4">
+  <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto">
     <form method="post" class="w-75 d-flex flex-column align-items-center gap-4">
       <h2 class="h2 text-center text-body my-3">
         {{ '{review:info}'|trans }}
@@ -124,7 +124,7 @@
         {% endif %}
       </div>
 
-      <div class="d-flex justify-content-center justify-content-sm-end align-items-center gap-3 w-100 mt-3">
+      <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mt-3">
         <a id="launch" href="{{ profile_url }}" target="_blank" rel="noopener" class="btn btn-outline-primary d-inline-flex align-items-center">
           {{ '{review:button_update}'|trans }} <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
         </a>

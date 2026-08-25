@@ -16,22 +16,29 @@
       }
 
       function disablePrint() {
-        document.querySelector('button#print').disabled = true;
-        document.querySelector('button#print').classList.add('not-allowed');
-        document.querySelector('button#print').title = '{{ '{mfa:unsupported}'|trans|e('js')|raw }}';
+        const printBtn = document.querySelector('button#print');
+        if (printBtn) {
+          printBtn.disabled = true;
+          printBtn.classList.add('not-allowed');
+          printBtn.title = '{{ '{mfa:unsupported}'|trans|e('js')|raw }}';
+        }
       }
 
       function disableDownload() {
-        document.querySelector('a[download]').href = '';
-        document.querySelector('a[download]').classList.add('mdl-button--disabled', 'not-allowed');
-        document.querySelector('a[download]').title = '{{ '{mfa:unsupported}'|trans|e('js')|raw }}';
+        const downloadBtn = document.querySelector('a[download]');
+        if (downloadBtn) {
+          downloadBtn.href = '';
+          downloadBtn.classList.add('disabled', 'not-allowed');
+          downloadBtn.title = '{{ '{mfa:unsupported}'|trans|e('js')|raw }}';
+        }
       }
 
       function copyCodesToClipboard(button) {
-        document.querySelector('textarea').select();
-
-        // FIXME: replace deprecated document.execCommand
-        document.execCommand('copy');
+        const textarea = button.querySelector('textarea') || document.querySelector('textarea');
+        if (textarea) {
+          textarea.select();
+          document.execCommand('copy');
+        }
 
         button.innerHTML = button.innerHTML.replace(
           '{{ '{mfa:button_copy}'|trans }}',
@@ -49,56 +56,66 @@
 
       disableUnsupportedFeatures();
 
-      document.getElementById('print').addEventListener('click', function() {
-        printElement('#code-card');
-      });
-      document.getElementById('copyBtn').addEventListener('click', function() {
-        copyCodesToClipboard(this);
-      });
-      document.getElementById('checkbox').addEventListener('change', function(e) {
-        const contBtn = document.getElementById('continue');
-        contBtn.disabled = !e.target.checked;
-      });
+      const printBtn = document.getElementById('print');
+      if (printBtn) {
+        printBtn.addEventListener('click', function() {
+          printElement('#code-card');
+        });
+      }
+      const copyBtn = document.getElementById('copyBtn');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+          copyCodesToClipboard(this);
+        });
+      }
+      const checkbox = document.getElementById('checkbox');
+      if (checkbox) {
+        checkbox.addEventListener('change', function(e) {
+          const contBtn = document.getElementById('continue');
+          if (contBtn) {
+            contBtn.disabled = !e.target.checked;
+          }
+        });
+      }
     });
   </script>
 </head>
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post" style="margin:auto;">
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 p-sm-3 d-flex flex-column flex-grow-1 min-vh-100">
+  <main class="w-100 d-flex flex-column justify-content-center align-items-center flex-grow-1 my-auto">
+    <form method="post" class="w-100 d-flex flex-column align-items-center" style="max-width: 600px;">
       {% if new_backup_codes is not empty %}
-        <h1 class="mdl-typography--display-1">
+        <h1 class="h3 text-center text-body mt-2 mb-4">
           {{ '{mfa:header}'|trans({'%idpName%': idp_name}) }}
         </h1>
 
-        <h2 class="mdl-typography--body-1">
+        <h2 class="h4 text-center text-body mb-1">
           {{ '{mfa:new_codes_header}'|trans }}
         </h2>
 
-        <p class="mdl-typography--body-1">
+        <p class="text-center text-secondary mb-2 mx-3">
           <em>{{ '{mfa:old_codes_gone}'|trans }}</em>
         </p>
 
-        <p class="mdl-typography--body-1">
+        <p class="text-center text-secondary mb-3 mx-3">
           {{ '{mfa:new_codes_info}'|trans }}
-          <span class="mdl-typography--body-2">{{ '{mfa:new_codes_only_once}'|trans }}</span>
+          <span class="fw-bold">{{ '{mfa:new_codes_only_once}'|trans }}</span>
         </p>
 
-        <div class="mdl-card mdl-shadow--8dp" style="min-height: 17em">
-          <div class="mdl-card__supporting-text ff-temp-flexbug-fix" layout-children="column" id="code-card">
-
-            <div class="code-container">
+        <div class="card shadow-lg border-0 rounded-3 w-100 mb-4" style="min-height: 17em">
+          <div class="card-body p-4 text-center" id="code-card">
+            <div class="code-container font-monospace mb-3 fs-5" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem;">
               {% for newCode in new_backup_codes %}
-                <code>☐ {{ newCode }}</code>
+                <div class="py-1">☐ {{ newCode }}</div>
               {% endfor %}
             </div>
 
-            <span class="mdl-typography--caption">{{ '{mfa:new_codes_only_once}'|trans }}</span>
+            <small class="text-secondary d-block mt-2">{{ '{mfa:new_codes_only_once}'|trans }}</small>
           </div>
 
-          <div class="mdl-card__actions" layout-children="row" child-spacing="space-around">
+          <div class="card-footer bg-transparent border-top-0 d-flex flex-wrap justify-content-center gap-2 p-3">
             <button
-              class="mdl-button mdl-button--primary"
+              class="btn btn-outline-primary"
               type="button"
               id="print"
             >
@@ -108,31 +125,28 @@
             <a
               href="data:text/plain,{{ codes_for_download }}"
               download="{{ idp_name }}-printable-codes.txt"
-              class="mdl-button mdl-button--primary"
+              class="btn btn-outline-primary"
             >
               {{ '{mfa:button_download}'|trans }}
             </a>
 
-            <button id="copyBtn" class="mdl-button mdl-button--primary" type="button">
+            <button id="copyBtn" class="btn btn-outline-primary" type="button">
               {{ '{mfa:button_copy}'|trans }}
-              <textarea class="out-of-sight">{{ codes_for_clipboard }}</textarea>
+              <textarea class="out-of-sight visually-hidden">{{ codes_for_clipboard }}</textarea>
             </button>
           </div>
         </div>
       {% else %}
-        <div class="mdl-card mdl-shadow--8dp">
-          <div class="mdl-card__media white-bg margin" layout-children="column">
-            <i class="mdl-color-text--red error material-icons mdl-typography--display-4">error</i>
-          </div>
-
-          <div class="mdl-card__title center">
-            <h1 class="mdl-card__title-text">
+        <div class="card shadow-lg border-0 rounded-3 w-100 mb-4">
+          <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+            <i class="material-icons text-danger" style="font-size: 3rem;">error</i>
+            <h1 class="h3 card-title text-body mt-3 mb-1">
               {{ '{error:header}'|trans }}
             </h1>
           </div>
 
-          <div class="mdl-card__supporting-text">
-            <p>
+          <div class="card-body p-4 text-center">
+            <p class="card-text text-secondary">
               {{ '{mfa:new_codes_failed}'|trans }}
               <a href="{{ mfa_setup_url }}" target="_blank" rel="noopener">{{ mfa_setup_url }}</a>
             </p>
@@ -149,18 +163,25 @@
         {% endif %}
       {% endif %}
 
-      <div layout-children="row" class="fill-parent">
-        <label class="mdl-checkbox mdl-js-checkbox" flex>
-          <input id="checkbox" type="checkbox" class="mdl-checkbox__input">
-          <span class="mdl-checkbox__label">{{ '{mfa:new_codes_saved}'|trans }}</span>
-        </label>
+      <div class="d-flex justify-content-between align-items-center w-100 gap-3">
+        <div class="form-check me-auto">
+          <input id="checkbox" type="checkbox" class="form-check-input me-2">
+          <label class="form-check-label text-secondary small" for="checkbox">
+            {{ '{mfa:new_codes_saved}'|trans }}
+          </label>
+        </div>
 
-        <button name="continue" id="continue" class="mdl-button mdl-button--raised mdl-button--primary" disabled>
+        <button name="continue" id="continue" type="submit" class="btn btn-primary" disabled>
           {{ '{mfa:button_continue}'|trans }}
         </button>
       </div>
     </form>
   </main>
+
+  <div class="d-none d-sm-block">
+    {{ include('footer.twig') }}
+  </div>
 </div>
 </body>
 </html>
+

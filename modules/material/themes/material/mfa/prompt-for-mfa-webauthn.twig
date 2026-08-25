@@ -19,9 +19,13 @@
         console.error(error)
         const errorMessage = createMessage(error)
 
-        const errorNode = document.querySelector('p.error');
-        errorNode.classList.remove('hide');
-        errorNode.querySelector('span').textContent = errorMessage;
+        const errorNode = document.querySelector('.alert-danger, p.error');
+        if (errorNode) {
+          errorNode.classList.remove('d-none');
+          errorNode.classList.remove('hide');
+          const textEl = errorNode.querySelector('div') || errorNode.querySelector('span');
+          if (textEl) textEl.textContent = errorMessage;
+        }
       }
 
       function createMessage(error) {
@@ -51,7 +55,6 @@
         form.submit();
       }
 
-      // decodeBase64url performs a URL-type base64 decode
       function decodeBase64url(str) {
         if (!str) {
           return str;
@@ -75,80 +78,64 @@
   <script src="{{ remember_me_js_path }}"></script>
 </head>
 
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post" style="margin:auto;">
-      <div class="mdl-card mdl-shadow--8dp">
-        <div class="mdl-card__media white-bg margin" layout-children="column">
-          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" style="max-width:150px;">
-        </div>
-
-        <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text">
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 p-sm-3 d-flex flex-column flex-grow-1 min-vh-100">
+  <main class="w-100 d-flex flex-column justify-content-center align-items-center flex-grow-1 my-auto">
+    <form method="post" autocomplete="off" class="w-100 d-flex justify-content-center">
+      <div class="card idp-card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" class="img-fluid" style="max-width:150px;">
+          <h1 class="h3 card-title text-body mt-3 mb-4">
             {{ '{mfa:header}'|trans({'%idpName%': idp_name}) }}
           </h1>
-        </div>
-
-        <div class="mdl-card__title center" style="padding:0px;">
-          <h1 class="mdl-card__title-text" style="font-size: 1.25rem;">
+          <h1 class="h4 card-title text-body mb-1">
             {{ '{mfa:webauthn_header}'|trans }}
           </h1>
-        </div>
-
-        <div class="mdl-card__title">
-          <p id="instructions" class="mdl-card__subtitle-text m-auto">
+          <p id="instructions" class="card-text text-secondary mb-0 mx-3">
             {{ '{mfa:webauthn_start}'|trans }}
           </p>
         </div>
 
-        {% if error_message is not empty and analytics_tracking_id is not empty %}
-          <script>
-            gtag('event', '{{ error_message|e('js')|raw }}', {
-              'event_category': 'error',
-              'event_label': 'webauthn'
-            });
-          </script>
-        {% endif %}
-        <div class="mdl-card__supporting-text" layout-children="column">
-          <p class="mdl-color-text--red error {{ error_message is empty ? 'hide' : 'show' }}">
-            <i class="material-icons">error</i>
+        <div class="card-body p-4">
+          {% if error_message is not empty and analytics_tracking_id is not empty %}
+            <script>
+              gtag('event', '{{ error_message|e('js')|raw }}', {
+                'event_category': 'error',
+                'event_label': 'webauthn'
+              });
+            </script>
+          {% endif %}
 
-            <span class="mdl-typography--caption">
-              {{ error_message|e }}
-            </span>
-          </p>
+          <div class="alert alert-danger d-flex align-items-center mb-3 {{ error_message is empty ? 'd-none' : '' }}" role="alert">
+            <i class="material-icons me-2">error</i>
+            <div>{{ error_message|e }}</div>
+          </div>
+
+          <div class="form-check d-flex justify-content-center my-2">
+            <input type="checkbox" id="rememberMe" name="rememberMe" checked class="form-check-input me-2">
+            <label for="rememberMe" class="form-check-label text-secondary small">
+              {{ '{mfa:remember_this}'|trans }}
+            </label>
+          </div>
         </div>
 
-        <div style="margin:auto;">
-          <label for="rememberMe" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-            <span class="mdl-checkbox__label">
-                {{ '{mfa:remember_this}'|trans }}
-            </span>
-            <input type="checkbox" id="rememberMe" name="rememberMe" checked class="mdl-checkbox__input">
-          </label>
-        </div>
-
-        <div class="mdl-card__actions" layout-children="row">
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center p-3">
           {{ include('other_mfas.twig') }}
 
-          <span flex></span>
+          <span class="flex-grow-1"></span>
 
-          <!-- used type=button to avoid form submission on click -->
-          <button id="verifyBtn" type="button" class="mdl-button mdl-button--raised mdl-button--primary">
+          <button id="verifyBtn" type="button" class="btn btn-primary">
             {{ '{mfa:button_verify}'|trans }}
           </button>
         </div>
       </div>
     </form>
   </main>
+
+  <div class="d-none d-sm-block">
+    {{ include('footer.twig') }}
+  </div>
 </div>
 </body>
 </html>
 
-<style>
-  #instructions {
-    min-width: 350px;
-    text-align: center;
-  }
-</style>
