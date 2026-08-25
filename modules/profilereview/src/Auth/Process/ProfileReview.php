@@ -314,10 +314,49 @@ class ProfileReview extends ProcessingFilter
         $mfaOptions = $this->getAttributeAllValues('mfa', $state)['options'];
         foreach ($mfaOptions as $key => $mfaOption) {
             if ($mfaOption['type'] === 'manager') {
-                unset ($mfaOptions[$key]);
+                unset($mfaOptions[$key]);
+            } elseif ($mfaOption['type'] === 'webauthn') {
+                $mfaOptions[$key]['count'] = self::getWebAuthnKeyCount($mfaOption);
+                $mfaOptions[$key]['last_used_utc'] = self::getWebAuthnLastUsedUtc($mfaOption);
             }
         }
-        return $mfaOptions;
+        return array_values($mfaOptions);
+    }
+
+    public static function getWebAuthnKeyCount(array $mfaOption): int
+    {
+        $data = $mfaOption['data'] ?? null;
+        if (!is_array($data) || empty($data)) {
+            return 0;
+        }
+        if (isset($data['count'])) {
+            return (int)$data['count'];
+        }
+        if (array_is_list($data)) {
+            return count($data);
+        }
+        return 1;
+    }
+
+    public static function getWebAuthnLastUsedUtc(array $mfaOption): ?string
+    {
+        $lastUsed = $mfaOption['last_used_utc'] ?? null;
+        $data = $mfaOption['data'] ?? null;
+
+        if (!is_array($data) || empty($data)) {
+            return $lastUsed;
+        }
+
+        $keys = array_is_list($data) ? $data : [$data];
+        foreach ($keys as $key) {
+            if (is_array($key) && !empty($key['last_used_utc'])) {
+                if ($lastUsed === null || $key['last_used_utc'] > $lastUsed) {
+                    $lastUsed = $key['last_used_utc'];
+                }
+            }
+        }
+
+        return $lastUsed;
     }
 
     /**

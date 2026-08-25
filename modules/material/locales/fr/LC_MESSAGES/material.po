@@ -359,6 +359,9 @@ msgstr "Méthodes de récupération de mot de passe"
 msgid "{review:remaining}"
 msgstr "(%count% restant)"
 
+msgid "{review:available}"
+msgstr "(%count% disponible)"
+
 msgid "{review:used}"
 msgstr "dernière utilisation: %when%"
 
