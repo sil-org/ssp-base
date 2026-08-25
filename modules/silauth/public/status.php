@@ -29,8 +29,8 @@ try {
     ]]]);
     $logger = new Psr3StdOutLogger();
     $system = new System($logger);
-
     $system->reportStatus();
+
 } catch (Throwable $t) {
 
     echo sprintf(

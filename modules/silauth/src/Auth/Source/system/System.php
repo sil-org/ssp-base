@@ -40,13 +40,12 @@ class System
     protected function isRequiredConfigPresent(): bool
     {
         $globalConfig = Configuration::getInstance();
-        $baseURLpath = $globalConfig->getOptionalString('baseurlpath', '');
-        $trustedUrlDomains = $globalConfig->getOptionalArray('trusted.url.domains', null);
 
         /*
          * If 'trusted.url.domains' is not NULL, the 'baseurlpath' check can be skipped. This is explicitly checked
-         * against null because an empty string tells SimpleSAMLphp to not trust URLs from any domain but its own.
+         * against null because an empty array tells SimpleSAMLphp to not trust URLs from any domain but its own.
          */
+        $trustedUrlDomains = $globalConfig->getOptionalArray('trusted.url.domains', null);
         if ($trustedUrlDomains !== null) {
             return true;
         }
@@ -58,9 +57,10 @@ class System
          *       HTTP_HOST value (provided by the user's request) is used to
          *       build a trusted URL (see SimpleSaml\Module::authenticate()).
          */
-        $avoidsSecurityHole = (preg_match('#^https?://.*/$#D', $baseURLpath) === 1);
+        $baseURL = $globalConfig->getOptionalString('baseurlpath', '');
+        $avoidsSecurityHole = (preg_match('#^https?://.*/$#D', $baseURL) === 1);
         if (!$avoidsSecurityHole) {
-            $this->logError('isRequiredConfigPresent failed: baseurlpath (' . $baseURLpath . ') does not meet requirements');
+            $this->logError('isRequiredConfigPresent failed: baseurlpath (' . $baseURL . ') does not meet requirements');
         }
         return $avoidsSecurityHole;
     }
