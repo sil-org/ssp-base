@@ -317,7 +317,6 @@ class ProfileReview extends ProcessingFilter
                 unset($mfaOptions[$key]);
             } elseif ($mfaOption['type'] === 'webauthn') {
                 $mfaOptions[$key]['count'] = self::getWebAuthnKeyCount($mfaOption);
-                $mfaOptions[$key]['last_used_utc'] = self::getWebAuthnLastUsedUtc($mfaOption);
             }
         }
         return array_values($mfaOptions);
@@ -336,27 +335,6 @@ class ProfileReview extends ProcessingFilter
             return count($data);
         }
         return 1;
-    }
-
-    public static function getWebAuthnLastUsedUtc(array $mfaOption): ?string
-    {
-        $lastUsed = $mfaOption['last_used_utc'] ?? null;
-        $data = $mfaOption['data'] ?? null;
-
-        if (!is_array($data) || empty($data)) {
-            return $lastUsed;
-        }
-
-        $keys = array_is_list($data) ? $data : [$data];
-        foreach ($keys as $key) {
-            if (is_array($key) && !empty($key['last_used_utc'])) {
-                if ($lastUsed === null || $key['last_used_utc'] > $lastUsed) {
-                    $lastUsed = $key['last_used_utc'];
-                }
-            }
-        }
-
-        return $lastUsed;
     }
 
     /**
