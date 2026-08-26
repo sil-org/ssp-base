@@ -13,7 +13,7 @@ $metadata['ssp-hub.local'] = [
      *
      * Can be '__DEFAULT__', to use this entry by default.
      */
-    'host' => 'ssp-hub.local',
+    'host' => '__DEFAULT__',
 
     // X.509 key and certificate. Relative to the cert directory.
     'privatekey' => 'saml.pem',
