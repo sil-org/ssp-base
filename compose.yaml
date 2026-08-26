@@ -290,6 +290,10 @@ services:
       # Utilize custom metadata
       - ./development/idp2-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
+      # Also listen on 8086, matching the port published below, so Apache reports
+      # the correct SERVER_PORT for manual browser testing (see extra-listen.conf).
+      - ./development/idp2-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
+
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
       - ./development/UserPass.php:/data/vendor/simplesamlphp/simplesamlphp/modules/exampleauth/src/Auth/Source/UserPass.php
 
@@ -301,10 +305,13 @@ services:
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     ports:
-      - "8086:80"
+      # Published as the SAME port Apache listens on internally (see
+      # extra-listen.conf) so SERVER_PORT is accurate for a real browser.
+      # Automated/headless tests reach this container on its other listener,
+      # port 80, directly over the Docker-internal network (unpublished).
+      - "8086:8086"
     environment:
       ADMIN_PASS: "b"
-      BASE_URL_PATH: "https://ssp-idp2.local/"
       SECRET_SALT: "h57fjemb&dn^nsJFGNjweJ"
       IDP_DOMAIN_NAME: "ssp-idp2.local"
       ID_BROKER_ACCESS_TOKEN: "test-cli-abc123"
@@ -315,6 +322,7 @@ services:
       MYSQL_DATABASE: "silauth"
       MYSQL_USER: "silauth"
       MYSQL_PASSWORD: "silauth"
+      TRUSTED_URL_DOMAINS: "ssp-hub.local"
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "red-teal"
@@ -384,6 +392,10 @@ services:
       # Utilize custom metadata
       - ./development/idp4-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
+      # Also listen on 8088, matching the port published below, so Apache reports
+      # the correct SERVER_PORT for manual browser testing (see extra-listen.conf).
+      - ./development/idp4-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
+
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
       - ./development/UserPass.php:/data/vendor/simplesamlphp/simplesamlphp/modules/exampleauth/src/Auth/Source/UserPass.php
 
@@ -400,7 +412,11 @@ services:
     depends_on:
       - api-mock.local
     ports:
-      - "8088:80"
+      # Published as the SAME port Apache listens on internally (see
+      # extra-listen.conf) so SERVER_PORT is accurate for a real browser.
+      # Automated/headless tests reach this container on its other listener,
+      # port 80, directly over the Docker-internal network (unpublished).
+      - "8088:8088"
     environment:
       ADMIN_PASS: "d"
       ID_BROKER_ACCESS_TOKEN: "dummy"

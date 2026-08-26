@@ -11,8 +11,19 @@ use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['http://ssp-idp4.local:8088'] = [
-    'entityid' => 'http://ssp-idp4.local:8088',
+/*
+ * Apache listens on both port 80 (used by automated/headless tests over the
+ * Docker-internal network) and port 8088 (published for manual browser
+ * testing -- see compose.yaml and development/idp4-local/apache). The
+ * entity ID reflects whichever port the current request actually arrived on.
+ */
+$port = $_SERVER['SERVER_PORT'] ?? '80';
+$entityId = in_array($port, ['80', '443'], true)
+    ? 'http://ssp-idp4.local'
+    : "http://ssp-idp4.local:$port";
+
+$metadata[$entityId] = [
+    'entityid' => $entityId,
     'name' => ['en' => 'IDP 4'],
 
     /*
@@ -26,7 +37,7 @@ $metadata['http://ssp-idp4.local:8088'] = [
     'privatekey' => 'ssp-hub-idp4.pem',
     'certificate' => 'ssp-hub-idp4.crt',
 
-    'logoURL' => 'https://dummyimage.com/125x125/0f4fbd/ffffff.png&text=IDP+4+8088',
+    'logoURL' => 'https://dummyimage.com/125x125/0f4fbd/ffffff.png&text=IDP+4',
 
     /*
      * Authentication source to use. Must be one that is configured in
@@ -69,8 +80,3 @@ $metadata['http://ssp-idp4.local:8088'] = [
         ],
     ],
 ];
-
-// Copy configuration for port 80 and modify
-$metadata['http://ssp-idp4.local'] = $metadata['http://ssp-idp4.local:8088'];
-$metadata['http://ssp-idp4.local']['entityid'] = 'http://ssp-idp4.local';
-$metadata['http://ssp-idp4.local']['host'] = 'ssp-idp4.local';
