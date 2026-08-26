@@ -11,12 +11,7 @@ use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-/*
- * Apache listens on both port 80 (used by automated/headless tests over the
- * Docker-internal network) and port 8088 (published for manual browser
- * testing -- see compose.yaml and development/idp4-local/apache). The
- * entity ID reflects whichever port the current request actually arrived on.
- */
+// Entity ID depends on the port -- see docs/development.md "Why idp1/idp2/idp4 listen on two ports".
 $port = $_SERVER['SERVER_PORT'] ?? '80';
 $entityId = in_array($port, ['80', '443'], true)
     ? 'http://ssp-idp4.local'

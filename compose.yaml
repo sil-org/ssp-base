@@ -206,8 +206,7 @@ services:
       - ./development/announcement.php:/data/vendor/simplesamlphp/simplesamlphp/announcement/announcement.php
       - ./development/logo_idp1.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
-      # Also listen on 8085, matching the port published below, so Apache reports
-      # the correct SERVER_PORT for manual browser testing (see extra-listen.conf).
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - ./development/idp-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
 
       # Utilize custom metadata
@@ -232,10 +231,7 @@ services:
     command: >
       bash -c "/data/run-idp.sh"
     ports:
-      # Published as the SAME port Apache listens on internally (see
-      # extra-listen.conf) so SERVER_PORT is accurate for a real browser.
-      # Automated/headless tests reach this container on its other listener,
-      # port 80, directly over the Docker-internal network (unpublished).
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - "8085:8085"
     environment:
       ADMIN_PASS: "a"
@@ -290,8 +286,7 @@ services:
       # Utilize custom metadata
       - ./development/idp2-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
-      # Also listen on 8086, matching the port published below, so Apache reports
-      # the correct SERVER_PORT for manual browser testing (see extra-listen.conf).
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - ./development/idp2-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
 
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
@@ -305,10 +300,7 @@ services:
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     ports:
-      # Published as the SAME port Apache listens on internally (see
-      # extra-listen.conf) so SERVER_PORT is accurate for a real browser.
-      # Automated/headless tests reach this container on its other listener,
-      # port 80, directly over the Docker-internal network (unpublished).
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - "8086:8086"
     environment:
       ADMIN_PASS: "b"
@@ -392,8 +384,7 @@ services:
       # Utilize custom metadata
       - ./development/idp4-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
-      # Also listen on 8088, matching the port published below, so Apache reports
-      # the correct SERVER_PORT for manual browser testing (see extra-listen.conf).
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - ./development/idp4-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
 
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
@@ -412,10 +403,7 @@ services:
     depends_on:
       - api-mock.local
     ports:
-      # Published as the SAME port Apache listens on internally (see
-      # extra-listen.conf) so SERVER_PORT is accurate for a real browser.
-      # Automated/headless tests reach this container on its other listener,
-      # port 80, directly over the Docker-internal network (unpublished).
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - "8088:8088"
     environment:
       ADMIN_PASS: "d"
