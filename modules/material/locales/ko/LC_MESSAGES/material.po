@@ -359,6 +359,9 @@ msgstr "비밀번호 복구 방법"
 msgid "{review:remaining}"
 msgstr "(%count% 남음)"
 
+msgid "{review:available}"
+msgstr "(%count% 사용 가능)"
+
 msgid "{review:used}"
 msgstr "마지막 사용 시간 : %when%"
 

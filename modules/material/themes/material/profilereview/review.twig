@@ -69,7 +69,10 @@
                       {{ mfa.label is not empty ? mfa.label : mfa.data.label }}
 
                       {% if mfa.type == 'backupcode' %}
-                        {{ '{review:remaining}'|trans({'%count%': mfa.data.count}) }}
+                        {{ '{review:remaining}'|trans({'%count%': mfa.data.count|default(0)}) }}
+                      {% elseif mfa.type == 'webauthn' %}
+                        {% set count = mfa.count is defined ? mfa.count : (mfa.data is defined and mfa.data ? 1 : 0) %}
+                        {{ '{review:available}'|trans({'%count%': count}) }}
                       {% endif %}
 
                       <span class="mdl-list__item-text-body">

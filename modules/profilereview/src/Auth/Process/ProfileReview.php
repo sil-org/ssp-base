@@ -314,10 +314,27 @@ class ProfileReview extends ProcessingFilter
         $mfaOptions = $this->getAttributeAllValues('mfa', $state)['options'];
         foreach ($mfaOptions as $key => $mfaOption) {
             if ($mfaOption['type'] === 'manager') {
-                unset ($mfaOptions[$key]);
+                unset($mfaOptions[$key]);
+            } elseif ($mfaOption['type'] === 'webauthn') {
+                $mfaOptions[$key]['count'] = self::getWebAuthnKeyCount($mfaOption);
             }
         }
-        return $mfaOptions;
+        return array_values($mfaOptions);
+    }
+
+    public static function getWebAuthnKeyCount(array $mfaOption): int
+    {
+        $data = $mfaOption['data'] ?? null;
+        if (!is_array($data) || empty($data)) {
+            return 0;
+        }
+        if (isset($data['count'])) {
+            return (int)$data['count'];
+        }
+        if (array_is_list($data)) {
+            return count($data);
+        }
+        return 1;
     }
 
     /**
