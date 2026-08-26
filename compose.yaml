@@ -206,6 +206,10 @@ services:
       - ./development/announcement.php:/data/vendor/simplesamlphp/simplesamlphp/announcement/announcement.php
       - ./development/logo_idp1.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
+      # Also listen on 8085, matching the port published below, so Apache reports
+      # the correct SERVER_PORT for manual browser testing (see extra-listen.conf).
+      - ./development/idp-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
+
       # Utilize custom metadata
       - ./development/idp-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
@@ -228,7 +232,11 @@ services:
     command: >
       bash -c "/data/run-idp.sh"
     ports:
-      - "8085:80"
+      # Published as the SAME port Apache listens on internally (see
+      # extra-listen.conf) so SERVER_PORT is accurate for a real browser.
+      # Automated/headless tests reach this container on its other listener,
+      # port 80, directly over the Docker-internal network (unpublished).
+      - "8085:8085"
     environment:
       ADMIN_PASS: "a"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJ"
