@@ -231,7 +231,6 @@ services:
     command: >
       bash -c "/data/run-idp.sh"
     ports:
-      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - "8085:8085"
     environment:
       ADMIN_PASS: "a"
@@ -300,7 +299,6 @@ services:
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     ports:
-      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - "8086:8086"
     environment:
       ADMIN_PASS: "b"
@@ -403,7 +401,6 @@ services:
     depends_on:
       - api-mock.local
     ports:
-      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
       - "8088:8088"
     environment:
       ADMIN_PASS: "d"

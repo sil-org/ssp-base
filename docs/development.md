@@ -22,11 +22,11 @@ If a session authenticated through one of the IdP's that is not permitted for a 
 Each of these containers is reached two different ways: automated/headless tests run
 inside the Docker network and hit the container's bare hostname on its internal port 80,
 while a real browser on your machine hits it via the port published in `compose.yaml`
-(e.g. `ssp-idp1.local:8085`). Docker's `8085:80` port mapping only translates traffic
-coming from the host machine -- it doesn't change what port Apache itself thinks it's
-listening on, so `$_SERVER['SERVER_PORT']` was always `80` regardless of which path a
+(e.g. `ssp-idp1.local:8085`). A Docker `8085:80` port mapping would translates traffic
+coming from the host machine, but not change what port Apache itself thinks it's
+listening on, so `$_SERVER['SERVER_PORT']` would be `80` regardless of which path a
 request came in on. Since SimpleSAMLphp's relative `baseurlpath` derives each hosted
-IdP's entity ID from `SERVER_PORT`, this meant a real browser hitting `:8085` still got
+IdP's entity ID from `SERVER_PORT`, this would mean a real browser hitting `:8085` gets
 issued the bare (no-port) entity ID -- silently mismatching what the Hub's SP-remote
 metadata expected for the custom-port flow ("Issuer mismatch" errors).
 
@@ -38,9 +38,5 @@ genuinely listens on, and reports, the same port a browser connects to. With
 computes its entity ID from `$_SERVER['SERVER_PORT']` directly, rather than needing two
 hardcoded metadata blocks selected by a `'host'` match.
 
-idp2 also needs `TRUSTED_URL_DOMAINS` set: the `silauth` module's own status check
-requires either that or a fixed (non-relative) `baseurlpath`, as a guard against
-Host-header-based URL spoofing -- idp1 and idp4 already had it for other reasons.
-
-idp3 doesn't need any of this: it has no automated-test traffic and only ever answers on
+idp3 doesn't need this: it has no automated-test traffic and only ever answers on
 its one port, so there's no entity-ID ambiguity to resolve.
