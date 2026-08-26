@@ -11,8 +11,15 @@ use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['http://ssp-idp1.local:8085'] = [
-    'entityid' => 'http://ssp-idp1.local:8085',
+// Entity ID and pwmanager authsource depend on the port -- see docs/development.md "Why idp1/idp2/idp4 listen on two ports".
+$port = $_SERVER['SERVER_PORT'] ?? '80';
+$isDefaultPort = in_array($port, ['80', '443'], true);
+$entityId = $isDefaultPort ? 'http://ssp-idp1.local' : "http://ssp-idp1.local:$port";
+$mfaSetupUrl = $isDefaultPort ? Env::get('PROFILE_URL_FOR_TESTS') : Env::get('MFA_SETUP_URL');
+$profileUrl = $isDefaultPort ? Env::get('PROFILE_URL_FOR_TESTS') : Env::get('PROFILE_URL');
+
+$metadata[$entityId] = [
+    'entityid' => $entityId,
     'name' => ['en' => 'IDP 1'],
 
     /*
@@ -26,7 +33,7 @@ $metadata['http://ssp-idp1.local:8085'] = [
     'privatekey' => 'ssp-hub-idp.pem',
     'certificate' => 'ssp-hub-idp.crt',
 
-    'logoURL' => 'https://dummyimage.com/125x125/0f4fbd/ffffff.png&text=IDP+1+8085',
+    'logoURL' => 'https://dummyimage.com/125x125/0f4fbd/ffffff.png&text=IDP+1',
 
     /*
      * Authentication source to use. Must be one that is configured in
@@ -44,7 +51,7 @@ $metadata['http://ssp-idp1.local:8085'] = [
             'idBrokerClientClass' => FakeIdBrokerClient::class,
             'idBrokerTrustedIpRanges' => Env::get('ID_BROKER_TRUSTED_IP_RANGES'),
             'idpDomainName' => Env::get('IDP_DOMAIN_NAME'),
-            'mfaSetupUrl' => Env::get('MFA_SETUP_URL'),
+            'mfaSetupUrl' => $mfaSetupUrl,
             'loggerClass' => Psr3SamlLogger::class,
         ],
         15 => [
@@ -60,15 +67,8 @@ $metadata['http://ssp-idp1.local:8085'] = [
             'class' => 'profilereview:ProfileReview',
             'employeeIdAttr' => 'employeeNumber',
             'mfaLearnMoreUrl' => Env::get('MFA_LEARN_MORE_URL'),
-            'profileUrl' => Env::get('PROFILE_URL'),
+            'profileUrl' => $profileUrl,
             'loggerClass' => Psr3SamlLogger::class,
         ],
     ],
 ];
-
-// Copy configuration for port 80 and modify
-$metadata['http://ssp-idp1.local'] = $metadata['http://ssp-idp1.local:8085'];
-$metadata['http://ssp-idp1.local']['entityid'] = 'http://ssp-idp1.local';
-$metadata['http://ssp-idp1.local']['host'] = 'ssp-idp1.local';
-$metadata['http://ssp-idp1.local']['authproc'][10]['mfaSetupUrl'] = Env::get('PROFILE_URL_FOR_TESTS');
-$metadata['http://ssp-idp1.local']['authproc'][30]['profileUrl'] = Env::get('PROFILE_URL_FOR_TESTS');

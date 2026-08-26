@@ -5,8 +5,14 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['http://ssp-idp2.local:8086'] = [
-    'entityid' => 'http://ssp-idp2.local:8086',
+// Entity ID depends on the port -- see docs/development.md "Why idp1/idp2/idp4 listen on two ports".
+$port = $_SERVER['SERVER_PORT'] ?? '80';
+$entityId = in_array($port, ['80', '443'], true)
+    ? 'http://ssp-idp2.local'
+    : "http://ssp-idp2.local:$port";
+
+$metadata[$entityId] = [
+    'entityid' => $entityId,
     'name' => ['en' => 'IDP 2'],
 
     /*
@@ -26,8 +32,3 @@ $metadata['http://ssp-idp2.local:8086'] = [
      */
     'auth' => 'silauth',
 ];
-
-// Copy configuration for port 80 and modify host.
-$metadata['http://ssp-idp2.local'] = $metadata['http://ssp-idp2.local:8086'];
-$metadata['http://ssp-idp2.local']['entityid'] = 'http://ssp-idp2.local';
-$metadata['http://ssp-idp2.local']['host'] = 'ssp-idp2.local';
