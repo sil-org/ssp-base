@@ -16,7 +16,7 @@ class StatusContext extends FeatureContext
     public function iCheckTheStatusOfThisModule()
     {
         $client = new Client();
-        $response = $client->get('http://ssp-idp1.local/module.php/silauth/status.php');
+        $response = $client->get('http://ssp-idp2.local/module.php/silauth/status.php');
         $this->responseCode = $response->getStatusCode();
         $this->responseText = $response->getBody()->getContents();
     }
