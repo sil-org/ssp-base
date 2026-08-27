@@ -359,6 +359,9 @@ msgstr "Password Recovery Methods"
 msgid "{review:remaining}"
 msgstr "(%count% remaining)"
 
+msgid "{review:available}"
+msgstr "(%count% available)"
+
 msgid "{review:used}"
 msgstr "last used: %when%"
 
