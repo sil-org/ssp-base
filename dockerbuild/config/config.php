@@ -299,7 +299,7 @@ $config = [
     /*
      * Set this option to true if you want to require administrator password to access the metadata.
      */
-    'admin.protectmetadata' => true,
+    'admin.protectmetadata' => false,
 
     /*
      * Set this option to false if you don't want SimpleSAMLphp to check for new stable releases when
