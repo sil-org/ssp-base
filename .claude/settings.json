@@ -1,0 +1,19 @@
+{
+  "sandbox": {
+    "filesystem": {
+      "allowRead": [
+        "."
+      ],
+      "denyRead": [
+        "./local.env",
+        "./local.broker.env"
+      ]
+    }
+  },
+  "permissions": {
+    "deny": [
+      "Read(./local.env)",
+      "Read(./local.broker.env)"
+    ]
+  }
+}
