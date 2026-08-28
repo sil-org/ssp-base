@@ -5,33 +5,44 @@
 
   {{ include('header.twig') }}
 </head>
-<body>
-<div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header mdl-color--red">
-    <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">
-            {{ '{error:header}'|trans }}
-          </span>
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 d-flex flex-column flex-grow-1 min-vh-100">
+  <header class="navbar navbar-expand-lg bg-danger navbar-dark px-3 py-2 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 text-wrap me-auto">
+        {{ '{error:header}'|trans }}
+      </span>
     </div>
   </header>
 
-  <main class="mdl-layout__content margin" layout-children="column">
-    <p>
-      {{ '{error:message}'|trans }}
-    </p>
+  <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto py-4">
+    <div class="card shadow-lg border-0 rounded-3 w-100" style="max-width: 650px;">
+      <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+        <i class="material-icons text-danger display-1" style="font-size: 3rem;">error</i>
+        <h1 class="h3 card-title text-body mt-3 mb-1">
+          {{ '{error:header}'|trans }}
+        </h1>
+      </div>
 
-    {% if showerrors ?? false %}
-      <p class="mdl-typography--body-2">
-        {{ error.exceptionMsg|e }}
-      </p>
+      <div class="card-body p-4 text-center">
+        <p class="card-text text-body mb-3">
+          {{ '{error:message}'|trans }}
+        </p>
 
-      <pre class="mdl-typography--caption">
-            {{ error.exceptionTrace|e }}
-          </pre>
-    {% endif %}
+        {% if showerrors ?? false %}
+          <div class="alert alert-danger text-start mb-0" role="alert">
+            <h2 class="h6 alert-heading fw-bold mb-1">{{ error.exceptionMsg|e }}</h2>
+            <pre class="mb-0 small font-monospace text-wrap" style="max-height: 250px; overflow-y: auto;">{{ error.exceptionTrace|e }}</pre>
+          </div>
+        {% endif %}
+      </div>
+    </div>
   </main>
 
-  {{ include('footer.twig') }}
+  <div class="d-none d-sm-block">
+    {{ include('footer.twig') }}
+  </div>
 </div>
 </body>
 </html>
+
