@@ -5,46 +5,63 @@
 
   {{ include('header.twig') }}
 </head>
-<body>
-<div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">
-          {{ '{about2expire:header}'|trans }}
-        </span>
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 d-flex flex-column flex-grow-1 min-vh-100">
+  <header class="navbar navbar-expand-lg bg-primary navbar-dark px-3 py-2 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 text-wrap me-auto">
+        {{ '{about2expire:header}'|trans }}
+      </span>
     </div>
   </header>
-  <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column">
+
+  <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto py-4">
+    <form method="post" class="w-100 d-flex justify-content-center">
       {% for name, value in form_data %}
         <input type="hidden" name="{{ name|e }}" value="{{ value|e }}">
       {% endfor %}
 
-      <p class="mdl-typography--title margin">
-        {% if days_left < 2 %}
-          {{ '{about2expire:expiring_in_a_day}'|trans }}
-        {% else %}
-          {{ '{about2expire:expiring_soon}'|trans({'%daysLeft%': days_left}) }}
-        {% endif %}
-      </p>
+      <div class="card idp-card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+          <i class="material-icons text-warning" style="font-size: 3rem;">warning</i>
+          <h1 class="h3 card-title text-body mt-3 mb-1">
+            {{ '{about2expire:header}'|trans }}
+          </h1>
+        </div>
 
-      <p class="mdl-typography--body-1">
-        {{ '{about2expire:change_now}'|trans }}
-      </p>
+        <div class="card-body p-4 text-center">
+          <p class="h5 card-text text-body mb-3">
+            {% if days_left < 2 %}
+              {{ '{about2expire:expiring_in_a_day}'|trans }}
+            {% else %}
+              {{ '{about2expire:expiring_soon}'|trans({'%daysLeft%': days_left}) }}
+            {% endif %}
+          </p>
 
-      <div class="fill-parent" layout-children="row" child-spacing="space-around">
-        <button name="continue" type="submit" class="mdl-button mdl-button--raised">
-          {{ '{about2expire:button_continue}'|trans }}
-        </button>
+          <p class="card-text text-secondary mb-0">
+            {{ '{about2expire:change_now}'|trans }}
+          </p>
+        </div>
 
-        <button name="changepwd" type="submit" class="mdl-button mdl-button--raised mdl-button--primary">
-          {{ '{about2expire:button_change}'|trans }}
-        </button>
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center p-3">
+          <button name="continue" type="submit" class="btn btn-outline-secondary">
+            {{ '{about2expire:button_continue}'|trans }}
+          </button>
+
+          <span class="flex-grow-1"></span>
+
+          <button name="changepwd" type="submit" class="btn btn-primary">
+            {{ '{about2expire:button_change}'|trans }}
+          </button>
+        </div>
       </div>
     </form>
   </main>
 
-  {{ include('footer.twig') }}
+  <div class="d-none d-sm-block">
+    {{ include('footer.twig') }}
+  </div>
 </div>
 </body>
 </html>
+
