@@ -52,7 +52,7 @@ $SHOW_SAML_ERRORS = Env::get('SHOW_SAML_ERRORS', false);
 $ENABLE_DEBUG = Env::get('ENABLE_DEBUG', false);
 $LOGGING_LEVEL = Env::get('LOGGING_LEVEL', 'NOTICE');
 
-if (str_starts_with($BASE_URL_PATH, "https://")) {
+if (str_ends_with(Env::get('MYSQL_HOST', ''), 'amazonaws.com')) {
     // production logs include the time for each event so it can be omitted from the log format
     $loggingFormat = Env::get('LOG_FORMAT', '%level [%trackid] %msg');
 } else {
@@ -299,7 +299,7 @@ $config = [
     /*
      * Set this option to true if you want to require administrator password to access the metadata.
      */
-    'admin.protectmetadata' => true,
+    'admin.protectmetadata' => false,
 
     /*
      * Set this option to false if you don't want SimpleSAMLphp to check for new stable releases when

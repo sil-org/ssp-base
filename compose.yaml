@@ -29,15 +29,17 @@ services:
       MYSQL_PASSWORD: silauth
     <<: *db_healthcheck
 
-  dbadmin:
-    image: phpmyadmin
+  # Adminer URL for silauth database, password is 'silauth'
+  # http://localhost:8080/?server=db&username=silauth&db=silauth
+
+  adminer:
+    image: ghcr.io/sil-org/terraform-aws-adminer:4.1
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
-      PMA_HOST: db
-      PMA_USER: silauth
-      PMA_PASSWORD: silauth
-      PMA_SSL: 1
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_PLUGINS: "backward-keys before-unload edit-foreign enum-option highlight-monaco"
+      ADMINER_SSL_CONFIG: '{"verify": true}'
 
   test:
     build:
@@ -204,6 +206,9 @@ services:
       - ./development/announcement.php:/data/vendor/simplesamlphp/simplesamlphp/announcement/announcement.php
       - ./development/logo_idp1.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
+      - ./development/idp-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
+
       # Utilize custom metadata
       - ./development/idp-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
@@ -226,7 +231,7 @@ services:
     command: >
       bash -c "/data/run-idp.sh"
     ports:
-      - "8085:80"
+      - "8085:8085"
     environment:
       ADMIN_PASS: "a"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJ"
@@ -246,8 +251,7 @@ services:
       MYSQL_DATABASE: "silauth"
       MYSQL_USER: "silauth"
       MYSQL_PASSWORD: "silauth"
-      BASE_URL_PATH: "http://ssp-idp1.local/" # for automated tests
-      #BASE_URL_PATH: "http://ssp-idp1.local:8085" # for manual browser testing
+      TRUSTED_URL_DOMAINS: "ssp-hub.local"
       HELP_CENTER_URL: "https://example.org/help"
       THEME_COLOR_SCHEME: "blue_grey-teal"
       HUB_MODE: "false"
@@ -281,6 +285,9 @@ services:
       # Utilize custom metadata
       - ./development/idp2-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
+      - ./development/idp2-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
+
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
       - ./development/UserPass.php:/data/vendor/simplesamlphp/simplesamlphp/modules/exampleauth/src/Auth/Source/UserPass.php
 
@@ -292,7 +299,7 @@ services:
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     ports:
-      - "8086:80"
+      - "8086:8086"
     environment:
       ADMIN_PASS: "b"
       SECRET_SALT: "h57fjemb&dn^nsJFGNjweJ"
@@ -305,6 +312,7 @@ services:
       MYSQL_DATABASE: "silauth"
       MYSQL_USER: "silauth"
       MYSQL_PASSWORD: "silauth"
+      TRUSTED_URL_DOMAINS: "ssp-hub.local"
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "red-teal"
@@ -374,6 +382,9 @@ services:
       # Utilize custom metadata
       - ./development/idp4-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
+      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
+      - ./development/idp4-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
+
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
       - ./development/UserPass.php:/data/vendor/simplesamlphp/simplesamlphp/modules/exampleauth/src/Auth/Source/UserPass.php
 
@@ -390,7 +401,7 @@ services:
     depends_on:
       - api-mock.local
     ports:
-      - "8088:80"
+      - "8088:8088"
     environment:
       ADMIN_PASS: "d"
       ID_BROKER_ACCESS_TOKEN: "dummy"
@@ -406,8 +417,7 @@ services:
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "false"
-      BASE_URL_PATH: "http://ssp-idp4.local/" # for automated tests
-      #BASE_URL_PATH: "http://ssp-idp4.local:8088" # for manual browser testing
+      TRUSTED_URL_DOMAINS: "ssp-hub.local"
       MFA_RECOVERY_CONTACTS_API: "http://api-mock.local/recovery-contacts"
       MFA_RECOVERY_CONTACTS_API_KEY: "dummy-key"
       MFA_RECOVERY_CONTACTS_FALLBACK_NAME: "Dummy Name"
@@ -575,14 +585,16 @@ services:
       MYSQL_PASSWORD: "pass"
     <<: *db_healthcheck
 
-  brokerpma:
-    image: phpmyadmin
+  # Adminer URL for broker database, password is 'pass'
+  # http://localhost:8090/?server=brokerDb&username=user&db=broker
+
+  adminer-broker:
+    image: adminer
     ports:
-      - "8090:80"
+      - "8090:8080"
     environment:
-      PMA_HOST: brokerDb
-      PMA_USER: user
-      PMA_PASSWORD: pass
+      ADMINER_DEFAULT_SERVER: brokerDb
+      ADMINER_PLUGINS: "backward-keys before-unload edit-foreign enum-option highlight-monaco"
 
   dynamo:
     image: cnadiminti/dynamodb-local

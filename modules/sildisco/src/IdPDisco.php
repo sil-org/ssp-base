@@ -34,7 +34,12 @@ class IdPDisco extends SSPIdPDisco
      */
     protected function log(string $message): void
     {
-        Logger::info('SildiscoIdPDisco.' . $this->instance . ': ' . $message);
+        Logger::info(json_encode([
+            'class' => self::class,
+            'instance' => $this->instance,
+            'host' => $_SERVER['HTTP_HOST'] ?? '',
+            'message' => $message,
+        ]));
     }
 
     /**

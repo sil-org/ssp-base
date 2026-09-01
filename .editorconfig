@@ -13,3 +13,6 @@ indent_size = 4
 [*.twig]
 charset = utf-8
 indent_size = 2
+
+[Caddyfile]
+indent_style = tab
