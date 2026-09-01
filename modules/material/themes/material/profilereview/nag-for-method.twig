@@ -17,7 +17,7 @@
 
   <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto">
     <form method="post" class="w-100 d-flex justify-content-center">
-      <div class="card shadow-lg border-0 rounded-3">
+      <div class="card shadow-lg border-0 rounded-3" style="max-width: 450px;">
         <div class="card-header bg-white text-center border-0 pt-4 pb-2">
           <img src="shield.svg" alt="{{ '{nag:shield_icon}'|trans }}" style="height: 100px;">
           <h1 class="h3 card-title text-body mt-3 mb-0">
@@ -48,6 +48,7 @@
       </div>
     </form>
   </main>
+  {{ include('footer.twig') }}
 </div>
 </body>
 </html>
