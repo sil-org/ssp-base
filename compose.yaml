@@ -15,6 +15,15 @@ x-http_healthcheck: &http_healthcheck
     retries: 10
 
 services:
+  haproxy:
+    image: haproxy:3.4.3-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "7001:7001"
+    volumes:
+      - "./development/haproxy:/usr/local/etc/haproxy"
+
   db:
     image: mariadb:10
     volumes:
@@ -74,7 +83,7 @@ services:
       MYSQL_DATABASE: silauth
       MYSQL_USER: silauth
       MYSQL_PASSWORD: silauth
-      PROFILE_URL_FOR_TESTS: http://pwmanager.local/module.php/core/authenticate.php?as=ssp-hub
+      PROFILE_URL_FOR_TESTS: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       ADMIN_PASS: b
       SECRET_SALT: abc123
       MFA_RECOVERY_CONTACTS_API: "http://api-mock.local/recovery-contacts"
@@ -125,7 +134,7 @@ services:
     environment:
       COMPOSER_CACHE_DIR: /composer
 
-  ssp-hub-app:
+  ssp-hub.local:
     build:
       context: .
       args:
@@ -167,24 +176,6 @@ services:
       LOGGING_LEVEL: INFO
       ENABLE_DEBUG: "false"
     <<: *http_healthcheck
-
-  ssp-hub.local:
-    image: caddy:2
-    depends_on:
-      ssp-hub-app:
-        condition: service_healthy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./development/hub/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./development/hub/cert:/certs:ro
-    healthcheck:
-      test: ["CMD", "caddy", "version"]
-      start_period: 1s
-      interval: 1s
-      timeout: 3s
-      retries: 10
 
   ssp-idp1.local: # using a database session store type ("sql")
     build:
@@ -230,8 +221,6 @@ services:
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     command: >
       bash -c "/data/run-idp.sh"
-    ports:
-      - "8085:8085"
     environment:
       ADMIN_PASS: "a"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJ"
@@ -240,10 +229,10 @@ services:
       ID_BROKER_ASSERT_VALID_IP: "false"
       ID_BROKER_BASE_URI: "dummy"
       ID_BROKER_TRUSTED_IP_RANGES: "192.168.0.1/8"
-      MFA_SETUP_URL: "http://pwmanager.local/module.php/core/authenticate.php?as=ssp-hub-custom-port"
+      MFA_SETUP_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       REMEMBER_ME_SECRET: "12345"
-      PROFILE_URL: "http://pwmanager.local/module.php/core/authenticate.php?as=ssp-hub-custom-port"
-      PROFILE_URL_FOR_TESTS: "http://pwmanager.local/module.php/core/authenticate.php?as=ssp-hub"
+      PROFILE_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
+      PROFILE_URL_FOR_TESTS: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
       SESSION_STORE_TYPE: "sql"
@@ -298,8 +287,6 @@ services:
       - ./modules/silauth:/data/vendor/simplesamlphp/simplesamlphp/modules/silauth
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
-    ports:
-      - "8086:8086"
     environment:
       ADMIN_PASS: "b"
       SECRET_SALT: "h57fjemb&dn^nsJFGNjweJ"
@@ -349,8 +336,6 @@ services:
       - ./modules/silauth:/data/vendor/simplesamlphp/simplesamlphp/modules/silauth
       - ./modules/sildisco:/data/vendor/simplesamlphp/simplesamlphp/modules/sildisco
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
-    ports:
-      - "8087:80"
     env_file:
       - local.env
     environment:
@@ -400,8 +385,6 @@ services:
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     depends_on:
       - api-mock.local
-    ports:
-      - "8088:8088"
     environment:
       ADMIN_PASS: "d"
       ID_BROKER_ACCESS_TOKEN: "dummy"
@@ -409,8 +392,8 @@ services:
       ID_BROKER_BASE_URI: "dummy"
       ID_BROKER_TRUSTED_IP_RANGES: "192.168.0.1/8"
       IDP_DOMAIN_NAME: "idp4"
-      MFA_SETUP_URL: "http://pwmanager.local/module.php/core/authenticate.php?as=ssp-hub-custom-port"
-      PROFILE_URL: "http://pwmanager.local/module.php/core/authenticate.php?as=ssp-hub-custom-port"
+      MFA_SETUP_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
+      PROFILE_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       REMEMBER_ME_SECRET: "not-realy-secret-67890"
       SECRET_SALT: "not-really-secret-UyxPqwWQZZmJq3Ve"
       SECURE_COOKIE: "false"
@@ -441,8 +424,6 @@ services:
 
       # Enable checking our test metadata
       - ./dockerbuild/run-metadata-tests.sh:/data/run-metadata-tests.sh
-    ports:
-      - "8081:80"
     environment:
       ADMIN_EMAIL: "john_doe@there.com"
       ADMIN_PASS: "sp1"
@@ -468,8 +449,6 @@ services:
 
       # Utilize custom metadata
       - ./development/sp2-local/metadata/saml20-idp-remote.php:/data/vendor/simplesamlphp/simplesamlphp/metadata/saml20-idp-remote.php
-    ports:
-      - "8082:80"
     environment:
       ADMIN_EMAIL: "john_doe@there.com"
       ADMIN_PASS: "sp2"
@@ -493,8 +472,6 @@ services:
 
       # Utilize custom metadata
       - ./development/sp3-local/metadata/saml20-idp-remote.php:/data/vendor/simplesamlphp/simplesamlphp/metadata/saml20-idp-remote.php
-    ports:
-      - "8083:80"
     env_file:
       - local.env
     environment:
@@ -535,8 +512,6 @@ services:
   broker:
     image: ghcr.io/sil-org/idp-id-broker:8
     platform: linux/amd64
-    ports:
-      - "80"
     depends_on:
       brokerDb:
         condition: service_healthy
