@@ -5,8 +5,8 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['http://ssp-idp2.local'] = [
-    'entityid' => 'http://ssp-idp2.local',
+$metadata['https://ssp-idp2.local'] = [
+    'entityid' => 'https://ssp-idp2.local',
     'name' => ['en' => 'IDP 2'],
 
     /*

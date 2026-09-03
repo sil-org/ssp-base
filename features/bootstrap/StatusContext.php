@@ -15,8 +15,11 @@ class StatusContext extends FeatureContext
      */
     public function iCheckTheStatusOfThisModule()
     {
-        $client = new Client();
-        $response = $client->get('http://ssp-idp2.local/module.php/silauth/status.php');
+        $client = new Client([
+            // Disable SSL verification
+            'verify' => false
+        ]);
+        $response = $client->get('https://ssp-idp2.local/module.php/silauth/status.php');
         $this->responseCode = $response->getStatusCode();
         $this->responseText = $response->getBody()->getContents();
     }
@@ -38,8 +41,10 @@ class StatusContext extends FeatureContext
         $client = new Client([
             'cookies' => true,
             'http_errors' => false,
+            // Disable SSL verification
+            'verify' => false,
         ]);
-        $response = $client->get('http://ssp-idp1.local/module.php/admin/test/silauth');
+        $response = $client->get('https://ssp-idp1.local/module.php/admin/test/silauth');
         $this->responseCode = $response->getStatusCode();
     }
 
