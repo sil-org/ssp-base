@@ -141,9 +141,6 @@ services:
       args:
         UID: ${UID:-1001}
         GID: ${GID:-1001}
-    depends_on:
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/hub/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -190,8 +187,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/idp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -263,8 +258,6 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/idp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -317,9 +310,6 @@ services:
       args:
         UID: ${UID:-1001}
         GID: ${GID:-1001}
-    depends_on:
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/idp3-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -386,7 +376,6 @@ services:
       - ./modules/material:/data/vendor/simplesamlphp/simplesamlphp/modules/material
     depends_on:
       - api-mock.local
-      - haproxy
     environment:
       ADMIN_PASS: "d"
       ID_BROKER_ACCESS_TOKEN: "dummy"
@@ -414,9 +403,6 @@ services:
   ssp-sp1.local:
     image: ghcr.io/sil-org/ssp-base:11
     platform: linux/amd64
-    depends_on:
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/sp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -445,9 +431,6 @@ services:
   ssp-sp2.local:
     image: ghcr.io/sil-org/ssp-base:11
     platform: linux/amd64
-    depends_on:
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/sp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -471,9 +454,6 @@ services:
   ssp-sp3.local:
     image: ghcr.io/sil-org/ssp-base:11
     platform: linux/amd64
-    depends_on:
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/sp3-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -499,9 +479,6 @@ services:
   pwmanager.local:
     image: ghcr.io/sil-org/ssp-base:11
     platform: linux/amd64
-    depends_on:
-      haproxy:
-        condition: service_started
     volumes:
       # Utilize custom certs
       - ./development/sp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
