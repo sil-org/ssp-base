@@ -202,9 +202,6 @@ services:
       - ./development/announcement.php:/data/vendor/simplesamlphp/simplesamlphp/announcement/announcement.php
       - ./development/logo_idp1.png:/data/vendor/simplesamlphp/simplesamlphp/public/logo.png
 
-      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
-      - ./development/idp-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
-
       # Utilize custom metadata
       - ./development/idp-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
 
@@ -280,9 +277,6 @@ services:
 
       # Utilize custom metadata
       - ./development/idp2-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
-
-      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
-      - ./development/idp2-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
 
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
       - ./development/UserPass.php:/data/vendor/simplesamlphp/simplesamlphp/modules/exampleauth/src/Auth/Source/UserPass.php
@@ -376,9 +370,6 @@ services:
 
       # Utilize custom metadata
       - ./development/idp4-local/metadata:/data/vendor/simplesamlphp/simplesamlphp/metadata
-
-      # See docs/development.md "Why idp1/idp2/idp4 listen on two ports".
-      - ./development/idp4-local/apache/extra-listen.conf:/etc/apache2/conf-enabled/extra-listen.conf
 
       # Customized SSP code -- TODO: make a better solution that doesn't require hacking SSP code
       - ./development/UserPass.php:/data/vendor/simplesamlphp/simplesamlphp/modules/exampleauth/src/Auth/Source/UserPass.php
