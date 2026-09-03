@@ -14,12 +14,11 @@ use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
 // Entity ID and pwmanager authsource depend on the port -- see docs/development.md "Why idp1/idp2/idp4 listen on two ports".
 $port = $_SERVER['SERVER_PORT'] ?? '80';
 $isDefaultPort = in_array($port, ['80', '443'], true);
-$entityId = $isDefaultPort ? 'http://ssp-idp1.local' : "http://ssp-idp1.local:$port";
 $mfaSetupUrl = $isDefaultPort ? Env::get('PROFILE_URL_FOR_TESTS') : Env::get('MFA_SETUP_URL');
 $profileUrl = $isDefaultPort ? Env::get('PROFILE_URL_FOR_TESTS') : Env::get('PROFILE_URL');
 
-$metadata[$entityId] = [
-    'entityid' => $entityId,
+$metadata['http://ssp-idp1.local'] = [
+    'entityid' => 'http://ssp-idp1.local',
     'name' => ['en' => 'IDP 1'],
 
     /*

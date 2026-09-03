@@ -5,14 +5,8 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-// Entity ID depends on the port -- see docs/development.md "Why idp1/idp2/idp4 listen on two ports".
-$port = $_SERVER['SERVER_PORT'] ?? '80';
-$entityId = in_array($port, ['80', '443'], true)
-    ? 'http://ssp-idp2.local'
-    : "http://ssp-idp2.local:$port";
-
-$metadata[$entityId] = [
-    'entityid' => $entityId,
+$metadata['http://ssp-idp2.local'] = [
+    'entityid' => 'http://ssp-idp2.local',
     'name' => ['en' => 'IDP 2'],
 
     /*
