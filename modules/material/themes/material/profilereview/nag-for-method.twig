@@ -5,51 +5,50 @@
 
   {{ include('header.twig') }}
 </head>
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">
+<body class="gradient-bg d-flex flex-column min-vh-100">
+<div class="bootstrap-layout container-fluid p-0 d-flex flex-column flex-grow-1 min-vh-100">
+  <header class="navbar navbar-expand-lg bg-primary navbar-dark px-3 py-2 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 text-wrap me-auto">
         {{ '{nag:method_header}'|trans }}
       </span>
     </div>
   </header>
-  <main class="mdl-layout__content" layout-children="column">
-    <form layout-children="column" method="post">
-      <div class="mdl-card mdl-shadow--8dp">
-        <div class="mdl-card__media white-bg margin" layout-children="column">
-          <img src="shield.svg" alt="{{ '{nag:shield_icon}'|trans }}">
-        </div>
 
-        <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text">
+  <main class="container d-flex flex-column align-items-center justify-content-center flex-grow-1 my-auto">
+    <form method="post" class="w-100 d-flex justify-content-center">
+      <div class="card shadow-lg border-0 rounded-3" style="max-width: 450px;">
+        <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+          <img src="shield.svg" alt="{{ '{nag:shield_icon}'|trans }}" style="height: 100px;">
+          <h1 class="h3 card-title text-body mt-3 mb-0">
             {{ '{nag:header}'|trans }}
           </h1>
         </div>
 
-        <div class="mdl-card__title center mdl-card__title--stacked">
-          <p class="mdl-card__subtitle-text">
+        <div class="card-body text-center px-4 py-2">
+          <p class="card-text text-secondary mb-5 lh-lg">
             {{ '{nag:method_info}'|trans }}
           </p>
-          <p class="mdl-card__subtitle-text">
+          <p class="card-text text-secondary small mb-3">
             {{ '{nag:reauth_notice}'|trans }}
           </p>
         </div>
 
-        <div class="mdl-card__actions" layout-children="row" child-spacing="space-around">
-          <button name="continue" class="mdl-button">
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center p-3">
+          <button name="continue" type="submit" class="btn btn-outline-secondary">
             {{ '{nag:button_later}'|trans }}
           </button>
 
-          <span flex></span>
+          <span class="flex-grow-1"></span>
 
-          <button name="update" class="mdl-button mdl-button--raised mdl-button--primary">
+          <button name="update" class="btn btn-primary">
             {{ '{nag:button_add}'|trans }}
           </button>
         </div>
       </div>
     </form>
   </main>
+  {{ include('footer.twig') }}
 </div>
 </body>
 </html>

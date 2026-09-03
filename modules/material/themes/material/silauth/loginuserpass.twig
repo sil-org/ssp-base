@@ -31,17 +31,6 @@
       }
       window.open(url, '_blank');
     }
-
-    //Remove invalid input state on page load
-    window.addEventListener('load', () => {
-      const clean = () => {
-        document.querySelectorAll('.mdl-textfield').forEach(el => {
-          el.classList.remove('is-invalid');
-        });
-      };
-      componentHandler.upgradeDom();
-      setTimeout(clean, 0);
-    });
   </script>
 
   {% if site_key is not empty %}
@@ -69,74 +58,64 @@
     </script>
   {% endif %}
 </head>
-<body class="gradient-bg">
-<div class="mdl-layout mdl-layout--fixed-header">
-  <main class="mdl-layout__content" layout-children="column" child-spacing="center">
+<body class="gradient-bg d-flex flex-column">
+<div class="bootstrap-layout container-fluid p-0 d-flex flex-column flex-grow-1">
+  <main class="w-100 d-flex flex-column justify-content-center align-items-center flex-grow-1 my-auto">
     {{ include('announcement.twig') }}
 
-    <form method="post" autocomplete="off" onsubmit="event.target.onsubmit = preventDefault">
+    <form method="post" autocomplete="off" onsubmit="event.target.onsubmit = preventDefault" class="w-100 d-flex justify-content-center">
       <input type="hidden" name="AuthState" value="{{ (stateparams.AuthState??'')|e }}"/>
 
       {% if csrf_token is defined %}
         <input type="hidden" name="csrf-token" value="{{ csrf_token|e }}"/>
       {% endif %}
 
-      <div class="mdl-card mdl-shadow--8dp fill-phone-viewport">
-        <div class="mdl-card__media white-bg margin" layout-children="column">
-          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" style="max-width:150px;">
-        </div>
-
-        <div class="mdl-card__title center">
-          <h1 class="mdl-card__title-text">
+      <div class="card idp-card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+          <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" class="img-fluid" style="max-width:150px;">
+          <h1 class="h3 card-title text-body mt-3 mb-0">
             {{ '{login:header}'|trans({'%idpName%': idp_name}) }}
           </h1>
         </div>
 
-        <div class="mdl-card__supporting-text" layout-children="column">
-          <div class="login-inputs-wrapper">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 100%;">
-              <label for="username" class="mdl-textfield__label">
-                {{ '{login:label_username}'|trans }}
-              </label>
+        <div class="card-body p-4">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              required
+              name="username"
+              class="form-control"
+              value="{{ username|e }}"
+              {% if username is empty %} autofocus {% endif %}
+              id="username"
+              placeholder="{{ '{login:label_username}'|trans }}"
+            >
+            <label for="username">{{ '{login:label_username}'|trans }}</label>
+          </div>
 
+          <div class="input-group mb-3">
+            <div class="form-floating flex-grow-1">
               <input
-                type="text"
+                type="password"
                 required
-                name="username"
-                class="mdl-textfield__input mdl-color-text--black {% if username is not empty %} is-dirty {% endif %}"
-                value="{{ username|e }}"
-                {% if username is empty %} autofocus {% endif %}
-                id="username"
+                name="password"
+                class="form-control"
+                {% if username is not empty %} autofocus {% endif %}
+                id="password"
+                placeholder="{{ '{login:label_password}'|trans }}"
               >
+              <label for="password">{{ '{login:label_password}'|trans }}</label>
             </div>
-
-            <div class="password-field-container">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 100%;">
-                <label for="password" class="mdl-textfield__label">
-                  {{ '{login:label_password}'|trans }}
-                </label>
-
-                <input
-                  type="password"
-                  required
-                  name="password"
-                  class="mdl-textfield__input mdl-color-text--black"
-                  {% if username is not empty %} autofocus {% endif %}
-                  id="password"
-                >
-              </div>
-
-              <button
-                type="button"
-                class="mdl-button mdl-js-button mdl-button--icon password-visibility-toggle"
-                onclick="togglePasswordVisibility()"
-                aria-label="{{ '{login:show_password}'|trans|e }}"
-                aria-pressed="false"
-                id="password-visibility-toggle"
-              >
-                <i class="material-icons" aria-hidden="true">visibility</i>
-              </button>
-            </div>
+            <button
+              type="button"
+              class="btn btn-secondary d-flex align-items-center"
+              onclick="togglePasswordVisibility()"
+              aria-label="{{ '{login:show_password}'|trans|e }}"
+              aria-pressed="false"
+              id="password-visibility-toggle"
+            >
+              <i class="material-icons" aria-hidden="true">visibility</i>
+            </button>
           </div>
         </div>
 
@@ -144,13 +123,10 @@
           {% set errorMessageKey = errorparams[1] ?? '{login:error_wronguserpass}' %}
           {% set errorMessageTokens = errorparams[2] ?? null %}
           {% set message = errorMessageKey|trans(errorMessageTokens) %}
-          <p class="mdl-card__supporting-text mdl-color-text--red error">
-            <i class="material-icons">error</i>
-
-            <span class="mdl-textfield mdl-typography--caption">
-              {{ message|e }}
-            </span>
-          </p>
+          <div class="alert alert-danger d-flex align-items-center mx-4 mb-3" role="alert">
+            <i class="material-icons me-2">error</i>
+            <div>{{ message|e }}</div>
+          </div>
 
           {% if analytics_tracking_id is not empty %}
             <script>
@@ -163,51 +139,58 @@
           {% endif %}
         {% endif %}
 
-        <div class="mdl-card__actions" layout-children="row">
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center p-3">
           {% if password_forgot_url is not empty %}
             <button
               type="button"
               onclick="forgotPassword()"
-              class="mdl-button mdl-button--colored mdl-typography--raised"
+              class="btn btn-outline-primary"
             >
               {{ '{login:forgot}'|trans }}
             </button>
           {% endif %}
 
-          <span flex></span>
+          <span class="flex-grow-1"></span>
 
-          <button class="mdl-button mdl-button--colored mdl-button--raised" id="submit-button">
+          <button class="btn btn-primary" id="submit-button">
             {{ '{login:button_login}'|trans }}
           </button>
         </div>
 
-        <section layout-children="row" child-spacing="space-around">
-          {% if help_center_url is defined and help_center_url is not empty %}
-            <a
-              href="{{ help_center_url }}"
-              target="_blank"
-              rel="noopener"
-              class="mdl-button mdl-button--colored mdl-typography--body-2"
-            >
-              {{ '{login:help}'|trans }}
-              <i class="material-icons">launch</i>
-            </a>
-          {% endif %}
+        {% if (help_center_url is defined and help_center_url is not empty) or (profile_url is defined and profile_url is not empty) %}
+          <div class="d-flex justify-content-around p-3 border-top mt-auto">
+            {% if help_center_url is defined and help_center_url is not empty %}
+              <a
+                href="{{ help_center_url }}"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-link text-decoration-none d-inline-flex align-items-center"
+              >
+                {{ '{login:help}'|trans }}
+                <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
+              </a>
+            {% endif %}
 
-          {% if profile_url is defined and profile_url is not empty %}
-            <a href="{{ profile_url }}"
-               target="_blank"
-               rel="noopener"
-               class="mdl-button mdl-button--colored mdl-typography--body-2"
-            >
-              {{ '{login:profile}'|trans }}
-              <i class="material-icons">launch</i>
-            </a>
-          {% endif %}
-        </section>
+            {% if profile_url is defined and profile_url is not empty %}
+              <a
+                href="{{ profile_url }}"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-link text-decoration-none d-inline-flex align-items-center"
+              >
+                {{ '{login:profile}'|trans }}
+                <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
     </form>
   </main>
+
+  <div class="d-none d-sm-block">
+    {{ include('footer.twig') }}
+  </div>
 </div>
 </body>
 </html>
