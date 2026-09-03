@@ -83,7 +83,8 @@ services:
       MYSQL_DATABASE: silauth
       MYSQL_USER: silauth
       MYSQL_PASSWORD: silauth
-      PROFILE_URL_FOR_TESTS: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
+      MFA_SETUP_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
+      PROFILE_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       ADMIN_PASS: b
       SECRET_SALT: abc123
       MFA_RECOVERY_CONTACTS_API: "http://api-mock.local/recovery-contacts"
@@ -234,7 +235,6 @@ services:
       MFA_SETUP_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       REMEMBER_ME_SECRET: "12345"
       PROFILE_URL: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
-      PROFILE_URL_FOR_TESTS: "http://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       SECURE_COOKIE: "false"
       SHOW_SAML_ERRORS: "true"
       SESSION_STORE_TYPE: "sql"
