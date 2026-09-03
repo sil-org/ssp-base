@@ -11,8 +11,8 @@ use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['http://ssp-idp4.local'] = [
-    'entityid' => 'http://ssp-idp4.local',
+$metadata['https://ssp-idp4.local'] = [
+    'entityid' => 'https://ssp-idp4.local',
     'name' => ['en' => 'IDP 4'],
 
     /*
