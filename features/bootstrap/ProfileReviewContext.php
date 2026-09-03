@@ -140,8 +140,8 @@ class ProfileReviewContext extends FeatureContext
     public function iShouldEndUpAtTheUpdateProfileUrl()
     {
 
-        $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
-        Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
+        $profileUrl = Env::get('PROFILE_URL');
+        Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL provided');
         $this->waitForPage($profileUrl);
 
         $currentUrl = $this->getSession()->getCurrentUrl();
@@ -159,8 +159,8 @@ class ProfileReviewContext extends FeatureContext
     {
         $session = $this->getSession();
 
-        $profileUrl = Env::get('PROFILE_URL_FOR_TESTS');
-        Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL_FOR_TESTS provided');
+        $profileUrl = Env::get('PROFILE_URL');
+        Assert::assertNotEmpty($profileUrl, 'No PROFILE_URL provided');
 
         // Wait until a new tab/window appears
         $deadline = microtime(true) + 2; // seconds

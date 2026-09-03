@@ -289,8 +289,8 @@ class MfaContext extends FeatureContext
      */
     public function iShouldEndUpAtTheMfaSetupUrl()
     {
-        $mfaSetupUrl = Env::get('PROFILE_URL_FOR_TESTS');
-        Assert::assertNotEmpty($mfaSetupUrl, 'No PROFILE_URL_FOR_TESTS provided');
+        $mfaSetupUrl = Env::get('MFA_SETUP_URL');
+        Assert::assertNotEmpty($mfaSetupUrl, 'No MFA_SETUP_URL provided');
         $expectedUrl = json_encode($mfaSetupUrl, JSON_UNESCAPED_SLASHES);
         $session = $this->getSession();
         $session->wait(1000, <<<JS
