@@ -74,6 +74,10 @@ services:
         condition: service_healthy
       ssp-sp3.local:
         condition: service_healthy
+      ssp-sp4.local:
+        condition: service_healthy
+      ssp-sp5.local:
+        condition: service_healthy
       pwmanager.local:
         condition: service_healthy
       test-browser:
@@ -468,6 +472,56 @@ services:
     environment:
       ADMIN_EMAIL: "john_doe@there.com"
       ADMIN_PASS: sp3
+      IDP_NAME: "NA"
+      SECRET_SALT: h57fjemb&dn^nsJFGNjweJz3
+      SECURE_COOKIE: "false"
+      SHOW_SAML_ERRORS: "true"
+      SAML20_IDP_ENABLE: "false"
+      ADMIN_PROTECT_INDEX_PAGE: "false"
+    <<: *http_healthcheck
+
+  ssp-sp4.local:
+    image: ghcr.io/sil-org/ssp-base:11
+    platform: linux/amd64
+    volumes:
+      # Utilize custom certs
+      - ./development/sp4-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
+
+      # Utilize custom configs
+      - ./development/sp4-local/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
+
+      # Utilize custom metadata
+      - ./development/sp4-local/metadata/saml20-idp-remote.php:/data/vendor/simplesamlphp/simplesamlphp/metadata/saml20-idp-remote.php
+    env_file:
+      - local.env
+    environment:
+      ADMIN_EMAIL: "john_doe@there.com"
+      ADMIN_PASS: sp4
+      IDP_NAME: "NA"
+      SECRET_SALT: h57fjemb&dn^nsJFGNjweJz3
+      SECURE_COOKIE: "false"
+      SHOW_SAML_ERRORS: "true"
+      SAML20_IDP_ENABLE: "false"
+      ADMIN_PROTECT_INDEX_PAGE: "false"
+    <<: *http_healthcheck
+
+  ssp-sp5.local:
+    image: ghcr.io/sil-org/ssp-base:11
+    platform: linux/amd64
+    volumes:
+      # Utilize custom certs
+      - ./development/sp5-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
+
+      # Utilize custom configs
+      - ./development/sp5-local/config/authsources.php:/data/vendor/simplesamlphp/simplesamlphp/config/authsources.php
+
+      # Utilize custom metadata
+      - ./development/sp5-local/metadata/saml20-idp-remote.php:/data/vendor/simplesamlphp/simplesamlphp/metadata/saml20-idp-remote.php
+    env_file:
+      - local.env
+    environment:
+      ADMIN_EMAIL: "john_doe@there.com"
+      ADMIN_PASS: sp5
       IDP_NAME: "NA"
       SECRET_SALT: h57fjemb&dn^nsJFGNjweJz3
       SECURE_COOKIE: "false"
