@@ -4,7 +4,7 @@ use PHPUnit\Framework\Assert;
 
 class SilDiscoContext extends FeatureContext
 {
-    protected const SP1_LOGOUT_PAGE = 'http://ssp-sp1.local/module.php/core/logout/ssp-hub';
+    protected const SP1_LOGOUT_PAGE = 'https://ssp-sp1.local/module.php/core/logout/ssp-hub';
 
     /**
      * @When I log in using my :idp credentials
@@ -42,7 +42,7 @@ class SilDiscoContext extends FeatureContext
 
         $currentUrl = $this->getSession()->getCurrentUrl();
         Assert::assertStringStartsWith(
-            'http://ssp-' . strtolower($sp),
+            'https://ssp-' . strtolower($sp),
             $currentUrl,
             'Did NOT end up at ' . $sp
         );
