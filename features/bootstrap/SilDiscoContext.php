@@ -39,14 +39,8 @@ class SilDiscoContext extends FeatureContext
     public function iShouldEndUpAtMyIntendedDestinationOnSp($sp)
     {
         $this->waitForPage('module.php/core/welcome');
-
-        $currentUrl = $this->getSession()->getCurrentUrl();
-        Assert::assertStringStartsWith(
-            'https://ssp-' . strtolower($sp),
-            $currentUrl,
-            'Did NOT end up at ' . $sp
-        );
-        $this->assertPageContainsText('not much to see here.');
+        $this->assertIAmOn($sp);
+        $this->assertPageContainsText('This is a landing page for the Identity Provider.');
     }
 
     /**
@@ -80,7 +74,7 @@ class SilDiscoContext extends FeatureContext
     public function iHaveAuthenticatedWithIdp2($sp)
     {
         $this->iGoToTheSpLoginPage($sp);
-        if ($sp != "SP2") { // SP2 only has IDP2 in its IDPList
+        if (!in_array($sp, ["SP2", "SP4"])) { // SP2 & SP4 only has IDP2 in its IDPList
             $this->iClickOnTheTile('IDP 2');
         }
         $this->username = 'sildisco_idp2';
@@ -99,6 +93,28 @@ class SilDiscoContext extends FeatureContext
     }
 
     /**
+     * @Given I am visiting :sp
+     */
+    public function iAmVisiting($sp) {
+        $this->waitForPage('module.php/core/welcome');
+
+        $this->assertIAmOn($sp);
+    }
+
+    /**
+     * @Given I remove session cookies for the current SP
+     * 
+     * Prerequisite: we have performed a visit to the current SP
+     * This removes the two SSP cookies for the site we are currently sitting on
+     */
+    public function iHaveLoggedOutOfTheCurrentSP()
+    {
+        $session = $this->getSession();
+        $session->setCookie('SSPAUTHTOKEN', null);
+        $session->setCookie('SimpleSAML', null);
+    }
+
+    /**
      * @Then I should be prompted for a username and password
      */
     public function iShouldBePromptedForAUsernameAndPassword()
@@ -106,6 +122,19 @@ class SilDiscoContext extends FeatureContext
         $this->waitForPage('module.php/core/loginuserpass');
 
         $this->assertPageBodyContainsText('Enter your username and password');
+    }
+
+    /**
+     * @Then I should be prompted for a username and password on :idp
+     */
+    public function iShouldBePromptedForAUsernameAndPasswordOn($idp)
+    {
+        $this->waitForPage('module.php/silauth/loginuserpass');
+
+        // Turn "idp3" to "IDP 3"
+        $idpName = substr_replace(strtoupper($idp), " ", 3, 0);
+
+        $this->assertPageBodyContainsText($idpName . ' Sign in');
     }
 
     /**
@@ -130,6 +159,18 @@ class SilDiscoContext extends FeatureContext
             'entityID="ssp-hub.local"',
             $xml,
             "page doesn't contain entityID"
+        );
+    }
+
+    /**
+     * Asserts if we are on a particular SP's domain
+     */
+    private function assertIAmOn($sp) {
+        $currentUrl = $this->getSession()->getCurrentUrl();
+        Assert::assertStringStartsWith(
+            'https://ssp-' . strtolower($sp),
+            $currentUrl,
+            'Did NOT end up at ' . $sp
         );
     }
 

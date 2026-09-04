@@ -3484,16 +3484,16 @@
         },
         {
             "name": "sil-org/ssp-utilities",
-            "version": "2.1.1",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sil-org/ssp-utilities.git",
-                "reference": "0b118181640056fd3fb2677d4afb52f234570cad"
+                "reference": "ce19d5f54b1619e2d0d2a8e5ef84f2333ea47bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sil-org/ssp-utilities/zipball/0b118181640056fd3fb2677d4afb52f234570cad",
-                "reference": "0b118181640056fd3fb2677d4afb52f234570cad",
+                "url": "https://api.github.com/repos/sil-org/ssp-utilities/zipball/ce19d5f54b1619e2d0d2a8e5ef84f2333ea47bdd",
+                "reference": "ce19d5f54b1619e2d0d2a8e5ef84f2333ea47bdd",
                 "shasum": ""
             },
             "require": {
@@ -3517,9 +3517,9 @@
             "description": "SimpleSAMLphp related utility classes",
             "support": {
                 "issues": "https://github.com/sil-org/ssp-utilities/issues",
-                "source": "https://github.com/sil-org/ssp-utilities/tree/2.1.1"
+                "source": "https://github.com/sil-org/ssp-utilities/tree/2.2.0"
             },
-            "time": "2025-09-16T14:23:44+00:00"
+            "time": "2026-09-04T17:05:35+00:00"
         },
         {
             "name": "sil-org/yii2-json-log-targets",

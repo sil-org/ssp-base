@@ -46,7 +46,7 @@ class IdPDisco extends SSPIdPDisco
      * @throws NoState
      * @throws Exception|MetadataNotFound
      */
-    private function getSPEntityIDAndReducedIdpList(): array
+    private function getSPEntityIDAndReducedIdpListAndForceAuthn(): array
     {
 
         $idpList = $this->getIdPList();
@@ -69,7 +69,9 @@ class IdPDisco extends SSPIdPDisco
 
         $idpList = self::getReducedIdpList($idpList, $spEntityId);
 
-        return array($spEntityId, $idpList);
+        $forceAuthn = self::getForceAuthn($spEntityId);
+
+        return array($spEntityId, $idpList, $forceAuthn);
     }
 
     /**
@@ -80,7 +82,7 @@ class IdPDisco extends SSPIdPDisco
     public function handleRequest(): void
     {
         $this->start();
-        list($spEntityId, $idpList) = $this->getSPEntityIDAndReducedIdpList();
+        list($spEntityId, $idpList, $forceAuthn) = $this->getSPEntityIDAndReducedIdpListAndForceAuthn();
 
         $httpUtils = new HTTP();
 
@@ -94,9 +96,14 @@ class IdPDisco extends SSPIdPDisco
                     $this->returnIdParam . ')'
                 );
 
+                $urlParametersArray = array($this->returnIdParam => $idp);
+                if ($forceAuthn == "true") {
+                    array_push($urlParametersArray, [Utils::SP_FORCE_AUTHN_KEY => $forceAuthn]);
+                }
+
                 $httpUtils->redirectTrustedURL(
                     $this->returnURL,
-                    array($this->returnIdParam => $idp)
+                    $urlParametersArray
                 );
             }
         }
@@ -129,7 +136,7 @@ class IdPDisco extends SSPIdPDisco
             return $idp;
         }
 
-        list($spEntityId, $idpList) = $this->getSPEntityIDAndReducedIdpList();
+        list($spEntityId, $idpList, $forceAuthn) = $this->getSPEntityIDAndReducedIdpListAndForceAuthn();
 
         /*
          * All this complication is for security.
@@ -198,6 +205,25 @@ class IdPDisco extends SSPIdPDisco
             }
         }
         return $reducedIdpList;
+    }
+
+    /**
+     * Retrieve  the SP metadata field "ForceAuthn"
+     *
+     * @return string A string with forceAuthn, defaults to "false".
+     */
+    protected static function getForceAuthn(string $spEntityId): string
+    {
+        $forceAuthn = "false";
+        
+        $metadata = MetaDataStorageHandler::getMetadataHandler();
+        $spMetadata = $metadata->getMetaData($spEntityId, 'saml20-sp-remote');
+
+        if (array_key_exists(Utils::SP_FORCE_AUTHN_KEY, $spMetadata)) {
+            $forceAuthn = $spMetadata[Utils::SP_FORCE_AUTHN_KEY];
+        }
+
+        return $forceAuthn;
     }
 
     /**
