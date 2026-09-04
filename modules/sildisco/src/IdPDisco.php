@@ -98,7 +98,7 @@ class IdPDisco extends SSPIdPDisco
 
                 $urlParametersArray = array($this->returnIdParam => $idp);
                 if ($forceAuthn == "true") {
-                    $urlParametersArray = array($this->returnIdParam => $idp, "ForceAuthn" => $forceAuthn);
+                    array_push($urlParametersArray, ["ForceAuthn" => $forceAuthn]);
                 }
 
                 $httpUtils->redirectTrustedURL(
