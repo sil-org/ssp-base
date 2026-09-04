@@ -98,7 +98,7 @@ class IdPDisco extends SSPIdPDisco
 
                 $urlParametersArray = array($this->returnIdParam => $idp);
                 if ($forceAuthn == "true") {
-                    array_push($urlParametersArray, ["ForceAuthn" => $forceAuthn]);
+                    array_push($urlParametersArray, [Utils::SP_FORCE_AUTHN_KEY => $forceAuthn]);
                 }
 
                 $httpUtils->redirectTrustedURL(
@@ -219,8 +219,8 @@ class IdPDisco extends SSPIdPDisco
         $metadata = MetaDataStorageHandler::getMetadataHandler();
         $spMetadata = $metadata->getMetaData($spEntityId, 'saml20-sp-remote');
 
-        if (array_key_exists("ForceAuthn", $spMetadata)) {
-            $forceAuthn = $spMetadata["ForceAuthn"];
+        if (array_key_exists(Utils::SP_FORCE_AUTHN_KEY, $spMetadata)) {
+            $forceAuthn = $spMetadata[Utils::SP_FORCE_AUTHN_KEY];
         }
 
         return $forceAuthn;
