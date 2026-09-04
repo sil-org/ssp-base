@@ -405,8 +405,11 @@ services:
     <<: *http_healthcheck
 
   ssp-sp1.local:
-    image: ghcr.io/sil-org/ssp-base:11
-    platform: linux/amd64
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/sp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -433,8 +436,11 @@ services:
     <<: *http_healthcheck
 
   ssp-sp2.local:
-    image: ghcr.io/sil-org/ssp-base:11
-    platform: linux/amd64
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/sp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -456,8 +462,11 @@ services:
     <<: *http_healthcheck
 
   ssp-sp3.local:
-    image: ghcr.io/sil-org/ssp-base:11
-    platform: linux/amd64
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/sp3-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -481,8 +490,11 @@ services:
     <<: *http_healthcheck
 
   ssp-sp4.local:
-    image: ghcr.io/sil-org/ssp-base:11
-    platform: linux/amd64
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/sp4-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -506,8 +518,11 @@ services:
     <<: *http_healthcheck
 
   ssp-sp5.local:
-    image: ghcr.io/sil-org/ssp-base:11
-    platform: linux/amd64
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/sp5-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -531,8 +546,11 @@ services:
     <<: *http_healthcheck
 
   pwmanager.local:
-    image: ghcr.io/sil-org/ssp-base:11
-    platform: linux/amd64
+    build:
+      context: .
+      args:
+        UID: ${UID:-1001}
+        GID: ${GID:-1001}
     volumes:
       # Utilize custom certs
       - ./development/sp-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
