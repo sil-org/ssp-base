@@ -46,7 +46,7 @@ class IdPDisco extends SSPIdPDisco
      * @throws NoState
      * @throws Exception|MetadataNotFound
      */
-    private function getSPEntityIDAndReducedIdpList(): array
+    private function getSPEntityIDAndReducedIdpListAndForceAuthn(): array
     {
 
         $idpList = $this->getIdPList();
@@ -82,7 +82,7 @@ class IdPDisco extends SSPIdPDisco
     public function handleRequest(): void
     {
         $this->start();
-        list($spEntityId, $idpList, $forceAuthn) = $this->getSPEntityIDAndReducedIdpList();
+        list($spEntityId, $idpList, $forceAuthn) = $this->getSPEntityIDAndReducedIdpListAndForceAuthn();
 
         $httpUtils = new HTTP();
 
@@ -136,7 +136,7 @@ class IdPDisco extends SSPIdPDisco
             return $idp;
         }
 
-        list($spEntityId, $idpList, $forceAuthn) = $this->getSPEntityIDAndReducedIdpList();
+        list($spEntityId, $idpList, $forceAuthn) = $this->getSPEntityIDAndReducedIdpListAndForceAuthn();
 
         /*
          * All this complication is for security.
