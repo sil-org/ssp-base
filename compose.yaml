@@ -234,7 +234,7 @@ services:
       MFA_SETUP_URL: "https://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       REMEMBER_ME_SECRET: "12345"
       PROFILE_URL: "https://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SESSION_STORE_TYPE: "sql"
       MYSQL_HOST: "db"
@@ -298,7 +298,7 @@ services:
       MYSQL_USER: "silauth"
       MYSQL_PASSWORD: "silauth"
       TRUSTED_URL_DOMAINS: "ssp-hub.local"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "red-teal"
       HUB_MODE: "false"
@@ -339,7 +339,7 @@ services:
     environment:
       ADMIN_PASS: "c"
       SECRET_SALT: "h57fjem34fh*nsJFGNjweJ"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "false"
@@ -391,7 +391,7 @@ services:
       PROFILE_URL: "https://pwmanager.local/module.php/saml/sp/login/mfa-idp?ReturnTo=/"
       REMEMBER_ME_SECRET: "not-realy-secret-67890"
       SECRET_SALT: "not-really-secret-UyxPqwWQZZmJq3Ve"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       THEME_COLOR_SCHEME: "orange-light_blue"
       HUB_MODE: "false"
@@ -424,7 +424,7 @@ services:
       ADMIN_PASS: "sp1"
       IDP_NAME: "NA"
       SECRET_SALT: "not-secret-h57fjemb&dn^nsJFGNjweJz1"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
@@ -449,7 +449,7 @@ services:
       ADMIN_PASS: "sp2"
       IDP_NAME: "NA"
       SECRET_SALT: "h57fjemb&dn^nsJFGNjweJz2"
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
@@ -474,7 +474,7 @@ services:
       ADMIN_PASS: sp3
       IDP_NAME: "NA"
       SECRET_SALT: h57fjemb&dn^nsJFGNjweJz3
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
@@ -499,7 +499,7 @@ services:
       ADMIN_PASS: sp4
       IDP_NAME: "NA"
       SECRET_SALT: h57fjemb&dn^nsJFGNjweJz3
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
@@ -524,7 +524,7 @@ services:
       ADMIN_PASS: sp5
       IDP_NAME: "NA"
       SECRET_SALT: h57fjemb&dn^nsJFGNjweJz3
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
@@ -547,7 +547,7 @@ services:
       ADMIN_PASS: sp1
       IDP_NAME: THIS VARIABLE IS REQUIRED BUT PROBABLY NOT USED
       SECRET_SALT: NOT-a-secret-k49fjfkw73hjf9t87wjiw
-      SECURE_COOKIE: "false"
+      SECURE_COOKIE: "true"
       SHOW_SAML_ERRORS: "true"
       SAML20_IDP_ENABLE: "false"
       ADMIN_PROTECT_INDEX_PAGE: "false"
