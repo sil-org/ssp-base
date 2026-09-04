@@ -40,3 +40,20 @@ Feature: SIL IdP discovery (sildisco) module
     And I go to the SP1 login page
     And I click on the "IDP 1" tile
     Then I should be prompted for a username and password
+
+  Scenario: Expect login prompt for SP4's ForceAuthn with only one approved IdP
+    Given I have authenticated with IDP2 for SP4
+    And I am visiting SP4
+    And I remove session cookies for the current SP
+    When I go to the SP4 login page
+    Then I should be prompted for a username and password on IDP2
+
+  Scenario: Expect discovery page and login prompt for SP5's ForceAuthn with multiple approved IdPs
+    Given I have authenticated with IDP2 for SP5
+    And I am visiting SP5
+    And I remove session cookies for the current SP
+    When I go to the SP5 login page
+    And the url should match "sildisco/disco.php"
+    And I should see "to continue to SP5"
+    And I click on the "IDP 2" tile
+    Then I should be prompted for a username and password on IDP2

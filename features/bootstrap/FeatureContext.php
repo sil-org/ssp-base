@@ -20,6 +20,8 @@ class FeatureContext extends MinkContext
     protected const SP1_LOGIN_PAGE = 'https://ssp-sp1.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
     protected const SP2_LOGIN_PAGE = 'https://ssp-sp2.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
     protected const SP3_LOGIN_PAGE = 'https://ssp-sp3.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
+    protected const SP4_LOGIN_PAGE = 'https://ssp-sp4.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
+    protected const SP5_LOGIN_PAGE = 'https://ssp-sp5.local/module.php/saml/sp/login/ssp-hub?ReturnTo=/';
 
     const SCREENSHOTS_PATH = '/data/features/screenshots/';
 
@@ -190,6 +192,12 @@ class FeatureContext extends MinkContext
                 break;
             case 'SP3':
                 $this->visit(self::SP3_LOGIN_PAGE);
+                break;
+            case 'SP4':
+                $this->visit(self::SP4_LOGIN_PAGE);
+                break;
+            case 'SP5':
+                $this->visit(self::SP5_LOGIN_PAGE);
                 break;
         }
     }
