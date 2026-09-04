@@ -96,6 +96,8 @@ class SilDiscoContext extends FeatureContext
      * @Given I am visiting :sp
      */
     public function iAmVisiting($sp) {
+        $this->waitForPage('module.php/core/welcome');
+
         $this->assertIAmOn($sp);
     }
 
