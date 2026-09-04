@@ -40,7 +40,7 @@ class SilDiscoContext extends FeatureContext
     {
         $this->waitForPage('module.php/core/welcome');
         $this->assertIAmOn($sp);
-        $this->assertPageContainsText('not much to see here.');
+        $this->assertPageContainsText('This is a landing page for the Identity Provider.');
     }
 
     /**

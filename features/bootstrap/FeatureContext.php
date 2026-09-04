@@ -356,7 +356,7 @@ JS);
     {
         $this->waitForPage('module.php/core/welcome');
 
-        $this->assertPageBodyContainsText('not much to see here.');
+        $this->assertPageBodyContainsText('This is a landing page for the Identity Provider.');
     }
 
     protected function waitForPage(string $path)
