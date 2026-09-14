@@ -58,9 +58,13 @@ body {
 
 @media (min-width: 576px) {
   .idp-card {
-    max-width: 450px;
+    max-width: 350px;
     width: 100%;
   }
+}
+
+.idp-card{
+  border-radius: 1px !important;
 }
 
 /* Print Styles for Backup Codes */
