@@ -67,6 +67,14 @@ body {
   border-radius: 1px !important;
 }
 
+h1{
+  font-weight: lighter !important;
+}
+p{
+  font-weight: 400 !important;
+}
+
+
 /* Print Styles for Backup Codes */
 @media print {
   body * {
