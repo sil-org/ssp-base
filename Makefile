@@ -25,6 +25,9 @@ test:
 test-integration:
 	docker compose run --rm test ./run-integration-tests.sh
 
+lint-twig:
+	docker compose run --rm --no-deps test ./vendor/bin/phpunit --display-all-issues tests/TwigTemplatesTest.php
+
 copyJsLib:
 	cp ./node_modules/@simplewebauthn/browser/dist/bundle/index.umd.min.js ./modules/mfa/public/simplewebauthn/browser.js
 	cp ./node_modules/@simplewebauthn/browser/LICENSE.md ./modules/mfa/public/simplewebauthn/LICENSE.md

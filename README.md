@@ -378,6 +378,8 @@ shown to the user filled with the content of that announcement. HTML is supporte
 
 See a full listing of [Manual tests](./docs/material_tests.md) in the `docs` directory in this repo.
 
+Run `make lint-twig` to check the theme's Twig templates for syntax errors. The same check also runs as part of `make test`.
+
 #### i18n support
 
 Translations are in files located in the `modules/material/locales` directory.
