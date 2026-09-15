@@ -25,6 +25,7 @@ Testing:
 ```bash
 make test             # metadata tests (tests/MetadataTest.php) on hub + idp1, plus the `test` service's PHPUnit suites
 make test-integration  # behat acceptance tests (features/*.feature) against the running compose topology
+make lint-twig        # Twig syntax check of the material theme templates (tests/TwigTemplatesTest.php); starts only the `test` container
 ```
 
 To run a single behat scenario, get a shell in the `test` service and target a feature file by line number:
