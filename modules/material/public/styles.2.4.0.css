@@ -63,27 +63,32 @@ body {
   }
 }
 
-.idp-card{
+.idp-card {
   border-radius: 1px !important;
 }
 
-h1{
+h1 {
   font-weight: lighter !important;
 }
-p{
+p {
   font-weight: 400 !important;
 }
-button{
+button {
   border-radius: 3px !important;
   text-transform: uppercase !important;
   font-size: 13px !important;
   letter-spacing: 0.5px !important;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12) !important;
+  box-shadow:
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
 }
-input{
+a {
+  font-size: 14px !important;
+}
+input {
   border-radius: 4px !important;
 }
-
 
 /* Print Styles for Backup Codes */
 @media print {

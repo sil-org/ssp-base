@@ -71,7 +71,7 @@
       {% endif %}
 
       <div class="card idp-card shadow-lg border-0 rounded-3">
-        <div class="card-header bg-white text-center border-0 pt-4 pb-2">
+        <div class="card-header bg-white text-center border-0 pt-3 pb-2">
           <img src="/logo.png" alt="{{ '{login:logo}'|trans({'%idpName%': idp_name}) }}" class="img-fluid" style="max-width:150px;">
           <h1 class="h3 card-title text-body mt-3 mb-0">
             {{ '{login:header}'|trans({'%idpName%': idp_name}) }}
@@ -139,12 +139,12 @@
           {% endif %}
         {% endif %}
 
-        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center p-3">
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center pt-3">
           {% if password_forgot_url is not empty %}
             <button
               type="button"
               onclick="forgotPassword()"
-              class="btn btn-outline text-primary  link-underline-opacity-0"
+              class="btn btn-outline text-primary  link-underline-opacity-0 shadow-none"
             >
               {{ '{login:forgot}'|trans }}
             </button>
@@ -158,7 +158,7 @@
         </div>
 
         {% if (help_center_url is defined and help_center_url is not empty) or (profile_url is defined and profile_url is not empty) %}
-          <div class="d-flex justify-content-around p-3 border-top mt-auto">
+          <div class="d-flex justify-content-around pt-3 mt-auto">
             {% if help_center_url is defined and help_center_url is not empty %}
               <a
                 href="{{ help_center_url }}"
@@ -176,7 +176,7 @@
                 href="{{ profile_url }}"
                 target="_blank"
                 rel="noopener"
-                class="btn btn-link text-decoration-none d-inline-flex align-items-center"
+                class="small btn btn-link text-decoration-none d-inline-flex align-items-center"
               >
                 {{ '{login:profile}'|trans }}
                 <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
