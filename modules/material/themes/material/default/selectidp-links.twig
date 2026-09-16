@@ -67,7 +67,7 @@
     </div>
   </header>
 
-  <main class="container d-flex flex-column align-items-center flex-grow-1 my-auto">
+  <main class="container d-flex flex-column align-items-center flex-grow-1 my-auto pb-5">
     {{ include('announcement.twig') }}
 
     <form class="row justify-content-around g-4 w-100">
@@ -82,7 +82,7 @@
             title="{{ '{selectidp-links:enabled}'|trans({'%idpName%': idp|entityDisplayName}) }}"
           >
             <div class="card-body p-2 d-flex flex-column align-items-center justify-content-between h-100">
-              <button data-entityid="{{idp.entityid|e}}" type="button" class="btn btn-link text-decoration-none w-100 h-100 d-flex flex-column align-items-center justify-content-between p-0">
+              <button data-entityid="{{idp.entityid|e}}" type="button" class="btn btn-link text-decoration-none w-100 h-100 d-flex flex-column align-items-center justify-content-between p-0 shadow-none">
                 <div class="image-wrapper d-flex align-items-center justify-content-center" style="height: 130px; width: 100%;">
                   <img
                     class="logo img-fluid"
