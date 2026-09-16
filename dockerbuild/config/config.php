@@ -72,7 +72,7 @@ $MYSQL_PASSWORD = Env::get('MYSQL_PASSWORD', '');
 
 $pdoOptions = [];
 $caFile = Env::get('DB_CA_FILE_PATH');
-if (file_exists($caFile)) {
+if ($caFile !== null && file_exists($caFile)) {
     $pdoOptions = [
         PDO::MYSQL_ATTR_SSL_CA => $caFile,
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => 1,

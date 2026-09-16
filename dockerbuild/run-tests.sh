@@ -9,6 +9,7 @@ set -e
 /data/run-metadata-tests.sh
 
 ./vendor/bin/phpunit --display-all-issues tests/AnnouncementTest.php
+./vendor/bin/phpunit --display-all-issues tests/TwigTemplatesTest.php
 ./vendor/bin/phpunit --display-all-issues vendor/simplesamlphp/simplesamlphp/modules/sildisco/tests/
 ./vendor/bin/phpunit --display-all-issues vendor/simplesamlphp/simplesamlphp/modules/mfa/tests/
 
