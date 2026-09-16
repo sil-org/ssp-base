@@ -19,6 +19,7 @@ class TwigTemplatesTest extends TestCase
      */
     public function testTemplateSyntax()
     {
+        // Not the lint target; this only builds the Twig environment SSP renders pages with
         $twig = (new Template(Configuration::getInstance(), 'core:welcome'))->getTwig();
 
         $lint = new CommandTester(new LintCommand($twig));
