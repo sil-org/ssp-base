@@ -155,4 +155,22 @@ class ExpiryContext extends FeatureContext
         $this->username = 'invalid_exp';
         $this->password = 'e';
     }
+
+    /**
+     * @When I click the change-password button
+     */
+    public function iClickTheChangePasswordButton(): void
+    {
+        $this->submitFormByClickingButtonNamed('changepwd');
+    }
+
+    /**
+     * @Then I should be prompted for a username and password
+     */
+    public function iShouldBePromptedForAUsernameAndPassword(): void
+    {
+        $this->waitForPage('module.php/core/loginuserpass');
+
+        $this->assertPageBodyContainsText('Enter your username and password');
+    }
 }
