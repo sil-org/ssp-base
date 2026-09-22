@@ -173,4 +173,15 @@ class ExpiryContext extends FeatureContext
 
         $this->assertPageBodyContainsText('Enter your username and password');
     }
+
+    /**
+     * @Given I go to the profile manager
+     */
+    public function iGoToTheProfileManager(): void
+    {
+        // SP3 stands in for the profile manager, which also signs in through the IdP.
+        $this->iGoToTheSpLoginPage('SP3');
+        $this->iClickOnTheTile('IDP 1');
+        $this->waitForPage('module.php/core/welcome');
+    }
 }
