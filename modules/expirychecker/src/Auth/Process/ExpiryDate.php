@@ -175,6 +175,17 @@ class ExpiryDate extends ProcessingFilter
     /**
      * @throws Exception
      */
+    protected static function requireFreshLogin(string $authSource): void
+    {
+        $session = Session::getSessionFromRequest();
+        $session->deleteData(self::SESSION_TYPE, self::HAS_SEEN_SPLASH_PAGE);
+        $session->doLogout($authSource);
+        $session->save();
+    }
+
+    /**
+     * @throws Exception
+     */
     protected function initLogger(array $config): void
     {
         $loggerClass = $config['loggerClass'] ?? Psr3SamlLogger::class;
@@ -242,6 +253,17 @@ class ExpiryDate extends ProcessingFilter
                 'event' => 'expirychecker: skip message, seen recently',
                 'employeeId' => $employeeId,
             ]));
+
+            /* Attributes only refresh at login, so they would still show this
+             * password as expired after it is changed. Let this request through
+             * but require a new login next time.  */
+            if ($this->isExpired($this->getExpiryTimestamp($this->expiryDateAttr, $state))) {
+                $this->logger->warning(json_encode([
+                    'event' => 'expirychecker: password expired, requiring fresh login',
+                    'employeeId' => $employeeId,
+                ]));
+                self::requireFreshLogin($state['Source']['auth']);
+            }
             return;
         }
 
