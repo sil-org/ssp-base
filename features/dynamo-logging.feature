@@ -4,8 +4,8 @@ Feature: DynamoDB login logging on the authoritative IdP
   Even when it runs on the authoritative IdP behind a Hub
 
   # The plain-IdP (no Hub, no saml:RequesterID) SP-resolution branch is covered at the unit
-  # level by SpEntityIdTest -- see features/mfa.feature's TODO(IDP-2182 follow-up) note for
-  # why a live "SP direct to IdP, no Hub" Behat scenario isn't wired up in this dev topology.
+  # level by SpEntityIdTest -- see features/mfa.feature's NOTE comment (and sil-org/ssp-base#482)
+  # for why a live "SP direct to IdP, no Hub" Behat scenario isn't wired up in this dev topology.
   Scenario: A login proxied through the Hub logs the true originating SP, not the Hub
     When I go to the SP1 login page
     And I click on the "IDP 2" tile
