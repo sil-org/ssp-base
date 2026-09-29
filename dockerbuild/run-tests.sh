@@ -3,15 +3,33 @@
 # echo script commands to stdout
 set -x
 
-# exit if any command fails
-set -e
+# exit if any command fails, including the left-hand side of a pipe
+set -eo pipefail
+
+# Runs the PHPUnit suite for a custom module's tests/ directory, failing loudly
+# (rather than relying on phpunit's own "not found" handling) if that module
+# isn't actually present where expected -- e.g. because a new module is
+# missing its bind mount in compose.yaml, or the image wasn't rebuilt after
+# the module was added.
+run_module_tests() {
+    local module_tests_dir="vendor/simplesamlphp/simplesamlphp/modules/$1/tests"
+
+    if [[ ! -d "$module_tests_dir" ]]; then
+        echo "Expected module tests directory not found: $module_tests_dir" >&2
+        echo "(Check that modules/$1 is bind-mounted/copied into this container.)" >&2
+        exit 1
+    fi
+
+    ./vendor/bin/phpunit --display-all-issues "$module_tests_dir/"
+}
 
 /data/run-metadata-tests.sh
 
 ./vendor/bin/phpunit --display-all-issues tests/AnnouncementTest.php
 ./vendor/bin/phpunit --display-all-issues tests/TwigTemplatesTest.php
-./vendor/bin/phpunit --display-all-issues vendor/simplesamlphp/simplesamlphp/modules/sildisco/tests/
-./vendor/bin/phpunit --display-all-issues vendor/simplesamlphp/simplesamlphp/modules/mfa/tests/
+run_module_tests sildisco
+run_module_tests mfa
+run_module_tests loginfinalizer
 
 if [[ -n "$SSL_CA_BASE64" ]]; then
     # Decode the base64 and write to the file

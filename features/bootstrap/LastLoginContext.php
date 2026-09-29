@@ -9,6 +9,9 @@ class LastLoginContext extends FeatureContext
     private const BROKER_KEY = 'test-cli-abc123';
     private const BAD_PASSWORD = 'definitely-not-the-right-password';
 
+    // Seeded by development/m991231_235959_insert_test_users.php for employee_id "10001".
+    private const CORRECT_PASSWORD = 'sildisco_password';
+
     private ?string $recordedLastLoginUtc = null;
 
     /**
@@ -51,6 +54,33 @@ class LastLoginContext extends FeatureContext
                 'last_login_utc for user %s changed: before=%s, after=%s',
                 $employeeId,
                 var_export($this->recordedLastLoginUtc, true),
+                var_export($current, true)
+            )
+        );
+    }
+
+    /**
+     * @When I log in as :username with the correct password
+     */
+    public function iLogInAsWithTheCorrectPassword(string $username): void
+    {
+        $this->username = $username;
+        $this->password = self::CORRECT_PASSWORD;
+        $this->iLogIn();
+    }
+
+    /**
+     * @Then the last_login_utc for user :employeeId should be updated
+     */
+    public function theLastLoginUtcForUserShouldBeUpdated(string $employeeId): void
+    {
+        $current = $this->fetchLastLoginUtc($employeeId);
+        Assert::assertNotSame(
+            $this->recordedLastLoginUtc,
+            $current,
+            sprintf(
+                'Expected last_login_utc for user %s to change, but it did not (still %s).',
+                $employeeId,
                 var_export($current, true)
             )
         );
