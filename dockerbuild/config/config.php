@@ -1216,6 +1216,20 @@ $config = [
             'idBrokerClientClass' => Env::get('ID_BROKER_CLIENT_CLASS', IdBrokerClient::class),
             'idBrokerTrustedIpRanges' => Env::get('ID_BROKER_TRUSTED_IP_RANGES'),
         ],
+
+        /*
+         * Also always last: logs a DynamoDB audit record for the successful
+         * login, naming the true originating SP (SpEntityId::resolve() --
+         * handles both a plain IdP and the authoritative IdP behind a Hub).
+         * No-ops if DYNAMO_REGION/DYNAMO_LOG_TABLE aren't set, so it's opt-in
+         * per deployment despite being wired globally here.
+         */
+        901 => [
+            'class' => 'loginfinalizer:LogToDynamo',
+            'dynamoEndpoint' => Env::get('DYNAMO_ENDPOINT'),
+            'dynamoLogTable' => Env::get('DYNAMO_LOG_TABLE'),
+            'dynamoRegion' => Env::get('DYNAMO_REGION'),
+        ],
     ],
 
     /*
