@@ -70,6 +70,8 @@ services:
         condition: service_healthy
       ssp-sp-group.local:
         condition: service_healthy
+      init-dynamo:
+        condition: service_completed_successfully
       test-browser:
         condition: service_started
     environment:
@@ -256,6 +258,8 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      init-dynamo:
+        condition: service_completed_successfully
     volumes:
       # Utilize custom certs
       - ./development/idp2-local/cert:/data/vendor/simplesamlphp/simplesamlphp/cert
@@ -288,6 +292,11 @@ services:
       ID_BROKER_ASSERT_VALID_IP: "true"
       ID_BROKER_BASE_URI: "http://broker"
       ID_BROKER_TRUSTED_IP_RANGES: "10.20.38.0/24"
+      AWS_ACCESS_KEY_ID: "local"
+      AWS_SECRET_ACCESS_KEY: "local"
+      DYNAMO_REGION: "us-east-1"
+      DYNAMO_LOG_TABLE: "sildisco_local_user-log"
+      DYNAMO_ENDPOINT: "http://dynamo:8000"
       MYSQL_HOST: "db"
       MYSQL_DATABASE: "silauth"
       MYSQL_USER: "silauth"
