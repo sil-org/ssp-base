@@ -28,6 +28,13 @@ make test-integration  # behat acceptance tests (features/*.feature) against the
 make lint-twig        # Twig syntax check of the material theme templates (tests/TwigTemplatesTest.php); starts only the `test` container
 ```
 
+Unlike the `ssp-hub.local`/`ssp-idp*.local` services, the `test` service does **not** bind-mount `dockerbuild/config/config.php` — it only bind-mounts individual `modules/*` directories, `tests/`, `features/`, and `behat.yml`. So after changing `config.php` (e.g. `module.enable`, `authproc.idp`) or adding a new module (which also needs its own bind-mount line added to every service in `compose.yaml` that mounts modules individually), `make test`/`make test-integration` will silently run against a stale image unless you rebuild first:
+
+```bash
+docker compose build          # rebuild all services after touching config.php or adding a module
+docker compose build test     # or just the `test` service, if that's all that's stale
+```
+
 To run a single behat scenario, get a shell in the `test` service and target a feature file by line number:
 
 ```bash
