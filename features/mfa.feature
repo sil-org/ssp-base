@@ -16,6 +16,10 @@ Feature: Prompt for MFA credentials
     And there should be a way to go set up MFA now
     And there should NOT be a way to continue to my intended destination
 
+  # NOTE: this scenario's "Then I should end up at the mfa-setup URL" step relies on
+  # pwmanager's 'mfa-idp' SP authsource (development/sp-group-local/config/authsources.php)
+  # having no matching SAML metadata for idp1. That gap is intentional -- see the comment on
+  # 'mfa-idp' there for why, and don't "fix" it without redesigning this assertion first.
   Scenario: Following the requirement to go set up MFA
     Given I provide credentials that need MFA but have no MFA options available
     And I log in
