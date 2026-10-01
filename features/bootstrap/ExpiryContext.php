@@ -155,4 +155,33 @@ class ExpiryContext extends FeatureContext
         $this->username = 'invalid_exp';
         $this->password = 'e';
     }
+
+    /**
+     * @When I click the change-password button
+     */
+    public function iClickTheChangePasswordButton(): void
+    {
+        $this->submitFormByClickingButtonNamed('changepwd');
+    }
+
+    /**
+     * @Then I should be prompted for a username and password
+     */
+    public function iShouldBePromptedForAUsernameAndPassword(): void
+    {
+        $this->waitForPage('module.php/core/loginuserpass');
+
+        $this->assertPageBodyContainsText('Enter your username and password');
+    }
+
+    /**
+     * @Given I go to the profile manager
+     */
+    public function iGoToTheProfileManager(): void
+    {
+        // SP3 stands in for the profile manager, which also signs in through the IdP.
+        $this->iGoToTheSpLoginPage('SP3');
+        $this->iClickOnTheTile('IDP 1');
+        $this->waitForPage('module.php/core/welcome');
+    }
 }
