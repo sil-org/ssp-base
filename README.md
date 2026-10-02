@@ -362,8 +362,7 @@ This filter runs on the authoritative IdP rather than on a Hub, and correctly lo
 **true originating SP** whether or not a Hub is proxying the request: it prefers the
 entity ID carried in SAML's `Scoping`/`RequesterID` extension (populated automatically by
 SimpleSAMLphp when a Hub proxies a request -- no patch required), falling back to the
-directly-requesting SP's metadata when there's no Hub involved. It replaces
-`sildisco:LogUser` for this purpose (see "SilDisco module for SAML Discovery" below).
+directly-requesting SP's metadata when there's no Hub involved.
 
 ### Material Module
 

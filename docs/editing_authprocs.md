@@ -27,20 +27,5 @@ In addition, the IDP's sp-remote metadata stanza for the Hub needs to include ..
 
 Creates and/or appends to a session value ("sildisco:authentication", "authenticated_idps") the **entity id** of the latest **IdP** to be used for authentication.
 
-### Login audit logging (moved out of sildisco)
-
-Logging each successful login (common name, eduPersonPrincipalName, employee number, IdP,
-SP, time) to an AWS DynamoDB table used to be `sildisco:LogUser`, a fourth sildisco AuthProc.
-That class has been removed: it ran on the Hub, so its `SP` field only ever saw the Hub's own
-SP-facing entity ID unless `saml:sp:State` happened to be populated.
-
-This is now `loginfinalizer:LogToDynamo` (in the `loginfinalizer` module, wired globally in
-`config.php`'s `authproc.idp` array rather than per-metadata, so it runs on every IdP without
-each downstream deployment having to add it). It runs on the authoritative IdP and resolves
-the true originating SP correctly whether a Hub is in front of it or not (see
-`SpEntityId::resolve()`). Configure it via the `DYNAMO_REGION`/`DYNAMO_LOG_TABLE`/`DYNAMO_ENDPOINT`
-environment variables (see `local.env.dist`); it no-ops if they're unset. `DynamoEndpoint`
-(via `DYNAMO_ENDPOINT`) is only needed locally, e.g. `http://dynamo:8000`.
-
-Ensure the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables are set as
-shown in the `local.env.dist` file.
+AWS DynamoDB login audit logging is handled by `loginfinalizer:LogToDynamo`, not a sildisco
+AuthProc — see "Login Finalizer SimpleSAMLphp Module" in README.md.
