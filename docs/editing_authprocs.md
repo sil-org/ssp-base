@@ -27,26 +27,20 @@ In addition, the IDP's sp-remote metadata stanza for the Hub needs to include ..
 
 Creates and/or appends to a session value ("sildisco:authentication", "authenticated_idps") the **entity id** of the latest **IdP** to be used for authentication.
 
-### LogUser.php
+### Login audit logging (moved out of sildisco)
 
-Logs information (common name, eduPrincipalPersonalName, employee number, IdP, SP, time) about each successful login to an AWS Dynamodb table.
-```
-            97 => [
-                'class' =>'sildisco:LogUser',
-                'DynamoRegion' => 'us-east-1',
-                'DynamoLogTable' => 'sildisco_prod_user-log',
-            ],
-```
-The following config is not needed on AWS, but it is needed locally
-'DynamoEndpoint' ex. http://dynamo:8000
+Logging each successful login (common name, eduPersonPrincipalName, employee number, IdP,
+SP, time) to an AWS DynamoDB table used to be `sildisco:LogUser`, a fourth sildisco AuthProc.
+That class has been removed: it ran on the Hub, so its `SP` field only ever saw the Hub's own
+SP-facing entity ID unless `saml:sp:State` happened to be populated.
 
-Ensure the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables are set as shown in the local.env.dist file.
+This is now `loginfinalizer:LogToDynamo` (in the `loginfinalizer` module, wired globally in
+`config.php`'s `authproc.idp` array rather than per-metadata, so it runs on every IdP without
+each downstream deployment having to add it). It runs on the authoritative IdP and resolves
+the true originating SP correctly whether a Hub is in front of it or not (see
+`SpEntityId::resolve()`). Configure it via the `DYNAMO_REGION`/`DYNAMO_LOG_TABLE`/`DYNAMO_ENDPOINT`
+environment variables (see `local.env.dist`); it no-ops if they're unset. `DynamoEndpoint`
+(via `DYNAMO_ENDPOINT`) is only needed locally, e.g. `http://dynamo:8000`.
 
-**Note:** `LogUser.php` runs on the Hub, so its `SP` field only sees the Hub's own SP-facing
-entity ID unless `saml:sp:State` happens to be populated. `loginfinalizer:LogToDynamo` (in the
-`loginfinalizer` module, wired globally in `config.php` rather than per-metadata) does the same
-job but runs on the authoritative IdP and resolves the true originating SP correctly whether a
-Hub is in front of it or not (see `SpEntityId::resolve()`). It's configured via the
-`DYNAMO_REGION`/`DYNAMO_LOG_TABLE`/`DYNAMO_ENDPOINT` env vars (see local.env.dist) rather than
-per-metadata config, and no-ops if they're unset. `sildisco:LogUser` is still present for now;
-a follow-up will retire it once `LogToDynamo` has been validated in practice.
+Ensure the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables are set as
+shown in the `local.env.dist` file.
