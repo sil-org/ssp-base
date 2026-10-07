@@ -96,7 +96,7 @@ msgid "{login:help}"
 msgstr "도움이 필요해."
 
 msgid "{login:profile}"
-msgstr "내 프로필 관리"
+msgstr "프로필 관리"
 
 msgid "{login:show_password}"
 msgstr "비밀번호 표시"
