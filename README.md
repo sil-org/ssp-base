@@ -704,7 +704,7 @@ To check the status of the website, you can access this URL:
 
 ### SilDisco module for SAML Discovery
 
-A SimpleSAMLphp module containing a custom IdP Discovery class and three Authentication Processing
+A SimpleSAMLphp module containing a custom IdP Discovery class and some Authentication Processing
 filters. It is meant to be used as a SAML Hub, also known as a SAML Proxy. For more information, see
 the [Module Overview](./docs/overview.md) in the docs/ folder.
 
