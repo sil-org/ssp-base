@@ -163,33 +163,35 @@
           </button>
         </div>
 
-        {% if (help_center_url is defined and help_center_url is not empty) or (profile_url is defined and profile_url is not empty) %}
+        {# {% if (help_center_url is defined and help_center_url is not empty) or (profile_url is defined and profile_url is not empty) %} #}
           <div class="d-flex justify-content-around pt-3 mt-auto">
-            {% if help_center_url is defined and help_center_url is not empty %}
+            {# {% if help_center_url is defined and help_center_url is not empty %} #}
               <a
                 href="{{ help_center_url }}"
                 target="_blank"
                 rel="noopener"
                 class="btn btn-link text-decoration-none d-inline-flex align-items-center"
               >
-                <i class="bi bi-question-circle-fill me-1" style="font-size: 18px;"></i>
+                <i class="bi bi-question-circle-fill me-2" style="font-size: 18px;"></i>
                 {{ '{login:help}'|trans }}
+                <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 13px;"></i>
               </a>
-            {% endif %}
+            {# {% endif %} #}
 
-            {% if profile_url is defined and profile_url is not empty %}
+            {# {% if profile_url is defined and profile_url is not empty %} #}
               <a
                 href="{{ profile_url }}"
                 target="_blank"
                 rel="noopener"
                 class="small btn btn-link text-decoration-none d-inline-flex align-items-center"
               >
-                <i class="bi bi-person-fill me-1" style="font-size: 18px;"></i>
+                <i class="bi bi-person-fill me-2" style="font-size: 18px;"></i>
                 {{ '{login:profile}'|trans }}
+                <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 13px;"></i>
               </a>
-            {% endif %}
+            {# {% endif %} #}
           </div>
-        {% endif %}
+        {# {% endif %} #}
       </div>
     </form>
   </main>
