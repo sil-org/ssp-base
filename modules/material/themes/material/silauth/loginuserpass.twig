@@ -13,11 +13,17 @@
     function togglePasswordVisibility() {
       const input = document.getElementById('password');
       const btn = document.getElementById('password-visibility-toggle');
-      const icon = btn.querySelector('.material-icons');
+      const icon = btn.querySelector('.bi');
       const isHidden = input.type === 'password';
 
       input.type = isHidden ? 'text' : 'password';
-      icon.textContent = isHidden ? 'visibility_off' : 'visibility';
+      if (isHidden) {
+        icon.classList.remove('bi-eye-fill');
+        icon.classList.add('bi-eye-slash-fill');
+      } else {
+        icon.classList.remove('bi-eye-slash-fill');
+        icon.classList.add('bi-eye-fill');
+      }
       btn.setAttribute('aria-label', isHidden ? '{{ '{login:hide_password}'|trans|e('js') }}' : '{{ '{login:show_password}'|trans|e('js') }}');
       btn.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
     }
@@ -114,7 +120,7 @@
               aria-pressed="false"
               id="password-visibility-toggle"
             >
-              <i class="material-icons" aria-hidden="true">visibility</i>
+              <i class="bi bi-eye-fill" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -124,7 +130,7 @@
           {% set errorMessageTokens = errorparams[2] ?? null %}
           {% set message = errorMessageKey|trans(errorMessageTokens) %}
           <div class="alert alert-danger d-flex align-items-center mx-4 mb-3" role="alert">
-            <i class="material-icons me-2">error</i>
+            <i class="bi bi-exclamation-circle-fill me-2"></i>
             <div>{{ message|e }}</div>
           </div>
 
@@ -166,8 +172,9 @@
                 rel="noopener"
                 class="btn btn-link text-decoration-none d-inline-flex align-items-center"
               >
+                <i class="bi bi-question-circle-fill me-2" style="font-size: 18px;"></i>
                 {{ '{login:help}'|trans }}
-                <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
+                <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 13px;"></i>
               </a>
             {% endif %}
 
@@ -178,8 +185,9 @@
                 rel="noopener"
                 class="small btn btn-link text-decoration-none d-inline-flex align-items-center"
               >
+                <i class="bi bi-person-fill me-2" style="font-size: 18px;"></i>
                 {{ '{login:profile}'|trans }}
-                <i class="material-icons ms-1" style="font-size: 18px;">launch</i>
+                <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 13px;"></i>
               </a>
             {% endif %}
           </div>

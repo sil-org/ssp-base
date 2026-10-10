@@ -96,7 +96,7 @@ msgid "{login:help}"
 msgstr "necesito ayuda"
 
 msgid "{login:profile}"
-msgstr "Administrar mi perfil"
+msgstr "Administrar perfil"
 
 msgid "{login:show_password}"
 msgstr "Mostrar contraseña"
