@@ -7,6 +7,7 @@
  *
  */
 
+use Sil\Idp\IdBroker\Client\IdBrokerClient;
 use Sil\PhpEnv\Env;
 use Sil\PhpEnv\EnvVarNotFoundException;
 use SimpleSAML\Module\material\MaterialController;
@@ -663,6 +664,7 @@ $config = [
         'admin' => false,
         'saml' => true,
         'expirychecker' => true,
+        'loginfinalizer' => true,
         'material' => true,
         'mfa' => true,
         'profilereview' => true,
@@ -1196,6 +1198,38 @@ $config = [
         */
         // If language is set in Consent module it will be added as an attribute.
         99 => 'core:LanguageAdaptor',
+
+        /*
+         * Always the last authproc filter to run (barring an earlier auth
+         * failure): marks the user's last-login time in the ID Broker. Wired
+         * globally (rather than per-IdP, like mfa:Mfa/expirychecker:ExpiryDate/
+         * profilereview:ProfileReview) because it must run for every IdP, not
+         * just ones that remember to add it. It no-ops if the current user
+         * has no ID Broker employee-id attribute (e.g. federated Hub users).
+         */
+        900 => [
+            'class' => 'loginfinalizer:MarkLastLogin',
+            'employeeIdAttr' => Env::get('ID_BROKER_EMPLOYEE_ID_ATTR', 'employeeNumber'),
+            'idBrokerAccessToken' => Env::get('ID_BROKER_ACCESS_TOKEN'),
+            'idBrokerAssertValidIp' => Env::get('ID_BROKER_ASSERT_VALID_IP'),
+            'idBrokerBaseUri' => Env::get('ID_BROKER_BASE_URI'),
+            'idBrokerClientClass' => Env::get('ID_BROKER_CLIENT_CLASS', IdBrokerClient::class),
+            'idBrokerTrustedIpRanges' => Env::get('ID_BROKER_TRUSTED_IP_RANGES'),
+        ],
+
+        /*
+         * Also always last: logs a DynamoDB audit record for the successful
+         * login, naming the true originating SP (SpEntityId::resolve() --
+         * handles both a plain IdP and the authoritative IdP behind a Hub).
+         * No-ops if DYNAMO_REGION/DYNAMO_LOG_TABLE aren't set, so it's opt-in
+         * per deployment despite being wired globally here.
+         */
+        901 => [
+            'class' => 'loginfinalizer:LogToDynamo',
+            'dynamoEndpoint' => Env::get('DYNAMO_ENDPOINT'),
+            'dynamoLogTable' => Env::get('DYNAMO_LOG_TABLE'),
+            'dynamoRegion' => Env::get('DYNAMO_REGION'),
+        ],
     ],
 
     /*

@@ -3,13 +3,14 @@
 use Sil\SspBase\Features\fakes\FakeIdBrokerClient;
 
 /**
- * Spy broker client for MFA unit tests. Records each updateUserLastLogin()
- * call in a static array so tests can assert that the right employee IDs
- * were passed.
+ * Spy broker client for loginfinalizer unit tests. Records each
+ * updateUserLastLogin() call in a static array so tests can assert that the
+ * right employee IDs were passed.
  *
  * Extends FakeIdBrokerClient so it satisfies the IdBrokerClient|FakeIdBrokerClient
- * return type on Mfa::getIdBrokerClient(). Injected via the idBrokerClientClass
- * AuthProc config option — no production code changes required.
+ * return type on MarkLastLogin::getIdBrokerClient(). Injected via the
+ * idBrokerClientClass AuthProc config option — no production code changes
+ * required.
  */
 class SpyIdBrokerClient extends FakeIdBrokerClient
 {

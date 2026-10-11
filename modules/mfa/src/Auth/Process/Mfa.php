@@ -513,20 +513,12 @@ class Mfa extends ProcessingFilter
 
         try {
             $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
-            $mfaDataFromBroker = $idBrokerClient->mfaVerify(
+            $idBrokerClient->mfaVerify(
                 $mfaId,
                 $employeeId,
                 $mfaSubmission,
                 $rpOrigin
             );
-
-            if ($mfaDataFromBroker === true || count($mfaDataFromBroker) > 0) {
-                try {
-                    $idBrokerClient->updateUserLastLogin($employeeId);
-                } catch (Throwable $t) {
-                    $logger->error('mfa: Failed to update last login for Employee ID {employee_id}: {message}', ['employee_id' => $employeeId, 'message' => $t->getMessage()]);
-                }
-            }
         } catch (Throwable $t) {
             $message = 'Something went wrong while we were trying to do the '
                 . '2-step verification.';
@@ -632,17 +624,6 @@ class Mfa extends ProcessingFilter
             var_export($mfaSetupUrl, true)
         ));
 
-        try {
-            $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
-            $idBrokerClient->updateUserLastLogin($state['employeeId']);
-        } catch (Throwable $t) {
-            $logger->error(sprintf(
-                'mfa: Failed to update last login for Employee ID %s being sent to MFA setup: %s',
-                var_export($state['employeeId'] ?? null, true),
-                $t->getMessage()
-            ));
-        }
-
         $httpUtils->redirectTrustedURL($mfaSetupUrl);
     }
 
@@ -696,12 +677,6 @@ class Mfa extends ProcessingFilter
             }
         }
 
-        try {
-            $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
-            $idBrokerClient->updateUserLastLogin($employeeId);
-        } catch (Throwable $t) {
-            $this->logger->error('mfa: Failed to update last login for Employee ID {employee_id}: {message}', ['employee_id' => $employeeId, 'message' => $t->getMessage()]);
-        }
         unset($state['Attributes']['manager_email']);
     }
 
@@ -797,22 +772,7 @@ class Mfa extends ProcessingFilter
             if ((int)$expireDate > time()) {
                 $expectedString = self::generateRememberMeCookieString($state['employeeId'], $expireDate, $mfaOptions);
                 $expectedHash = hash_hmac('sha256', $expectedString, $rememberSecret);
-                $isValid = hash_equals($expectedHash, $cookieHash);
-
-                if ($isValid) {
-                    try {
-                        $idBrokerClient = self::getIdBrokerClient($state['idBrokerConfig']);
-                        $idBrokerClient->updateUserLastLogin($state['employeeId']);
-                    } catch (Throwable $t) {
-                        $logger = LoggerFactory::getAccordingToState($state);
-                        $logger->error(
-                            'mfa: Failed to update last login for Employee ID {employee_id}: {message}',
-                            ['employee_id' => $state['employeeId'] ?? null, 'message' => $t->getMessage()]
-                        );
-                    }
-                }
-
-                return $isValid;
+                return hash_equals($expectedHash, $cookieHash);
             }
         }
 

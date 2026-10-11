@@ -6,6 +6,9 @@ default:
     dictionary_features:
       paths:    [ '%paths.base%//features//dictionary-overrides.feature' ]
       contexts: [ 'FeatureContext' ]
+    dynamo_logging_features:
+      paths:    [ '%paths.base%//features//dynamo-logging.feature' ]
+      contexts: [ 'DynamoLoggingContext' ]
     expiry_features:
       paths:    [ '%paths.base%//features//expirychecker.feature' ]
       contexts: [ 'ExpiryContext' ]
