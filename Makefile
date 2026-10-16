@@ -1,5 +1,5 @@
 hub: clean deps jsdeps
-	docker compose up -d ssp-hub.local
+	docker compose up -d haproxy ssp-hub.local
 
 dev:
 	docker compose up -d haproxy ssp-hub.local ssp-idp1.local ssp-idp2.local ssp-idp3.local ssp-idp4.local ssp-sp-group.local
