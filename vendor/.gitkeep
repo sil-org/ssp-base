@@ -1,0 +1,2 @@
+# This file is here to ensure that the 'vendor' directory is tracked by Git. Otherwise, Docker will create it in the
+# container, owned by root, which causes permission issues when the container is run.
