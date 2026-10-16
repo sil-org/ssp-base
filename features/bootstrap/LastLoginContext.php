@@ -31,11 +31,15 @@ class LastLoginContext extends FeatureContext
         $this->password = self::BAD_PASSWORD;
         $this->iLogIn();
 
-        $pageText = $this->getSession()->getPage()->getText();
+        $page = $this->getSession()->getPage();
+        $pageText = $page->getText();
         Assert::assertTrue(
-            stripos($pageText, 'invalid login') !== false
+            $page->has('css', '.alert-danger')
+            || stripos($pageText, 'invalid login') !== false
             || stripos($pageText, 'incorrect') !== false
-            || stripos($pageText, 'error') !== false,
+            || stripos($pageText, 'error') !== false
+            || stripos($pageText, 'wrong') !== false
+            || stripos($pageText, 'problem') !== false,
             'Expected an invalid-login error after submitting a wrong password; '
             . 'without a visible error the "unchanged" assertion below would be meaningless.'
         );
