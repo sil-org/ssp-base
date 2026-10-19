@@ -330,6 +330,40 @@ This module is adapted from the `ssp-iidp-expirycheck` and `expirycheck` modules
 Thanks to Alex Mihičinac, Steve Moitozo, and Steve Bagwell for the initial work
 they did on those two modules.
 
+### Login Finalizer SimpleSAMLphp Module
+
+A SimpleSAMLphp module containing two Authentication Processing filters that always run
+last in the authproc chain (after everything else, on every IdP, barring an earlier auth
+failure), so that login-finalization tasks have one place to land regardless of which
+earlier filter a given request branched through.
+
+Both filters are wired globally in `config.php`'s `authproc.idp` array (priorities 900
+and 901) rather than per-metadata -- that's deliberate, since the whole point is "always
+last, everywhere," not something each downstream deployment has to remember to add. Both
+fail open and no-op silently if unconfigured, or if the current login has nothing for
+them to act on (e.g. a Hub authenticating a federated user with no ID Broker employee
+record), so it's safe to leave them wired unconditionally.
+
+#### MarkLastLogin
+
+Marks the current user's last-login time in the ID Broker. Configured via the existing
+`ID_BROKER_*` environment variables (see `local.env.dist`), plus `ID_BROKER_EMPLOYEE_ID_ATTR`
+(default `employeeNumber`) and `ID_BROKER_CLIENT_CLASS` (for overriding the client class,
+e.g. in local/test environments).
+
+#### LogToDynamo
+
+Logs information (common name, eduPersonPrincipalName, employee number, IdP, SP, time)
+about each successful login to an AWS DynamoDB table. Configured via `DYNAMO_REGION`,
+`DYNAMO_LOG_TABLE`, and (for local testing against dynamodb-local only) `DYNAMO_ENDPOINT`
+(see `local.env.dist`).
+
+This filter runs on the authoritative IdP rather than on a Hub, and correctly logs the
+**true originating SP** whether or not a Hub is proxying the request: it prefers the
+entity ID carried in SAML's `Scoping`/`RequesterID` extension (populated automatically by
+SimpleSAMLphp when a Hub proxies a request -- no patch required), falling back to the
+directly-requesting SP's metadata when there's no Hub involved.
+
 ### Material Module
 
 Material Design theme for use with SimpleSAMLphp
@@ -670,7 +704,7 @@ To check the status of the website, you can access this URL:
 
 ### SilDisco module for SAML Discovery
 
-A SimpleSAMLphp module containing a custom IdP Discovery class and four Authentication Processing
+A SimpleSAMLphp module containing a custom IdP Discovery class and some Authentication Processing
 filters. It is meant to be used as a SAML Hub, also known as a SAML Proxy. For more information, see
 the [Module Overview](./docs/overview.md) in the docs/ folder.
 
@@ -690,21 +724,6 @@ if ($HUB_MODE) {
     $config['authproc.idp'][48] = 'sildisco:TagGroup';
     $config['authproc.idp'][49] = 'sildisco:AddIdp2NameId';
 }
-```
-
-The `LogUser` AuthProc can be configured in saml20-idp-remote.php:
-
-```php
-$metadata['idp.example.com'] = [
-    // ...
-    'authproc' => [
-        97 => [
-            'class' =>'sildisco:LogUser',
-            'DynamoRegion' => 'us-east-1',
-            'DynamoLogTable' => 'idp-hub-prod-user-log',
-        ],
-    ],
-];
 ```
 
 The `TrackIdps` AuthProc can be configured in saml20-idp-hosted.php:
