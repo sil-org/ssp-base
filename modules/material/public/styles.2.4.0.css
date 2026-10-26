@@ -17,13 +17,17 @@ body {
   .idp-card {
     width: 100vw !important;
     min-height: 100vh !important;
+    min-height: 100dvh !important;
     max-width: 100% !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     margin: 0 !important;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+  }
+
+  .idp-card > .card-body {
+    flex: 0 0 auto !important;
   }
 }
 
