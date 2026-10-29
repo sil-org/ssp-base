@@ -320,13 +320,18 @@ class MetadataTest extends TestCase
                 continue;
             }
 
-            if (empty($spEntry['certData'])) {
+            // As in SimpleSAMLphp, 'keys' takes precedence over 'certData' when present
+            if (isset($spEntry['keys'])) {
+                if (!$this->hasKeyFor($spEntry['keys'], 'signing') || !$this->hasKeyFor($spEntry['keys'], 'encryption')) {
+                    $badSps[] = $spEntityId;
+                }
+            } elseif (empty($spEntry['certData'])) {
                 $badSps[] = $spEntityId;
             }
         }
 
         $this->assertEmpty($badSps,
-            'At least one SP has no certData entry ... ' .
+            'At least one SP has no certData entry, or has a keys entry without both a signing and an encryption key ... ' .
             var_export($badSps, True));
 
         if ($skippedSps) {
@@ -335,6 +340,24 @@ class MetadataTest extends TestCase
                 "' flag: " . var_export($skippedSps, True)
             );
         }
+    }
+
+    /**
+     * Mirrors SimpleSAML\Configuration::getPublicKeys(): a key is usable for $use
+     * unless it explicitly sets that flag to false.
+     * See https://github.com/simplesamlphp/simplesamlphp/blob/v2.5.2/src/SimpleSAML/Configuration.php#L1397-L1475
+     */
+    private function hasKeyFor(array $keys, string $use): bool
+    {
+        foreach ($keys as $key) {
+            if (isset($key[$use]) && !$key[$use]) {
+                continue;
+            }
+            if (!empty($key['X509Certificate'])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function testMetadataSignResponse()
