@@ -58,7 +58,6 @@ $config = [
             // expirychecker test user whose password expires in one day
             'next_day:a' => [
                 'eduPersonPrincipalName' => ['NEXT_DAY@ssp-hub-idp2.local'],
-                'eduPersonTargetID' => ['22888888-2222-2222-2222-222222222222'],
                 'sn' => ['Day'],
                 'givenName' => ['Next'],
                 'mail' => ['next_day@example.com'],
@@ -136,7 +135,6 @@ $config = [
             // profilereview test user whose profile is not due for review
             'no_review:e' => [
                 'eduPersonPrincipalName' => ['NO_REVIEW@idp'],
-                'eduPersonTargetID' => ['11111111-1111-1111-1111-111111111111'],
                 'sn' => ['Review'],
                 'givenName' => ['No'],
                 'mail' => ['no_review@example.com'],
@@ -170,7 +168,6 @@ $config = [
             // profilereview test user whose profile is flagged for mfa_add review
             'mfa_add:f' => [
                 'eduPersonPrincipalName' => ['MFA_ADD@idp'],
-                'eduPersonTargetID' => ['22222222-2222-2222-2222-222222222222'],
                 'sn' => ['Add'],
                 'givenName' => ['Mfa'],
                 'mail' => ['mfa_add@example.com'],
@@ -193,7 +190,6 @@ $config = [
             // profilereview test user whose profile is flagged for method_add review
             'method_add:g' => [
                 'eduPersonPrincipalName' => ['METHOD_ADD@methodidp'],
-                'eduPersonTargetID' => ['44444444-4444-4444-4444-444444444444'],
                 'sn' => ['Add'],
                 'givenName' => ['Method'],
                 'mail' => ['method_add@example.com'],
@@ -227,7 +223,6 @@ $config = [
             // profilereview test user whose profile is flagged for profile review
             'profile_review:h' => [
                 'eduPersonPrincipalName' => ['METHOD_REVIEW@methodidp'],
-                'eduPersonTargetID' => ['55555555-5555-5555-5555-555555555555'],
                 'sn' => ['Review'],
                 'givenName' => ['Method'],
                 'mail' => ['method_review@example.com'],
@@ -278,7 +273,6 @@ $config = [
             // mfa test user who does not require mfa
             'no_mfa_needed:a' => [
                 'eduPersonPrincipalName' => ['NO_MFA_NEEDED@mfaidp'],
-                'eduPersonTargetID' => ['11111111-1111-1111-1111-111111111111'],
                 'sn' => ['Needed'],
                 'givenName' => ['No MFA'],
                 'mail' => ['no_mfa_needed@example.com'],
@@ -302,7 +296,6 @@ $config = [
             // mfa test user who requires mfa to be set up
             'must_set_up_mfa:a' => [
                 'eduPersonPrincipalName' => ['MUST_SET_UP_MFA@mfaidp'],
-                'eduPersonTargetID' => ['22222222-2222-2222-2222-222222222222'],
                 'sn' => ['Set Up MFA'],
                 'givenName' => ['Must'],
                 'mail' => ['must_set_up_mfa@example.com'],
@@ -326,7 +319,6 @@ $config = [
             // mfa test user who requires mfa and has backup codes
             'has_backupcode:a' => [
                 'eduPersonPrincipalName' => ['HAS_BACKUPCODE@mfaidp'],
-                'eduPersonTargetID' => ['33333333-3333-3333-3333-333333333333'],
                 'sn' => ['Backupcode'],
                 'givenName' => ['Has'],
                 'mail' => ['has_backupcode@example.com'],
@@ -358,7 +350,6 @@ $config = [
             // mfa test user who requires mfa and has backup codes and a manager email
             'has_backupcode_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['HAS_BACKUPCODE@mfaidp'],
-                'eduPersonTargetID' => ['33333333-3333-3333-3333-333333333333'],
                 'sn' => ['Backupcode'],
                 'givenName' => ['Has'],
                 'mail' => ['has_backupcode@example.com'],
@@ -391,7 +382,6 @@ $config = [
             // mfa test user who requires mfa and has totp
             'has_totp:a' => [
                 'eduPersonPrincipalName' => ['HAS_TOTP@mfaidp'],
-                'eduPersonTargetID' => ['44444444-4444-4444-4444-444444444444'],
                 'sn' => ['TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_totp@example.com'],
@@ -421,7 +411,6 @@ $config = [
             // mfa test user who requires mfa and has totp and a manager email
             'has_totp_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['HAS_TOTP@mfaidp'],
-                'eduPersonTargetID' => ['44444444-4444-4444-4444-444444444444'],
                 'sn' => ['TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_totp@example.com'],
@@ -452,7 +441,6 @@ $config = [
             // mfa test user who requires mfa and has a webauthn
             'has_webauthn:a' => [
                 'eduPersonPrincipalName' => ['HAS_WEBAUTHN@mfaidp'],
-                'eduPersonTargetID' => ['55555555-5555-5555-5555-555555555555'],
                 'sn' => ['WebAuthn'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn@example.com'],
@@ -494,7 +482,6 @@ $config = [
             // mfa test user who requires mfa and has webauthn and a manager email
             'has_webauthn_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['HAS_WEBAUTHN@mfaidp'],
-                'eduPersonTargetID' => ['55555555-5555-5555-5555-555555555555'],
                 'sn' => ['WebAuthn'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn@example.com'],
@@ -525,7 +512,6 @@ $config = [
             // mfa test user who requires mfa and has all forms of mfa
             'has_all:a' => [
                 'eduPersonPrincipalName' => ['has_all@mfaidp'],
-                'eduPersonTargetID' => ['77777777-7777-7777-7777-777777777777'],
                 'sn' => ['All'],
                 'givenName' => ['Has'],
                 'mail' => ['has_all@example.com'],
@@ -568,7 +554,6 @@ $config = [
             // mfa test user who has a rate-limited mfa
             'has_rate_limited_mfa:a' => [
                 'eduPersonPrincipalName' => ['HAS_RATE_LIMITED_MFA@mfaidp'],
-                'eduPersonTargetID' => ['88888888-8888-8888-8888-888888888888'],
                 'sn' => ['Rate-Limited MFA'],
                 'givenName' => ['Has'],
                 'mail' => ['has_rate_limited_mfa@example.com'],
@@ -600,7 +585,6 @@ $config = [
             // mfa test user who requires mfa and has 4 backup codes
             'has_4_backupcodes:a' => [
                 'eduPersonPrincipalName' => ['HAS_4_BACKUPCODES@mfaidp'],
-                'eduPersonTargetID' => ['99999999-9999-9999-9999-999999999999'],
                 'sn' => ['Backupcodes'],
                 'givenName' => ['Has 4'],
                 'mail' => ['has_4_backupcodes@example.com'],
@@ -632,7 +616,6 @@ $config = [
             // mfa test user who requires mfa and has 1 backup code remaining
             'has_1_backupcode_only:a' => [
                 'eduPersonPrincipalName' => ['HAS_1_BACKUPCODE_ONLY@mfaidp'],
-                'eduPersonTargetID' => ['00000010-0010-0010-0010-000000000010'],
                 'sn' => ['Only, And No Other MFA'],
                 'givenName' => ['Has 1 Backupcode'],
                 'mail' => ['has_1_backupcode_only@example.com'],
@@ -664,7 +647,6 @@ $config = [
             // mfa test user who requires mfa and has one backup code plus another option
             'has_1_backupcode_plus:a' => [
                 'eduPersonPrincipalName' => ['HAS_1_BACKUPCODE_PLUS@mfaidp'],
-                'eduPersonTargetID' => ['00000011-0011-0011-0011-000000000011'],
                 'sn' => ['Plus Other MFA'],
                 'givenName' => ['Has 1 Backupcode'],
                 'mail' => ['has_1_backupcode_plus@example.com'],
@@ -701,7 +683,6 @@ $config = [
             // mfa test user who requires mfa and has webauthn and totp
             'has_webauthn_totp:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_totp@mfaidp'],
-                'eduPersonTargetID' => ['00000012-0012-0012-0012-000000000012'],
                 'sn' => ['WebAuthn And TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_totp@example.com'],
@@ -736,7 +717,6 @@ $config = [
             // mfa test user who requires mfa and has webauthn, totp and a manager email
             'has_webauthn_totp_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_totp@mfaidp'],
-                'eduPersonTargetID' => ['00000012-0012-0012-0012-000000000012'],
                 'sn' => ['WebAuthn And TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_totp@example.com'],
@@ -772,7 +752,6 @@ $config = [
             // mfa test user who requires mfa and has webauthn and backup codes
             'has_webauthn_backupcodes:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_backupcodes@mfaidp'],
-                'eduPersonTargetID' => ['00000013-0013-0013-0013-000000000013'],
                 'sn' => ['WebAuthn And Backup Codes'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_backupcodes@example.com'],
@@ -809,7 +788,6 @@ $config = [
             // mfa test user who requires mfa and has backup codes and a manager email
             'has_webauthn_backupcodes_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_backupcodes@mfaidp'],
-                'eduPersonTargetID' => ['00000013-0013-0013-0013-000000000013'],
                 'sn' => ['WebAuthn And Backup Codes'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_backupcodes@example.com'],
@@ -847,7 +825,6 @@ $config = [
             // mfa test user who requires mfa and has totp and backup codes
             'has_webauthn_totp_backupcodes:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_totp_backupcodes@mfaidp'],
-                'eduPersonTargetID' => ['00000014-0014-0014-0014-000000000014'],
                 'sn' => ['WebAuthn, TOTP, And Backup Codes'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_totp_backupcodes@example.com'],
@@ -889,7 +866,6 @@ $config = [
             // mfa test user who requires mfa and has backup codes, totp, and a manager email
             'has_webauthn_totp_backupcodes_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_totp_backupcodes@mfaidp'],
-                'eduPersonTargetID' => ['00000014-0014-0014-0014-000000000014'],
                 'sn' => ['WebAuthn, TOTP, And Backup Codes'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_totp_backupcodes@example.com'],
@@ -932,7 +908,6 @@ $config = [
             // mfa test user who requires mfa and has manager code, webauthn, and a more-recently used totp
             'has_mgr_code_webauthn_and_more_recently_used_totp:a' => [
                 'eduPersonPrincipalName' => ['has_mgr_code_webauthn_and_more_recently_used_totp@mfaidp'],
-                'eduPersonTargetID' => ['00000114-0014-0014-0014-000000000014'],
                 'sn' => ['Manager Code, WebAuthn, More Recently Used TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_mgr_code_webauthn_and_more_recently_used_totp@example.com'],
@@ -975,7 +950,6 @@ $config = [
             // mfa test user who requires mfa and has webauthn and more recently used totp
             'has_webauthn_and_more_recently_used_totp:a' => [
                 'eduPersonPrincipalName' => ['has_webauthn_and_more_recently_used_totp@mfaidp'],
-                'eduPersonTargetID' => ['00000214-0014-0014-0014-000000000014'],
                 'sn' => ['WebAuthn And More Recently Used TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_webauthn_and_more_recently_used_totp@example.com'],
@@ -1012,7 +986,6 @@ $config = [
             // mfa test user who requires mfa and has totp and more recently used webauthn
             'has_totp_and_more_recently_used_webauthn:a' => [
                 'eduPersonPrincipalName' => ['has_totp_and_more_recently_used_webauthn@mfaidp'],
-                'eduPersonTargetID' => ['00000314-0014-0014-0014-000000000014'],
                 'sn' => ['TOTP And More Recently Used Webauthn'],
                 'givenName' => ['Has'],
                 'mail' => ['has_totp_and_more_recently_used_webauthn@example.com'],
@@ -1049,7 +1022,6 @@ $config = [
             // mfa test user who requires mfa and has totp and more recently-used backup code
             'has_totp_and_more_recently_used_backup_code:a' => [
                 'eduPersonPrincipalName' => ['has_totp_and_more_recently_used_backup_code@mfaidp'],
-                'eduPersonTargetID' => ['00000414-0014-0014-0014-000000000014'],
                 'sn' => ['TOTP And More Recently Used Backup Code'],
                 'givenName' => ['Has'],
                 'mail' => ['has_totp_and_more_recently_used_backup_code@example.com'],
@@ -1088,7 +1060,6 @@ $config = [
             // mfa test user who requires mfa and has backup code and a more recently used totp
             'has_backup_code_and_more_recently_used_totp:a' => [
                 'eduPersonPrincipalName' => ['has_backup_code_and_more_recently_used_totp@mfaidp'],
-                'eduPersonTargetID' => ['00000514-0014-0014-0014-000000000014'],
                 'sn' => ['Backup Code And More Recently Used TOTP'],
                 'givenName' => ['Has'],
                 'mail' => ['has_backup_code_and_more_recently_used_totp@example.com'],
@@ -1127,7 +1098,6 @@ $config = [
             // mfa test user who requires mfa and has totp and backup codes
             'has_totp_backupcodes:a' => [
                 'eduPersonPrincipalName' => ['has_totp_backupcodes@mfaidp'],
-                'eduPersonTargetID' => ['00000015-0015-0015-0015-000000000015'],
                 'sn' => ['TOTP And Backup Codes'],
                 'givenName' => ['Has'],
                 'mail' => ['has_totp_backupcodes@example.com'],
@@ -1164,7 +1134,6 @@ $config = [
             // mfa test user who requires mfa and has totp, backup codes, and manager email
             'has_totp_backupcodes_and_mgr:a' => [
                 'eduPersonPrincipalName' => ['has_totp_backupcodes@mfaidp'],
-                'eduPersonTargetID' => ['00000015-0015-0015-0015-000000000015'],
                 'sn' => ['TOTP And Backup Codes'],
                 'givenName' => ['Has'],
                 'mail' => ['has_totp_backupcodes@example.com'],
@@ -1202,7 +1171,6 @@ $config = [
             // mfa test user who requires mfa and has backup codes and manager code
             'has_mgr_code:a' => [
                 'eduPersonPrincipalName' => ['has_mgr_code@mfaidp'],
-                'eduPersonTargetID' => ['00000015-0015-0015-0015-000000000015'],
                 'sn' => ['Manager Code'],
                 'givenName' => ['Has'],
                 'mail' => ['has_mgr_code@example.com'],
@@ -1240,7 +1208,6 @@ $config = [
             // sildisco test user
             'sildisco_idp1:sildisco_password' => [
                 'eduPersonPrincipalName' => ['sildisco@idp1'],
-                'eduPersonTargetID' => ['57de1930-c5d2-4f6f-9318-d85a939c45d8'],
                 'sn' => ['IDP1'],
                 'givenName' => ['SilDisco'],
                 'mail' => ['sildisco_idp1@example.com'],
