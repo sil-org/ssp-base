@@ -344,8 +344,6 @@ Optional configuration is described below.
 If a site key and secret have been provided in the `RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY`
 environment variables, the username/password page may require the user prove his/her humanity.
 
-Deprecated: `RECAPTCHA_SECRET` is deprecated and will be removed in the next major version.
-
 ##### Branding
 
 Set the `THEME_COLOR_SCHEME` environment variable using one of the following values:
