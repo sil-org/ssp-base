@@ -19,4 +19,5 @@ fi
 
 /data/vendor/simplesamlphp/simplesamlphp/modules/silauth/src/Auth/Source/yii migrate --interactive=0
 
-./run.sh
+# exec so run.sh, and then Apache, takes over PID 1 and receives the container's stop signal
+exec ./run.sh
