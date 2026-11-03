@@ -46,7 +46,9 @@ Ensure the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables are
 entity ID unless `saml:sp:State` happens to be populated. `loginfinalizer:LogToDynamo` (in the
 `loginfinalizer` module, wired globally in `config.php` rather than per-metadata) does the same
 job but runs on the authoritative IdP and resolves the true originating SP correctly whether a
-Hub is in front of it or not (see `SpEntityId::resolve()`). It's configured via the
+Hub is in front of it or not (see `SpEntityId::resolve()`). When the login came through a Hub,
+it also logs that Hub's entity ID in a `Hub` field (see `SpEntityId::resolveHub()`); the field is
+omitted for direct SP-to-IdP logins. It's configured via the
 `DYNAMO_REGION`/`DYNAMO_LOG_TABLE`/`DYNAMO_ENDPOINT` env vars (see local.env.dist) rather than
 per-metadata config, and no-ops if they're unset. `sildisco:LogUser` is still present for now;
 a follow-up will retire it once `LogToDynamo` has been validated in practice.
