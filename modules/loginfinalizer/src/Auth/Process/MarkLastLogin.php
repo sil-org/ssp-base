@@ -22,6 +22,8 @@ use Throwable;
  */
 class MarkLastLogin extends ProcessingFilter
 {
+    private const DEFAULT_EMPLOYEE_ID_ATTR = 'employeeNumber';
+
     private ?string $employeeIdAttr;
 
     private ?string $idBrokerAccessToken;
@@ -39,6 +41,14 @@ class MarkLastLogin extends ProcessingFilter
         parent::__construct($config, $reserved);
 
         $this->employeeIdAttr = $config['employeeIdAttr'] ?? null;
+        if ($this->employeeIdAttr !== null && $this->employeeIdAttr !== self::DEFAULT_EMPLOYEE_ID_ATTR) {
+            Logger::warning(sprintf(
+                'loginfinalizer: employeeIdAttr (ID_BROKER_EMPLOYEE_ID_ATTR) is deprecated and will be removed '
+                . 'in the next major version, after which %s is always used instead of the configured %s.',
+                var_export(self::DEFAULT_EMPLOYEE_ID_ATTR, true),
+                var_export($this->employeeIdAttr, true)
+            ));
+        }
         $this->idBrokerAccessToken = $config['idBrokerAccessToken'] ?? null;
         $this->idBrokerBaseUri = $config['idBrokerBaseUri'] ?? null;
         $this->idBrokerClientClass = $config['idBrokerClientClass'] ?? IdBrokerClient::class;
