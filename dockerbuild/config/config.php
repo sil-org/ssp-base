@@ -1105,6 +1105,14 @@ $config = [
      * Authentication processing filters that will be executed for all IdPs
      */
     'authproc.idp' => [
+        /*
+         * Saves the user's attributes before anything (notably core:AttributeLimit
+         * at 50) removes the ones an SP isn't allowed to receive, so that
+         * loginfinalizer:MarkLastLogin (900) and loginfinalizer:LogToDynamo (901)
+         * can still identify the user. Keep this the lowest-priority filter.
+         */
+        1 => 'loginfinalizer:SnapshotAttributes',
+
         /* Enable the authproc filter below to add URN prefixes to all attributes
         10 => [
             'class' => 'core:AttributeMap', 'addurnprefix'

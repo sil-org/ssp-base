@@ -112,10 +112,11 @@ class LogToDynamo extends ProcessingFilter
             ?? 'IDP entity ID not available';
     }
 
-    // Get the current user's common name attribute and/or eduPersonPrincipalName and/or employeeNumber
+    // Get the current user's common name attribute and/or eduPersonPrincipalName and/or employeeNumber,
+    // from the pre-AttributeLimit snapshot so they're logged even when the SP isn't allowed to receive them.
     private function getUserAttributes(array $state): array
     {
-        $attributes = $state['Attributes'] ?? [];
+        $attributes = SnapshotAttributes::get($state);
 
         $userAttrs = [];
         $userAttrs = $this->addUserAttribute(

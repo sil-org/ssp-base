@@ -54,7 +54,9 @@ class MarkLastLogin extends ProcessingFilter
             return;
         }
 
-        $employeeId = $state['Attributes'][$this->employeeIdAttr][0] ?? null;
+        // Read the pre-AttributeLimit snapshot: the SP may not be allowed to
+        // receive the employee ID, but the login still happened.
+        $employeeId = SnapshotAttributes::get($state)[$this->employeeIdAttr][0] ?? null;
         if (empty($employeeId)) {
             return;
         }
