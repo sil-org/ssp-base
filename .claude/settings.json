@@ -5,6 +5,7 @@
         "."
       ],
       "denyRead": [
+        "./.env",
         "./local.env",
         "./local.broker.env"
       ]
@@ -12,6 +13,7 @@
   },
   "permissions": {
     "deny": [
+      "Read(./.env)",
       "Read(./local.env)",
       "Read(./local.broker.env)"
     ]
