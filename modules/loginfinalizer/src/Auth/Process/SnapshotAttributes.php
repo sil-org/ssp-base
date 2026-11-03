@@ -24,7 +24,7 @@ use SimpleSAML\Auth\ProcessingFilter;
  * complete attribute set in the session for the whole session lifetime, and
  * IdP::postAuth() re-seeds every SP's AuthProc chain from that copy. A
  * targeted list, on the other hand, would have to track every attribute
- * LogToDynamo logs plus MarkLastLogin's configurable employeeIdAttr -- and
+ * LogToDynamo logs plus the employeeNumber MarkLastLogin reads -- and
  * letting it drift would silently reintroduce the bug this filter fixes.
  */
 class SnapshotAttributes extends ProcessingFilter
