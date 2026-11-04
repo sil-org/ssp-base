@@ -21,6 +21,8 @@ class DynamoLoggingContext extends FeatureContext
     private const HUB_LOGIN_USERNAME = 'sildisco_idp2';
     private const HUB_LOGIN_PASSWORD = 'sildisco_password';
 
+    private ?array $logEntry = null;
+
     /**
      * @When I log in to the Hub as the sildisco IDP 2 test user
      */
@@ -37,6 +39,7 @@ class DynamoLoggingContext extends FeatureContext
     public function aDynamoLogEntryShouldExist(string $spEntityId, string $employeeNumber): void
     {
         $item = $this->findLogEntry($spEntityId, $employeeNumber);
+        $this->logEntry = $item;
 
         Assert::assertNotNull(
             $item,
@@ -46,6 +49,15 @@ class DynamoLoggingContext extends FeatureContext
                 var_export($employeeNumber, true)
             )
         );
+    }
+
+    /**
+     * @Then that Dynamo log entry should name Hub :hubEntityId
+     */
+    public function thatDynamoLogEntryShouldNameHub(string $hubEntityId): void
+    {
+        Assert::assertNotNull($this->logEntry, 'No Dynamo log entry was found by a previous step.');
+        Assert::assertSame($hubEntityId, $this->logEntry['Hub'] ?? null);
     }
 
     private function findLogEntry(string $spEntityId, string $employeeNumber): ?array
