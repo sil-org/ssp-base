@@ -38,6 +38,35 @@ class SpEntityIdTest extends TestCase
         $this->assertNull(SpEntityId::resolve([]));
     }
 
+    public function testResolveHub_ReturnsDirectRequesterWhenBehindAHub(): void
+    {
+        $state = [
+            'saml:RequesterID' => ['https://true-sp.example'],
+            'SPMetadata' => ['entityid' => 'ssp-hub.local'],
+        ];
+
+        $this->assertSame('ssp-hub.local', SpEntityId::resolveHub($state));
+    }
+
+    public function testResolveHub_ReturnsNullOnPlainIdp(): void
+    {
+        $state = [
+            'SPMetadata' => ['entityid' => 'https://plain-sp.example'],
+        ];
+
+        $this->assertNull(SpEntityId::resolveHub($state));
+    }
+
+    public function testResolveHub_ReturnsNullForEmptyRequesterIdList(): void
+    {
+        $state = [
+            'saml:RequesterID' => [],
+            'SPMetadata' => ['entityid' => 'https://plain-sp.example'],
+        ];
+
+        $this->assertNull(SpEntityId::resolveHub($state));
+    }
+
     public function testIgnoresEmptyRequesterIdList(): void
     {
         $state = [
