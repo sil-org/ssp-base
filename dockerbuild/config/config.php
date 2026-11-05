@@ -1214,13 +1214,9 @@ $config = [
          * profilereview:ProfileReview) because it must run for every IdP, not
          * just ones that remember to add it. It no-ops if the current user
          * has no ID Broker employee-id attribute (e.g. federated Hub users).
-         *
-         * ID_BROKER_EMPLOYEE_ID_ATTR is deprecated and will be removed in the
-         * next major version, after which 'employeeNumber' is always used.
          */
         900 => [
             'class' => 'loginfinalizer:MarkLastLogin',
-            'employeeIdAttr' => Env::get('ID_BROKER_EMPLOYEE_ID_ATTR', 'employeeNumber'),
             'idBrokerAccessToken' => Env::get('ID_BROKER_ACCESS_TOKEN'),
             'idBrokerAssertValidIp' => Env::get('ID_BROKER_ASSERT_VALID_IP'),
             'idBrokerBaseUri' => Env::get('ID_BROKER_BASE_URI'),

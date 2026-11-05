@@ -125,7 +125,6 @@ class SnapshotAttributesTest extends TestCase
     private function buildMarkLastLogin(): MarkLastLogin
     {
         return new MarkLastLogin([
-            'employeeIdAttr' => 'employeeNumber',
             'idBrokerAccessToken' => 'fake-token',
             'idBrokerBaseUri' => 'https://example.org/broker',
             'idBrokerClientClass' => SpyIdBrokerClient::class,
