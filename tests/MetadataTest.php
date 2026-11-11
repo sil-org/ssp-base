@@ -369,7 +369,6 @@ class MetadataTest extends TestCase
         $skippedSps = [];
 
         foreach ($spEntries as $spEntityId => $spEntry) {
-
             if (!empty($spEntry[self::SkipTestsKey])) {
                 $skippedSps[] = $spEntityId;
                 continue;
