@@ -360,6 +360,38 @@ class MetadataTest extends TestCase
         return false;
     }
 
+    public function testMetadataAttributes()
+    {
+        $metadata = MetaDataStorageHandler::getMetadataHandler();
+        $spEntries = $metadata->getList('saml20-sp-remote');
+
+        $badSps = [];
+        $skippedSps = [];
+
+        foreach ($spEntries as $spEntityId => $spEntry) {
+
+            if (!empty($spEntry[self::SkipTestsKey])) {
+                $skippedSps[] = $spEntityId;
+                continue;
+            }
+
+            if (empty($spEntry['attributes'])) {
+                $badSps[] = $spEntityId;
+            }
+        }
+
+        $this->assertEmpty($badSps,
+            'At least one SP has no attributes entry ... ' .
+            var_export($badSps, True));
+
+        if ($skippedSps) {
+            $this->markTestIncomplete(
+                "Did not check attributes for SPs with the '" . self::SkipTestsKey .
+                "' flag: " . var_export($skippedSps, True)
+            );
+        }
+    }
+
     public function testMetadataSignResponse()
     {
         // $this->markTestSkipped('Disabled for testing/verification');
