@@ -26,6 +26,25 @@ class MarkLastLoginTest extends TestCase
         $this->assertSame(['EMP-100'], SpyIdBrokerClient::$updateLastLoginCalls);
     }
 
+    public function testProcess_DeprecatedNonDefaultEmployeeIdAttr_StillHonored(): void
+    {
+        $filter = new MarkLastLogin([
+            'employeeIdAttr' => 'urn:oid:2.16.840.1.113730.3.1.3',
+            'idBrokerAccessToken' => 'fake-token',
+            'idBrokerBaseUri' => 'https://example.org/broker',
+            'idBrokerClientClass' => SpyIdBrokerClient::class,
+        ], null);
+        $state = [
+            'Attributes' => [
+                'urn:oid:2.16.840.1.113730.3.1.3' => ['EMP-400'],
+            ],
+        ];
+
+        $filter->process($state);
+
+        $this->assertSame(['EMP-400'], SpyIdBrokerClient::$updateLastLoginCalls);
+    }
+
     public function testProcess_NoEmployeeIdAttribute_DoesNotCallBroker(): void
     {
         $filter = $this->buildFilter();

@@ -21,6 +21,7 @@ class LogToDynamoTest extends TestCase
         $item = $filter->buildLogContents($state);
 
         $this->assertSame('https://true-sp.example', $item['SP']);
+        $this->assertSame('https://ssp-hub.local', $item['Hub']);
         $this->assertSame('https://ssp-idp1.local', $item['IDP']);
         $this->assertSame('Jane Doe', $item['CN']);
         $this->assertSame('12345', $item['EmployeeNumber']);
@@ -39,6 +40,7 @@ class LogToDynamoTest extends TestCase
         $item = $filter->buildLogContents($state);
 
         $this->assertSame('https://plain-sp.example', $item['SP']);
+        $this->assertArrayNotHasKey('Hub', $item);
     }
 
     public function testBuildLogContents_ReportsPlaceholdersWhenUnavailable(): void
