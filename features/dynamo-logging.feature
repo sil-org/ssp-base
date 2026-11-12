@@ -11,3 +11,4 @@ Feature: DynamoDB login logging on the authoritative IdP
     And I click on the "IDP 2" tile
     And I log in to the Hub as the sildisco IDP 2 test user
     Then a Dynamo log entry for SP "https://ssp-sp1.local" and employee "10001" should exist
+    And that Dynamo log entry should name Hub "ssp-hub.local"
