@@ -26,14 +26,10 @@ class MarkLastLoginTest extends TestCase
         $this->assertSame(['EMP-100'], SpyIdBrokerClient::$updateLastLoginCalls);
     }
 
-    public function testProcess_DeprecatedNonDefaultEmployeeIdAttr_StillHonored(): void
+    public function testProcess_OnlyReadsEmployeeNumber(): void
     {
-        $filter = new MarkLastLogin([
-            'employeeIdAttr' => 'urn:oid:2.16.840.1.113730.3.1.3',
-            'idBrokerAccessToken' => 'fake-token',
-            'idBrokerBaseUri' => 'https://example.org/broker',
-            'idBrokerClientClass' => SpyIdBrokerClient::class,
-        ], null);
+        $filter = $this->buildFilter();
+        // The OID form alone (e.g. only present after core:AttributeMap) is not used.
         $state = [
             'Attributes' => [
                 'urn:oid:2.16.840.1.113730.3.1.3' => ['EMP-400'],
@@ -42,7 +38,7 @@ class MarkLastLoginTest extends TestCase
 
         $filter->process($state);
 
-        $this->assertSame(['EMP-400'], SpyIdBrokerClient::$updateLastLoginCalls);
+        $this->assertSame([], SpyIdBrokerClient::$updateLastLoginCalls);
     }
 
     public function testProcess_NoEmployeeIdAttribute_DoesNotCallBroker(): void
@@ -60,7 +56,6 @@ class MarkLastLoginTest extends TestCase
     public function testProcess_MissingBaseUri_DoesNotCallBroker(): void
     {
         $filter = new MarkLastLogin([
-            'employeeIdAttr' => 'employeeNumber',
             'idBrokerAccessToken' => 'fake-token',
             'idBrokerBaseUri' => null,
             'idBrokerClientClass' => SpyIdBrokerClient::class,
@@ -80,7 +75,6 @@ class MarkLastLoginTest extends TestCase
     public function testProcess_BrokerThrows_DoesNotThrowFromFilter(): void
     {
         $filter = new MarkLastLogin([
-            'employeeIdAttr' => 'employeeNumber',
             'idBrokerAccessToken' => 'fake-token',
             'idBrokerBaseUri' => 'https://example.org/broker',
             'idBrokerClientClass' => ThrowingIdBrokerClient::class,
@@ -100,7 +94,6 @@ class MarkLastLoginTest extends TestCase
     private function buildFilter(): MarkLastLogin
     {
         return new MarkLastLogin([
-            'employeeIdAttr' => 'employeeNumber',
             'idBrokerAccessToken' => 'fake-token',
             'idBrokerBaseUri' => 'https://example.org/broker',
             'idBrokerClientClass' => SpyIdBrokerClient::class,

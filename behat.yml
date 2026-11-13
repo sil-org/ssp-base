@@ -34,7 +34,6 @@ default:
       contexts: [ 'SilDiscoContext' ]
       paths:
         - '%paths.base%//features//sildisco.feature'
-        - '%paths.base%//features//WwwMetadataCept.feature'
     status_features:
       paths:    [ '%paths.base%//features//status.feature' ]
       contexts: [ 'StatusContext' ]

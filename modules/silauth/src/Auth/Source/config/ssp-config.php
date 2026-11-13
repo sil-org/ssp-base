@@ -15,7 +15,7 @@ return [
     'mysql.user' => Env::get('MYSQL_USER'),
     'mysql.password' => Env::get('MYSQL_PASSWORD'),
     'recaptcha.siteKey' => Env::get('RECAPTCHA_SITE_KEY'),
-    'recaptcha.secret' => Env::get('RECAPTCHA_SECRET_KEY', Env::get('RECAPTCHA_SECRET')),
+    'recaptcha.secret' => Env::get('RECAPTCHA_SECRET_KEY'),
     'templateData.profileUrl' => Env::get('PROFILE_URL'),
     'templateData.helpCenterUrl' => Env::get('HELP_CENTER_URL'),
 ];
