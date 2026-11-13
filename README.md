@@ -355,10 +355,9 @@ marked and logged. If you add a filter that removes attributes, give it a priori
 #### MarkLastLogin
 
 Marks the current user's last-login time in the ID Broker, identifying the user by their
-`employeeNumber` attribute by default. Configured via the existing `ID_BROKER_*` environment
-variables (see `local.env.dist`), plus `ID_BROKER_CLIENT_CLASS` (for overriding the client
-class, e.g. in local/test environments). `ID_BROKER_EMPLOYEE_ID_ATTR` is deprecated and will be removed
-in the next major version, after which `employeeNumber` is always used.
+`employeeNumber` attribute. Configured via the existing `ID_BROKER_*` environment variables
+(see `local.env.dist`), plus `ID_BROKER_CLIENT_CLASS` (for overriding the client class, e.g.
+in local/test environments).
 
 #### LogToDynamo
 
@@ -388,8 +387,6 @@ Optional configuration is described below.
 
 If a site key and secret have been provided in the `RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY`
 environment variables, the username/password page may require the user prove his/her humanity.
-
-Deprecated: `RECAPTCHA_SECRET` is deprecated and will be removed in the next major version.
 
 ##### Branding
 
