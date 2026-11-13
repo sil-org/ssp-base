@@ -31,18 +31,11 @@ class User
             ],
 
             /**
-             * Don't use this misspelled version of eduPersonTargetedID. (Accidentally used in the past)
-             * @deprecated
+             * Use this for a globally unique, non-human friendly, non-reassignable attribute
              *
              * NOTE: Do NOT include eduPersonTargetedID. If you need it, use the
              * core:TargetedID module (at the Hub, if using one) to generate an
-             * eduPersonTargetedID based on the eduPersonUniqueId attribute (below).
-             *
-             */
-            'eduPersonTargetID' => (array)$uuid, // Incorrect, deprecated
-
-            /**
-             * Use this for a globally unique, non-human friendly, non-reassignable attribute
+             * eduPersonTargetedID based on this attribute.
              **/
             'eduPersonUniqueId' => (array)$eduPersonUniqueId,
 

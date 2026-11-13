@@ -220,6 +220,7 @@ docker composer up -d ssp-hub.local
 
 #### SP tests [SKIPPED if `'SkipTests' => true,`]
 - Contains a `certData` entry, or a `keys` entry with at least one signing key and one encryption key (if `keys` is present, `certData` is ignored)
+- Contains an `attributes` entry AND it is non-empty
 - Contains a `saml20.sign.response` entry AND it is set to true
 - Contains a `saml20.sign.assertion` entry AND it is set to true
 - Contains a `assertion.encryption` entry AND it is set to true

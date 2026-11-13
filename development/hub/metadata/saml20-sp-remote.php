@@ -32,6 +32,15 @@ $metadata['https://ssp-sp1.local'] = [
         'https://ssp-idp4.local',
     ],
     'assertion.encryption' => true,
+    'attributes' => [
+        'cn',
+        'eduPersonPrincipalName',
+        'sn',
+        'givenName',
+        'mail',
+        'employeeNumber',
+        'member',
+    ],
 ];
 
 $metadata['https://ssp-sp2.local'] = [
@@ -55,6 +64,15 @@ $metadata['https://ssp-sp2.local'] = [
     ],
     'certData' => 'MIIDzzCCAregAwIBAgIJAPnOHgSgAeNrMA0GCSqGSIb3DQEBCwUAMH4xCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJOQzEPMA0GA1UEBwwGV2F4aGF3MQwwCgYDVQQKDANTSUwxDTALBgNVBAsMBEdUSVMxDjAMBgNVBAMMBVN0ZXZlMSQwIgYJKoZIhvcNAQkBFhVzdGV2ZV9iYWd3ZWxsQHNpbC5vcmcwHhcNMTYxMDE3MTIyNzU2WhcNMjYxMDE3MTIyNzU2WjB+MQswCQYDVQQGEwJVUzELMAkGA1UECAwCTkMxDzANBgNVBAcMBldheGhhdzEMMAoGA1UECgwDU0lMMQ0wCwYDVQQLDARHVElTMQ4wDAYDVQQDDAVTdGV2ZTEkMCIGCSqGSIb3DQEJARYVc3RldmVfYmFnd2VsbEBzaWwub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0u+mXWS8vUkKjtJcK1hd0iGW2vbTvYosgyDdqClcSzwpbWJg1A1ChuiQIf7S+5bWL2AN4zMoem/JTn7cE9octqU34ZJAyP/cesppA9G53F9gH4XdoPgnWsb8vdWooDDUk+asc7ah/XwKixQNcELPDZkOba5+pqoKGjMxfL7JQ6+P6LB+xItzvLBXU4+onbGPIF6pmZ8S74mt0J62Y6ne40BHx8FdrtBgdk5TFcDedW09rRJrTFpi3hGSUkcjqj84B+oLAb08Z0SHoELMp5Yh7Tg5QZ2c+S8I47tQjV72rNhUYhIyFuImzSg27R7aRJ6Jj6sK4zEg0Ai4VhO4RmgyzwIDAQABo1AwTjAdBgNVHQ4EFgQUgkYcMbT0o8kmxAz2O3+p1lDVj1MwHwYDVR0jBBgwFoAUgkYcMbT0o8kmxAz2O3+p1lDVj1MwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEANgyTgMVRghgL8klqvZvQpfh80XDPTZotJCc8mZJZ98YkNC8jnR2RIUJpah+XrgotlKNDOK3HMNuyKGgYcqcno4PdDXKbqp4yXmywdNbbEHwPWDGqZXULw2az+UVwPUZJcJyJuwJjy3diCJT53N9G0LqXfeEsV0OPQPaB2PWgYNraBd59fckmBTc298HuvsHtxUcoXM53ms2Ck6GygGwH1vCg7qyIRRQFL4DiSlnoS8jxt3IIpZZs9FAl1ejtFBepSne9kEo7lLhAWY1TQqRrRXNHngG/L70ZkZonE9TNK/9xIHuaawqWkV6WLnkhT0DHCOw67GP97MWzceyFw+n9Vg==',
     'assertion.encryption' => true,
+    'attributes' => [
+        'cn',
+        'eduPersonPrincipalName',
+        'sn',
+        'givenName',
+        'mail',
+        'employeeNumber',
+        'member',
+    ],
 ];
 
 // for test purposes, SP3 should be on the SPList entry of idp2
@@ -82,6 +100,15 @@ $metadata['https://ssp-sp3.local'] = [
     ],
     'certData' => 'MIIDzzCCAregAwIBAgIJAPnOHgSgAeNrMA0GCSqGSIb3DQEBCwUAMH4xCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJOQzEPMA0GA1UEBwwGV2F4aGF3MQwwCgYDVQQKDANTSUwxDTALBgNVBAsMBEdUSVMxDjAMBgNVBAMMBVN0ZXZlMSQwIgYJKoZIhvcNAQkBFhVzdGV2ZV9iYWd3ZWxsQHNpbC5vcmcwHhcNMTYxMDE3MTIyNzU2WhcNMjYxMDE3MTIyNzU2WjB+MQswCQYDVQQGEwJVUzELMAkGA1UECAwCTkMxDzANBgNVBAcMBldheGhhdzEMMAoGA1UECgwDU0lMMQ0wCwYDVQQLDARHVElTMQ4wDAYDVQQDDAVTdGV2ZTEkMCIGCSqGSIb3DQEJARYVc3RldmVfYmFnd2VsbEBzaWwub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0u+mXWS8vUkKjtJcK1hd0iGW2vbTvYosgyDdqClcSzwpbWJg1A1ChuiQIf7S+5bWL2AN4zMoem/JTn7cE9octqU34ZJAyP/cesppA9G53F9gH4XdoPgnWsb8vdWooDDUk+asc7ah/XwKixQNcELPDZkOba5+pqoKGjMxfL7JQ6+P6LB+xItzvLBXU4+onbGPIF6pmZ8S74mt0J62Y6ne40BHx8FdrtBgdk5TFcDedW09rRJrTFpi3hGSUkcjqj84B+oLAb08Z0SHoELMp5Yh7Tg5QZ2c+S8I47tQjV72rNhUYhIyFuImzSg27R7aRJ6Jj6sK4zEg0Ai4VhO4RmgyzwIDAQABo1AwTjAdBgNVHQ4EFgQUgkYcMbT0o8kmxAz2O3+p1lDVj1MwHwYDVR0jBBgwFoAUgkYcMbT0o8kmxAz2O3+p1lDVj1MwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEANgyTgMVRghgL8klqvZvQpfh80XDPTZotJCc8mZJZ98YkNC8jnR2RIUJpah+XrgotlKNDOK3HMNuyKGgYcqcno4PdDXKbqp4yXmywdNbbEHwPWDGqZXULw2az+UVwPUZJcJyJuwJjy3diCJT53N9G0LqXfeEsV0OPQPaB2PWgYNraBd59fckmBTc298HuvsHtxUcoXM53ms2Ck6GygGwH1vCg7qyIRRQFL4DiSlnoS8jxt3IIpZZs9FAl1ejtFBepSne9kEo7lLhAWY1TQqRrRXNHngG/L70ZkZonE9TNK/9xIHuaawqWkV6WLnkhT0DHCOw67GP97MWzceyFw+n9Vg==',
     'assertion.encryption' => true,
+    'attributes' => [
+        'cn',
+        'eduPersonPrincipalName',
+        'sn',
+        'givenName',
+        'mail',
+        'employeeNumber',
+        'member',
+    ],
 ];
 
 // Used for Hub ForceAuthn test w/ exactly one IdP in IDPList
@@ -121,6 +148,15 @@ $metadata['https://ssp-sp4.local'] = [
     ],
     'assertion.encryption' => true,
     'ForceAuthn' => true,
+    'attributes' => [
+        'cn',
+        'eduPersonPrincipalName',
+        'sn',
+        'givenName',
+        'mail',
+        'employeeNumber',
+        'member',
+    ],
 ];
 
 // Used for Hub ForceAuthn tests w/ 2+ IdPs in IDPList
@@ -163,4 +199,13 @@ $metadata['https://ssp-sp5.local'] = [
     'certData' => 'MIIDzzCCAregAwIBAgIJAPnOHgSgAeNrMA0GCSqGSIb3DQEBCwUAMH4xCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJOQzEPMA0GA1UEBwwGV2F4aGF3MQwwCgYDVQQKDANTSUwxDTALBgNVBAsMBEdUSVMxDjAMBgNVBAMMBVN0ZXZlMSQwIgYJKoZIhvcNAQkBFhVzdGV2ZV9iYWd3ZWxsQHNpbC5vcmcwHhcNMTYxMDE3MTIyNzU2WhcNMjYxMDE3MTIyNzU2WjB+MQswCQYDVQQGEwJVUzELMAkGA1UECAwCTkMxDzANBgNVBAcMBldheGhhdzEMMAoGA1UECgwDU0lMMQ0wCwYDVQQLDARHVElTMQ4wDAYDVQQDDAVTdGV2ZTEkMCIGCSqGSIb3DQEJARYVc3RldmVfYmFnd2VsbEBzaWwub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0u+mXWS8vUkKjtJcK1hd0iGW2vbTvYosgyDdqClcSzwpbWJg1A1ChuiQIf7S+5bWL2AN4zMoem/JTn7cE9octqU34ZJAyP/cesppA9G53F9gH4XdoPgnWsb8vdWooDDUk+asc7ah/XwKixQNcELPDZkOba5+pqoKGjMxfL7JQ6+P6LB+xItzvLBXU4+onbGPIF6pmZ8S74mt0J62Y6ne40BHx8FdrtBgdk5TFcDedW09rRJrTFpi3hGSUkcjqj84B+oLAb08Z0SHoELMp5Yh7Tg5QZ2c+S8I47tQjV72rNhUYhIyFuImzSg27R7aRJ6Jj6sK4zEg0Ai4VhO4RmgyzwIDAQABo1AwTjAdBgNVHQ4EFgQUgkYcMbT0o8kmxAz2O3+p1lDVj1MwHwYDVR0jBBgwFoAUgkYcMbT0o8kmxAz2O3+p1lDVj1MwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEANgyTgMVRghgL8klqvZvQpfh80XDPTZotJCc8mZJZ98YkNC8jnR2RIUJpah+XrgotlKNDOK3HMNuyKGgYcqcno4PdDXKbqp4yXmywdNbbEHwPWDGqZXULw2az+UVwPUZJcJyJuwJjy3diCJT53N9G0LqXfeEsV0OPQPaB2PWgYNraBd59fckmBTc298HuvsHtxUcoXM53ms2Ck6GygGwH1vCg7qyIRRQFL4DiSlnoS8jxt3IIpZZs9FAl1ejtFBepSne9kEo7lLhAWY1TQqRrRXNHngG/L70ZkZonE9TNK/9xIHuaawqWkV6WLnkhT0DHCOw67GP97MWzceyFw+n9Vg==',
     'assertion.encryption' => true,
     'ForceAuthn' => true,
+    'attributes' => [
+        'cn',
+        'eduPersonPrincipalName',
+        'sn',
+        'givenName',
+        'mail',
+        'employeeNumber',
+        'member',
+    ],
 ];
