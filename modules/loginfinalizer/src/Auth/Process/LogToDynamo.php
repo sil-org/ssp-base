@@ -15,7 +15,9 @@ use SimpleSAML\Module\loginfinalizer\SpEntityId;
  *
  * Intended to run on the authoritative IdP -- not on a Hub/proxy in front of
  * it -- so the SP field reflects the true originating SP via
- * SpEntityId::resolve(), rather than the Hub's own entity ID.
+ * SpEntityId::resolve(), rather than the Hub's own entity ID. When the login
+ * was proxied through a Hub, that Hub's entity ID is logged separately in the
+ * 'Hub' field (SpEntityId::resolveHub()); the field is omitted otherwise.
  *
  * Required config: 'dynamoRegion' (e.g. 'us-east-1'), 'dynamoLogTable'
  * (e.g. 'sildisco_prod_user-log'). Optional: 'dynamoEndpoint', only needed
@@ -66,7 +68,7 @@ class LogToDynamo extends ProcessingFilter
      */
     public function buildLogContents(array $state): array
     {
-        return array_merge(
+        $contents = array_merge(
             $this->getUserAttributes($state),
             [
                 'ID' => uniqid(),
@@ -76,6 +78,15 @@ class LogToDynamo extends ProcessingFilter
                 'ExpiresAt' => time() + self::SECONDS_PER_YEAR,
             ]
         );
+
+        // Only present when the login was proxied through a Hub; absent means
+        // the SP talked to this IdP directly (Dynamo rejects empty strings).
+        $hub = SpEntityId::resolveHub($state);
+        if (!empty($hub)) {
+            $contents['Hub'] = $hub;
+        }
+
+        return $contents;
     }
 
     private function isConfigured(): bool
