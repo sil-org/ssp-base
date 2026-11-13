@@ -335,21 +335,30 @@ they did on those two modules.
 A SimpleSAMLphp module containing two Authentication Processing filters that always run
 last in the authproc chain (after everything else, on every IdP, barring an earlier auth
 failure), so that login-finalization tasks have one place to land regardless of which
-earlier filter a given request branched through.
+earlier filter a given request branched through, plus a third that runs first to support
+them.
 
-Both filters are wired globally in `config.php`'s `authproc.idp` array (priorities 900
+All three are wired globally in `config.php`'s `authproc.idp` array (priorities 1, 900
 and 901) rather than per-metadata -- that's deliberate, since the whole point is "always
-last, everywhere," not something each downstream deployment has to remember to add. Both
-fail open and no-op silently if unconfigured, or if the current login has nothing for
-them to act on (e.g. a Hub authenticating a federated user with no ID Broker employee
-record), so it's safe to leave them wired unconditionally.
+last, everywhere," not something each downstream deployment has to remember to add. The
+two finalizers fail open and no-op silently if unconfigured, or if the current login has
+nothing for them to act on (e.g. a Hub authenticating a federated user with no ID Broker
+employee record), so it's safe to leave them wired unconditionally.
+
+#### SnapshotAttributes
+
+Saves a copy of the user's attributes at priority 1, before `core:AttributeLimit` (50)
+removes any the SP isn't allowed to receive. The finalizers read the user from this copy,
+so a login to an SP whose metadata limits its `attributes` (e.g. to just `mail`) is still
+marked and logged. If you add a filter that removes attributes, give it a priority above 1.
 
 #### MarkLastLogin
 
-Marks the current user's last-login time in the ID Broker. Configured via the existing
-`ID_BROKER_*` environment variables (see `local.env.dist`), plus `ID_BROKER_EMPLOYEE_ID_ATTR`
-(default `employeeNumber`) and `ID_BROKER_CLIENT_CLASS` (for overriding the client class,
-e.g. in local/test environments).
+Marks the current user's last-login time in the ID Broker, identifying the user by their
+`employeeNumber` attribute by default. Configured via the existing `ID_BROKER_*` environment
+variables (see `local.env.dist`), plus `ID_BROKER_CLIENT_CLASS` (for overriding the client
+class, e.g. in local/test environments). `ID_BROKER_EMPLOYEE_ID_ATTR` is deprecated and will be removed
+in the next major version, after which `employeeNumber` is always used.
 
 #### LogToDynamo
 
