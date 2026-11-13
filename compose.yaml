@@ -459,7 +459,8 @@ services:
       brokerDb:
         condition: service_healthy
     env_file:
-      - ./local.broker.env
+      - path: ./local.broker.env
+        required: false
     environment:
       IDP_NAME: "idp"
       IDP_DISPLAY_NAME: "Our App"

@@ -29,3 +29,10 @@ Creates and/or appends to a session value ("sildisco:authentication", "authentic
 
 AWS DynamoDB login audit logging is handled by `loginfinalizer:LogToDynamo`, not a sildisco
 AuthProc — see "Login Finalizer SimpleSAMLphp Module" in README.md.
+
+**Note:** `loginfinalizer:MarkLastLogin` (900) and `loginfinalizer:LogToDynamo` (901) run last, after
+`core:AttributeLimit` (50) has removed any attributes the SP isn't allowed to receive. So they read the
+user's attributes from a copy that `loginfinalizer:SnapshotAttributes` saves at priority 1, before
+anything is limited away. Without it, a direct login to an SP whose metadata limits its `attributes`
+(e.g. to just `mail`) would skip the last-login update and log no user. If you add a filter that removes
+attributes, give it a priority above 1.

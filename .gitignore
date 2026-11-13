@@ -1,5 +1,6 @@
 .idea/
 vendor/
+!vendor/.gitkeep
 local.env
 .vagrant
 composer.phar
